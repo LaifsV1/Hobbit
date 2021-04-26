@@ -1,0 +1,22 @@
+let x = () in
+let _ = x in
+let f1 = fun x -> x in
+let f2 y = y in
+let f3 _ = () in
+let f4 () = () in
+let rec f5 y = f5 y in
+let rec f6 _ = f6 3 in
+let rec f7 () = f7 () in
+let rec _ y = y in
+let rec _ _ = 3 in
+let rec _ () = 3 in
+x;
+f1 (); 
+f2 (); 
+f3 0; 
+f4 (); 
+f5 0;
+f6 0;
+f7 ()
+|||
+()

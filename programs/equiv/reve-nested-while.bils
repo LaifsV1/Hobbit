@@ -1,0 +1,46 @@
+# source: https://formal.iti.kit.edu/projects/improve/reve/?ex=faulty%2Fnested-while%21 
+fun f xg ->
+  let (x, g) = xg in
+  ref x = x in
+  ref g = g in
+  ref i = 0 in
+  let rec while _ =
+    if !i < !x then (
+      i := !i + 1;
+      g := !g - 2;
+      g := !g + 1;
+      (let rec while _ =
+        if !x < !i then (
+          x := !x + 2;
+          x := !x - 1;
+          g := !g + 1;
+          while ()
+        ) else ()
+      in while ());
+      while ()
+    ) else ()
+  in while ();
+  !g
+|||
+fun f xg ->
+  let (x, g) = xg in
+  ref x = x in
+  ref g = g in
+  ref i = 0 in
+  let rec while _ =
+    if !i < !x then (
+      i := !i + 1;
+      g := !g - 1;
+      (let rec while _ =
+        if !x < !i then (
+          x := !x + 1;
+          g := !g + 1;
+          while ()
+        ) else ()
+      in while ());
+      while ()
+    ) else ()
+  in while ();
+  !g
+
+

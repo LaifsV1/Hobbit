@@ -1,0 +1,18 @@
+(* if b is true, never terminates, so they can't disagree.
+   the diverging bot expression signals divergence to the tool. *)
+
+fun a -> fun b ->
+  let rec loop () =
+      if b then _bot_
+      else ()
+  in
+  a b; loop ()
+  
+|||_((bool -> unit) -> bool -> unit)
+
+fun a -> fun b ->
+  let rec loop () =
+      if b then _bot_
+      else ()
+  in
+  a false; loop ()

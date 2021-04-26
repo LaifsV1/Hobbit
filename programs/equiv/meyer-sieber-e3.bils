@@ -1,0 +1,24 @@
+# source Meyer, Sieber: Towards Fully Abstract Semantics for Local Variables. POPL'88 https://dl.acm.org/doi/10.1145/73560.73577
+# Example 3
+
+fun q ->
+  ref x = 0 in
+  ref y = 0 in
+  let getx () = !x in
+  let putx z = x:=z in
+  let gety () = !y in
+  let puty z = y:=z in
+  q (getx, putx, gety, puty);()
+
+|||
+
+fun q ->
+  ref x = 0 in
+  ref y = 0 in
+  let getx () = !x in
+  let putx z = x:=z in
+  let gety () = !y in
+  let puty z = y:=z in
+  q (gety, puty, getx, putx)
+
+

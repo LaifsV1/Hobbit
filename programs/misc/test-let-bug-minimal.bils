@@ -1,0 +1,4 @@
+
+let a = (fun x -> let n = 5 in (n)) in a
+|||_int->int
+let a = (fun x -> let n = 5 in (n)) in a

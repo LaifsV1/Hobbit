@@ -1,0 +1,11 @@
+(* Very simple example
+   From Operational Semantics and Program Equivalence (APSEM2000)
+   by Andrew Pitts *)
+
+ref a = 0 in
+fun x {w1, w2 | a as w1 | true} -> (a := !a + x ; !a)
+
+|||
+
+ref b = 0 in
+fun y {w1, w2 | b as w2 | w1 == -w2} -> (b := !b - y ; - !b)

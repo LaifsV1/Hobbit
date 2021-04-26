@@ -1,0 +1,39 @@
+(* fails with b=202, is fine with bound 2000 *)
+
+ref is_even = true in
+ref x = 0 in
+let call_even =
+  fun () ->
+  (if !is_even then x := !x + 1
+   else ());
+  is_even := false;
+  !x < 5
+in
+let call_odd =
+  fun () ->
+  (if !is_even then ()
+   else x := !x + 1);
+  is_even := true;
+  !x < 5
+in
+(fun f -> f call_even call_odd)
+
+|||_((unit->bool)->(unit->bool)->unit)->unit
+
+ref is_even = true in
+ref x = 0 in
+let call_even =
+  fun () ->
+  (if !is_even then x := !x + 1
+   else ());
+  is_even := false;
+  true
+in
+let call_odd =
+  fun () ->
+  (if !is_even then ()
+   else x := !x + 1);
+  is_even := true;
+  true
+in
+(fun f -> f call_even call_odd)

@@ -1,0 +1,5 @@
+fun ab ->
+  let (a, b) = ab in
+  (a = b)
+|||_((bool, bool) -> bool)
+fun ab -> true

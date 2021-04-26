@@ -1,0 +1,27 @@
+#source: example of sec 5.6 in https://dl.acm.org/doi/10.1145/1480881.1480925
+#original source: https://doi.org/10.1007/11531142_17
+
+ref b = true in
+ref x = 0 in
+let ho_inc = (fun f {w1, w2 | x as w1 | (w1==w2)} -> 
+  if !b then (
+    b := false;
+    f (); x := !x + 1;
+    b := true
+  ) else ())
+in
+let get = fun () {w1, w2 | x as w1 | (w1==w2)} -> !x in
+(ho_inc, get)
+|||
+ref b = true in
+ref x = 0 in
+let ho_inc = (fun f {w1, w2 | x as w2 | true} -> 
+  if !b then (
+    b := false;
+    let n = !x in f (); x := n + 1;
+    b := true
+  ) else ())
+in
+let get = fun () {w1, w2 | x as w2 | true} -> !x in
+(ho_inc, get)
+

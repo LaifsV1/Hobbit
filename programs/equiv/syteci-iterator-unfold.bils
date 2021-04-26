@@ -1,0 +1,13 @@
+let rec iterator u =
+  let (f,n,x) = u in
+  if n <= 0 then x
+  else if n mod 2 == 0 then let y = f (f x) in iterator (f,n-2,y)
+  else let y = f x in iterator (f,n-1,y)
+in iterator
+|||_(((int -> int), int, int) -> int)
+let rec iterator u =
+  let (f,n,x) = u in
+  if n <= 0 then x
+  else let y = f x in iterator (f,n-1,y)
+in iterator
+

@@ -1,0 +1,16 @@
+let rec iterator u =
+  let (f,v) = u in
+  let (n,x) = v in
+  if n <= 0 then x
+  else let y = f x in iterator (f,(n-1,y))
+in iterator
+|||_(((int -> int), (int, int)) -> int)
+fun u ->
+  let (f,v) = u in
+  let (n,x) = v in
+  ref r = x in
+  (let rec aux m =
+    if (m <= 0) then ()
+    else r := f !r; aux (m-1)
+   in aux n);
+  !r

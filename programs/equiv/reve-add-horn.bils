@@ -1,0 +1,22 @@
+# source: https://formal.iti.kit.edu/projects/improve/reve/?ex=rec%2Fadd-horn
+
+
+let rec f ij =
+  let (i, j) = ij in
+  ref r = 0 in
+  if (i == 0) then r := j
+  else r := f(i - 1, j + 1);
+  !r
+in f
+|||
+
+
+let rec f ij =
+  let (i, j) = ij in
+  ref r = 0 in
+  if (i == 0) then r := j
+  else if (i == 1) then r := j + 1
+  else r := f(i - 1, j + 1);
+  !r
+in f
+

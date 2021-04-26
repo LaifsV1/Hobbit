@@ -1,0 +1,3 @@
+fun x -> fun y -> x
+|||_int -> int -> int
+fun x -> fun y -> x

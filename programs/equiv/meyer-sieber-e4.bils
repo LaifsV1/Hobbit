@@ -1,0 +1,16 @@
+# source Meyer, Sieber: Towards Fully Abstract Semantics for Local Variables. POPL'88 https://dl.acm.org/doi/10.1145/73560.73577
+# Example 4
+
+fun q ->
+  ref x = 0 in
+  ref y = 0 in
+  let twice () = y := 2 * !y in
+  q twice;
+  if !x = 0 then _bot_ else ()
+
+|||
+
+fun q -> _bot_
+
+
+

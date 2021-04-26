@@ -1,0 +1,16 @@
+
+ref funds = 100 in
+let withdraw =
+ (fun send1amount -> 
+  let (send, amount) = send1amount in
+  (if not(!funds < amount) then (send (); funds := !funds - amount) else ())) in
+let show_funds = fun () -> !funds in
+  (withdraw, show_funds)
+|||
+ref funds = 100 in
+let withdraw =
+ (fun send1amount -> 
+  let (send, amount) = send1amount in
+  (if not(!funds < amount) then (funds := !funds - amount; send ()) else ())) in
+let show_funds = fun () -> !funds in
+  (withdraw, show_funds)

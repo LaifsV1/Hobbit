@@ -1,0 +1,3 @@
+fun f xy -> let (x, y) = xy in (if y <= 0 then 0 else x + f (x, y-1))
+|||
+fun xy -> let (x, y) = xy in if y <= 0 then 0 else x * y

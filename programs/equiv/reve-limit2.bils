@@ -1,0 +1,24 @@
+# source: https://formal.iti.kit.edu/projects/improve/reve/?ex=rec%2Flimit2
+let rec f n =
+  ref r = 0 in
+  if n <= 0 then r := n
+  else (
+    r := f(n - 1);
+    r := n + !r
+  );
+  !r
+in f
+|||
+let rec f n =
+  ref r = 0 in
+  if n <= 1 then r := n
+  else (
+    r := f(n-1);
+    r := n + !r;
+  );
+  !r
+in f
+
+
+
+

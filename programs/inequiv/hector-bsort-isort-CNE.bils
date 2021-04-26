@@ -1,0 +1,93 @@
+fun args ->
+
+let (compare,write_x,length,a_get,a_set) = args in
+
+ref i = 0 in
+ref flag = 1 in
+
+let rec while2 () =
+ if !flag == 1 then
+   (i := 0;
+    flag := 0;
+    let rec while3 () =
+     if !i < length - 1 then (
+        (if compare (a_get !i) (a_get (!i + 1)) then (
+           ref temp = 0 in
+           flag := 1;
+           temp := a_get !i;
+           a_set !i (a_get (!i + 1));
+           a_set (!i+1) !temp
+         )
+         else ());
+         i := !i + 1;
+         while3 ()
+        )
+     else
+      ()
+     in
+     while3 ();
+     while2 ())
+ else
+  ()
+in
+while2 ();
+
+i := 0;
+
+let rec while4 () =
+ if !i < length then
+   (write_x (a_get !i);
+    i := (!i + 1);
+    while4 ())
+ else
+  ()
+in
+while4 ()
+
+|||
+
+fun args ->
+
+let (compare,write_x,length,a_get,a_set) = args in
+
+ref i = 0 in
+
+i := 1;
+
+let rec while2 () =
+ if !i < length then
+ (
+    ref val = 0 in
+    ref j = 0 in
+    val := a_get !i;
+    j := !i;
+    let rec while3 () =
+     if !j > 0 && (compare (a_get (!j - 1)) (!val)) then
+     (
+       a_set !j (a_get (!j - 1));
+       j := !j - 1;
+       while3 ()
+     )
+     else ()
+     in
+     while3 ();
+     a_set !j !val;
+     i := !i + 1;
+     while2 ()
+ )
+ else ()
+in
+while2 ();
+
+i := 0;
+
+let rec while4 () =
+ if !i < length then
+ (
+    write_x (a_get !i);
+    i := (!i + 1);
+    while4 ()
+ )
+ else ()
+in
+while4 ()

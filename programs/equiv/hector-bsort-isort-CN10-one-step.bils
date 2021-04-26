@@ -1,0 +1,180 @@
+fun args ->
+
+let compare = fst args in
+let read_x = fst (snd args) in
+let write_x = snd (snd args) in
+
+let length = 10 in
+
+ref a = (0,0,0,0,0,0,0,0,0,0) in
+let a_get n =
+ let (a0,a1,a2,a3,a4,a5,a6,a7,a8,a9) = !a in
+ if n = 0 then a0 else
+ if n = 1 then a1 else
+ if n = 2 then a2 else
+ if n = 3 then a3 else
+ if n = 4 then a4 else
+ if n = 5 then a5 else
+ if n = 6 then a6 else
+ if n = 7 then a7 else
+ if n = 8 then a8 else
+ if n = 9 then a9 else
+ 
+ -1
+in
+let a_set n = fun m ->
+ let (a0,a1,a2,a3,a4,a5,a6,a7,a8,a9) = !a in
+ if n = 0 then a := (m,a1,a2,a3,a4,a5,a6,a7,a8,a9) else
+ if n = 1 then a := (a0,m,a2,a3,a4,a5,a6,a7,a8,a9) else
+ if n = 2 then a := (a0,a1,m,a3,a4,a5,a6,a7,a8,a9) else
+ if n = 3 then a := (a0,a1,a2,m,a4,a5,a6,a7,a8,a9) else
+ if n = 4 then a := (a0,a1,a2,a3,m,a5,a6,a7,a8,a9) else
+ if n = 5 then a := (a0,a1,a2,a3,a4,m,a6,a7,a8,a9) else
+ if n = 6 then a := (a0,a1,a2,a3,a4,a5,m,a7,a8,a9) else
+ if n = 7 then a := (a0,a1,a2,a3,a4,a5,a6,m,a8,a9) else
+ if n = 8 then a := (a0,a1,a2,a3,a4,a5,a6,a7,m,a9) else
+ if n = 9 then a := (a0,a1,a2,a3,a4,a5,a6,a7,a8,m) else
+ ()
+in
+
+ref i = 0 in
+
+let rec while1 () =
+ if !i < length then
+   (a_set !i (read_x ());
+    i := (!i + 1);
+    while1 ())
+ else
+  ()
+in
+while1 ();
+
+ref flag = 1 in
+
+let rec while2 () =
+ if !flag == 1 then
+   (i := 0;
+    flag := 0;
+    let rec while3 () =
+     if !i < length - 1 then (
+        (if compare (a_get !i) (a_get (!i + 1)) then (
+           ref temp = 0 in
+           flag := 1;
+           temp := a_get !i;
+           a_set !i (a_get (!i + 1));
+           a_set (!i+1) !temp
+         )
+         else ());
+         i := !i + 1
+        )
+     else
+      ()
+     in
+     while3 ())
+ else
+  ()
+in
+while2 ();
+
+i := 0;
+
+let rec while4 () =
+ if !i < length then
+   (write_x (a_get !i);
+    i := (!i + 1);
+    while4 ())
+ else
+  ()
+in
+while4 ()
+
+|||
+
+fun args ->
+
+let compare = fst args in
+let read_x = fst (snd args) in
+let write_x = snd (snd args) in
+
+let length = 10 in
+
+ref a = (0,0,0,0,0,0,0,0,0,0) in
+let a_get n =
+ let (a0,a1,a2,a3,a4,a5,a6,a7,a8,a9) = !a in
+ if n = 0 then a0 else
+ if n = 1 then a1 else
+ if n = 2 then a2 else
+ if n = 3 then a3 else
+ if n = 4 then a4 else
+ if n = 5 then a5 else
+ if n = 6 then a6 else
+ if n = 7 then a7 else
+ if n = 8 then a8 else
+ if n = 9 then a9 else
+ 
+ -1
+in
+let a_set n = fun m ->
+ let (a0,a1,a2,a3,a4,a5,a6,a7,a8,a9) = !a in
+ if n = 0 then a := (m,a1,a2,a3,a4,a5,a6,a7,a8,a9) else
+ if n = 1 then a := (a0,m,a2,a3,a4,a5,a6,a7,a8,a9) else
+ if n = 2 then a := (a0,a1,m,a3,a4,a5,a6,a7,a8,a9) else
+ if n = 3 then a := (a0,a1,a2,m,a4,a5,a6,a7,a8,a9) else
+ if n = 4 then a := (a0,a1,a2,a3,m,a5,a6,a7,a8,a9) else
+ if n = 5 then a := (a0,a1,a2,a3,a4,m,a6,a7,a8,a9) else
+ if n = 6 then a := (a0,a1,a2,a3,a4,a5,m,a7,a8,a9) else
+ if n = 7 then a := (a0,a1,a2,a3,a4,a5,a6,m,a8,a9) else
+ if n = 8 then a := (a0,a1,a2,a3,a4,a5,a6,a7,m,a9) else
+ if n = 9 then a := (a0,a1,a2,a3,a4,a5,a6,a7,a8,m) else
+ ()
+in
+
+ref i = 0 in
+
+let rec while1 () =
+ if !i < length then
+   (a_set !i (read_x ());
+    i := (!i + 1);
+    while1 ())
+ else
+  ()
+in
+while1 ();
+
+i := 1;
+
+let rec while2 () =
+ if !i < length then
+ (
+    ref val = 0 in
+    ref j = 0 in
+    val := a_get !i;
+    j := !i;
+    let rec while3 () =
+     if !j > 0 && (compare (a_get (!j - 1)) (!val)) then
+     (
+       a_set !j (a_get (!j - 1));
+       j := !j - 1
+     )
+     else ()
+     in
+     while3 ();
+     a_set !j !val;
+     i := !i + 1
+ )
+ else ()
+in
+while2 ();
+
+i := 0;
+
+let rec while4 () =
+ if !i < length then
+ (
+    write_x (a_get !i);
+    i := (!i + 1);
+    while4 ()
+ )
+ else ()
+in
+while4 ()

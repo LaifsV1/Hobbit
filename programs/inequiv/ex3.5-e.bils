@@ -1,0 +1,7 @@
+# ex3.5: From Applicative to Environmental Bisimulation, MFPS2011
+
+let v2 = (fun () -> true) in v2
+|||
+ref flag = true in
+let v2 = (fun () -> if !flag then (flag := false; true) else false) in
+v2

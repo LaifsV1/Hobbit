@@ -1,0 +1,33 @@
+# source: https://formal.iti.kit.edu/projects/improve/reve/?ex=faulty%2Fbarthe%21
+# requires bound >= 15
+fun f nc ->
+  let (n, c) = nc in
+  ref i = 0 in
+  ref j = 0 in
+  ref x = 0 in
+  let rec while _ =
+    if (!i < n) then
+      ( j := 5 * !i + c;
+        x := !x + !j;
+        i := !i + 1;
+        while ())
+    else ()
+  in while ();
+  !x
+|||
+fun f nc ->
+  let (n, c) = nc in
+  ref i = 0 in
+  ref j = c in
+  ref x = 0 in
+  let rec while _ =
+    if (!i < n) then
+      ( x := !x + !j;
+        j := !j + 5;
+        (if (!i == 10) then j := 10);
+        i := !i + 1;
+        while ())
+    else ()
+  in while ();
+  !x
+

@@ -1,0 +1,31 @@
+# source: https://formal.iti.kit.edu/projects/improve/reve/?ex=rec%2Flimit1unrolled
+
+
+let rec f n  =
+  ref r = 0 in
+  if n <= 1 then r := n
+  else (
+    # Begin inlining
+    ref nx = n  - 1 in
+    ref rx = 0 in
+    if (!nx <= 1) then rx := !nx
+    else (
+      rx := f(!nx - 1); rx := !nx + !rx);
+    r := !rx;
+    # End inlining
+    r := n + !r
+  );
+  !r
+in f
+|||
+
+
+let rec f n =
+  ref r = 0 in
+  if n <= 1 then r := n
+  else (
+    r := f(n-2); r := n + (n-1) + !r);
+  !r
+in f
+
+

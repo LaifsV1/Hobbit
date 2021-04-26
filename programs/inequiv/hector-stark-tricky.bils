@@ -1,0 +1,8 @@
+
+ref a = 0 in
+ref r = 0 in
+fun f -> (r :=!r+1; a :=f(!r); r :=!r-1; !a)
+
+|||_(int->int)->int
+
+fun f -> f(1)

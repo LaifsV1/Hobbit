@@ -1,0 +1,7 @@
+fun a ->
+  if a then
+    (fun b -> if b then a else b)
+  else
+    (fun b -> b)
+|||
+fun a -> fun b -> b

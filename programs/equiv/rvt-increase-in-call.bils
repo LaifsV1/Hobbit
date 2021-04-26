@@ -1,0 +1,14 @@
+# source: https://rvt.iem.technion.ac.il/# example "increase in call"
+
+let g x = x in
+let main n = 
+  ref x = g(n) in
+  !x+1
+in main
+|||
+let g x = x in
+let main n = 
+  ref x = g(n+1) in
+  !x
+in main
+

@@ -1,0 +1,8 @@
+fun p ->
+ref x = 0 in
+p (fun y -> x := 1);
+if !x = 1 then _bot_ else ()
+
+|||_((unit -> unit) -> unit) -> unit
+
+fun p -> p (fun y -> _bot_)

@@ -1,0 +1,29 @@
+# source: https://formal.iti.kit.edu/projects/improve/reve/?ex=loop%2Fbarthe2
+
+
+fun n ->
+  ref i = 0 in
+  ref x = 0 in
+  let rec while _ =
+    if (!i <= n) then ( 
+        x := !x + !i;
+        i := !i + 1;
+        while ())
+    else ()
+  in while ();
+  !x
+|||
+
+
+fun n ->
+  ref j = 1 in
+  ref x = 0 in
+  let rec while _ =
+    if (!j <= n) then (
+        x := !x + !j;
+        j := !j + 1;
+        while ())
+    else ()
+  in while ();
+  !x
+

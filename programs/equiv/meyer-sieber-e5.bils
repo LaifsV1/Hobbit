@@ -1,0 +1,15 @@
+# source Meyer, Sieber: Towards Fully Abstract Semantics for Local Variables. POPL'88 https://dl.acm.org/doi/10.1145/73560.73577
+# Example 5
+
+fun q ->
+  ref x = 0 in
+  let add_2 () {w | x as w | w mod 2 == 0} = x := !x + 2 in
+  (q add_2;
+  if !x mod 2 = 0 then _bot_ else ())
+
+|||
+
+fun q -> _bot_
+
+
+

@@ -1,0 +1,5 @@
+ref c = 0 in
+fun x -> c := (((-x) + (-x) + (x))/x * x)
+|||
+ref c = 0 in
+fun x -> c := 2 * (((-x) + (-x) + (x))/x * x)

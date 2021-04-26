@@ -1,0 +1,12 @@
+let swap xy = let (x,y) = xy in (y, x)
+in swap
+|||
+let swap xy = let (x,y) = xy in
+  ref x = x in
+  ref y = y in
+  x := !x - !y;
+  y := !x + !y;
+  x := !y - !x;
+  (!x, !y)
+in swap
+

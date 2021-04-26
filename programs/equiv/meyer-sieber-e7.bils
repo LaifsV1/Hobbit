@@ -1,0 +1,16 @@
+# source Meyer, Sieber: Towards Fully Abstract Semantics for Local Variables. POPL'88 https://dl.acm.org/doi/10.1145/73560.73577
+# Example 7
+
+fun p ->
+  ref x = 0 in
+  let add_1 () {wx, wy | x as wx | true} = x := !x + 1 in
+  p add_1;()
+
+|||
+
+fun p ->
+  ref y = 0 in
+  let add_2 () {wx, wy | y as wy | true} = y := !y + 2 in
+  p add_2;()
+
+

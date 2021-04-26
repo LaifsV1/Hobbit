@@ -1,0 +1,5 @@
+
+let even = (fun f (x) -> if ((f (x - ((x / 2) * 2)) == 0)) then 1 else 0) in
+0
+|||
+0

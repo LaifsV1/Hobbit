@@ -1,0 +1,7 @@
+#source: example of sec 5.5 in https://dl.acm.org/doi/10.1145/1480881.1480925
+# original source: Andrew Pitts and Ian Stark, Operational Reasoning for Functions with Local State, in HOOTS 1998
+
+ref x = 0 in
+fun f {} -> x := 1; f (); !x
+|||
+fun f -> f(); 1

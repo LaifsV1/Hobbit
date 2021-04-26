@@ -1,0 +1,7 @@
+fun g ->
+  ref x = 0 in
+  let f = fun () (*{w | x as w | w <= 10 }*) -> x := !x + 2
+  in ((g f) ;
+      if (!x <= 10) then () else _bot_)
+|||
+fun g -> ((g (fun x -> ())); ())

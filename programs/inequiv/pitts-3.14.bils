@@ -1,0 +1,51 @@
+(* Based on Example 3.14
+   From Operationally-Based Theories of Program Equivalence
+   by Andrew Pitts
+   Original is an equivalence. This is an inequivalence because
+   we don't have lists. Lists are implemented as lambdas with a dummy
+   value for empty lists. Because it is possible to assign the dummy
+   value to non-empty lists, one side can stop early. *)
+
+(* implement nat lists *)
+let empty = (fun x -> -99) in
+let cons = fun hd -> fun tl -> fun x -> if x = 0 then hd else tl (x-1) in
+let head = (fun ls -> ls 0) in
+let tail = (fun ls -> fun x -> (ls (x-1))) in
+
+let rec map f =
+  (fun l -> if (head l = head empty)
+            then empty
+            else (cons (f (head l)) (map f (tail l)))) in
+
+let rec filter u =
+  (fun l -> if (head l = head empty)
+            then empty
+            else if u (head l)
+                 then cons (head l) (filter u (tail l))
+                 else filter u (tail l)) in
+
+(fun u -> fun v -> fun l -> filter u (map v l))
+
+|||
+
+(* implement nat lists *)
+let empty = (fun x -> -99) in
+let cons = fun hd -> fun tl -> fun x -> if x = 0 then hd else tl (x-1) in
+let head = (fun ls -> ls 0) in
+let tail = (fun ls -> fun x -> (ls (x-1))) in
+
+let rec map f =
+  (fun l -> if (head l = head empty)
+            then empty
+            else (cons (f (head l)) (map f (tail l)))) in
+
+let rec filter u =
+  (fun l -> if (head l = head empty)
+            then empty
+            else if u (head l)
+                 then cons (head l) (filter u (tail l))
+                 else filter u (tail l)) in
+
+let compose = (fun u -> fun v -> fun x -> u (v x)) in
+
+(fun u -> fun v -> fun l -> map v (filter (compose u v) l))

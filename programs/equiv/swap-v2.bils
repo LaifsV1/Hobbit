@@ -1,0 +1,17 @@
+let swap xy = let (x,y) = xy in (y, x)
+in swap
+|||
+ref x = 0 in
+ref y = 0 in
+let swap () = 
+  x := !x - !y;
+  y := !x + !y;
+  x := !y - !x
+in 
+fun xy -> let (x1,y1) = xy in
+  x := x1;
+  y := y1;
+  swap();
+  (!x,!y)
+
+

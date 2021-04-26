@@ -1,0 +1,7 @@
+# source: Donald E. Knuth, Textbook Examples of Recursion, https://arxiv.org/abs/cs/9301113
+
+let rec mccarthy n = if n > 100 then n-10 else mccarthy(mccarthy(n+11)) in mccarthy
+|||
+let rec knuth n = if n > 100 then n-10 else knuth (n+2) in knuth
+
+

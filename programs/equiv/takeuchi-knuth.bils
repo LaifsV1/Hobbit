@@ -1,0 +1,13 @@
+# source: Donald E. Knuth, Textbook Examples of Recursion, https://arxiv.org/abs/cs/9301113
+
+let rec takeuchi xyz = 
+  let (x,y,z) = xyz in
+  if x <= y then y else takeuchi (takeuchi(x-1,y,z), takeuchi(y-1,z,x), takeuchi(z-1,x,y))
+in takeuchi
+|||
+let rec mccarthy_t xyz =
+  let (x,y,z) = xyz in
+  if x <= y then y else if y <= z then z else x
+in mccarthy_t
+
+

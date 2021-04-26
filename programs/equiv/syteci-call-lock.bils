@@ -1,0 +1,12 @@
+
+ref x = 0 in 
+ref b = 0 in
+let inc = (fun f {w1, w2 | x as w1 | (w1==w2)} -> if !b == 0 then (b:=1; f(); x:=!x+1; b:=0) else ()) in
+let get = (fun () {w1, w2 | x as w1 | (w1==w2)} -> !x)
+in (fun g {} -> (g inc) get)
+|||_(((unit->unit)->unit)->(unit->int)->unit)->unit
+ref x = 0 in 
+ref b = 0 in 
+let inc = (fun f {w1, w2 | x as w2 | true} -> if !b == 0 then (b:=1; let n = !x in f (); x:= n+1; b:=0) else ()) in
+let get = (fun () {w1, w2 | x as w2 | true} -> !x)
+in (fun g -> (g inc) get)

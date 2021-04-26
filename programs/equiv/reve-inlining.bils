@@ -1,0 +1,18 @@
+
+
+let rec f x = 
+  ref r = x in
+  (if x > 0 then (r := f(x-1); r := !r + 1));
+  (if x < 0 then r := 0);
+  !r
+in f
+|||
+
+
+let rec f x = 
+  ref r = x in
+  (if x > 1 then (r := f(x-2); r := !r + 2));
+  (if x < 0 then r := 0);
+  !r
+in f
+

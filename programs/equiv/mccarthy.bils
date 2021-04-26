@@ -1,0 +1,3 @@
+let rec mccarthy n = if n > 100 then n-10 else mccarthy(mccarthy(n+11)) in mccarthy
+|||
+let rec mccarthy n = if n > 100 then n-10 else 91 in mccarthy

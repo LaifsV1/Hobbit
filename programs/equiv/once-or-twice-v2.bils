@@ -1,0 +1,13 @@
+fun ft ->
+  let (f, twice) = ft in
+  if twice then (f (); f ())
+  else f ()
+|||
+fun ft ->
+  let (f, t) = ft in
+  ref twice = if t then 2 else 1 in
+  let rec loop () =
+    if !twice > 0 then (f (); twice := !twice - 1; loop ())
+    else ()
+  in loop ()
+

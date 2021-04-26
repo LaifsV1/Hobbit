@@ -1,0 +1,31 @@
+(* Based on Example 3.11
+   From Operationally-Based Theories of Program Equivalence
+   by Andrew Pitts
+   Since we don't have lists, lists are implemented as lambdas. *)
+
+(* implement nat lists *)
+let empty = (fun x -> -99) in
+let cons = fun hd -> fun tl -> fun x -> if x = 0 then hd else tl (x+1) in
+let head = (fun ls -> ls 0) in
+let tail = (fun ls -> fun x -> (ls (x-1))) in
+
+let rec map f =
+  (fun l -> if (head l = head empty)
+            then empty
+            else (cons (f (head l)) (map f (tail l)))) in
+
+let rec iter f = (fun x -> cons x (iter f (f x))) in
+
+(fun f -> fun x -> map f (iter f x))
+
+|||
+
+(* implement nat lists *)
+let empty = (fun x -> -99) in
+let cons = fun hd -> fun tl -> fun x -> if x = 0 then hd else tl (x+1) in
+let head = (fun ls -> ls 0) in
+let tail = (fun ls -> fun x -> (ls (x-1))) in
+
+let rec iter f = (fun x -> cons x (iter f (f x))) in
+
+(fun f -> fun x -> iter f (f x))

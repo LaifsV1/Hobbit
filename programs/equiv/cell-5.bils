@@ -1,0 +1,18 @@
+ref y = 0 in
+let set = fun z
+  {wy, wy1, wy2 | y as wy | ((wy1 mod 2 == 0) && (wy == wy1)) || ((wy1 mod 2 <> 0) && (wy == wy2))}
+  -> y := z in
+let get = fun ()
+  {wy, wy1, wy2 | y as wy | ((wy1 mod 2 == 0) && (wy == wy1)) || ((wy1 mod 2 <> 0) && (wy == wy2))}
+  -> !y in
+(set , get)
+|||
+ref y1 = 0 in
+ref y2 = 0 in
+let set = fun z
+  {w, wy1, wy2 | y1 as wy1; y2 as wy2 | true}
+  -> if z mod 2 == 0 then y1 := z else (y1 := 1; y2 := z) in
+let get = fun () 
+  {w, wy1, wy2 | y1 as wy1; y2 as wy2 | true}
+  -> if !y1 mod 2 == 0 then !y1 else !y2 in
+(set , get)

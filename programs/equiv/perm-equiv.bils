@@ -1,0 +1,5 @@
+fun f ->
+  ref g = f in
+  fun y {} -> !g y
+|||_((int -> int) -> (int -> int))
+fun f -> f

@@ -1,0 +1,6 @@
+
+ref x = 0 in
+ref c = 0 in
+fun f -> (x := 0 ; c := !c + 1 ; f (); (if !c < 5 then x := 1 else ()); c := 0 ; f (); !x)
+|||
+fun f -> f (); f (); 1

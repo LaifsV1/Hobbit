@@ -1,0 +1,4 @@
+fun a -> fun b ->
+  (a = b)
+|||_(bool -> bool -> bool)
+fun a -> fun b -> true

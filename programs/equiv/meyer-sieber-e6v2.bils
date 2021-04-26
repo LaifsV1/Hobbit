@@ -1,0 +1,48 @@
+# source Meyer, Sieber: Towards Fully Abstract Semantics for Local Variables. POPL'88 https://dl.acm.org/doi/10.1145/73560.73577
+# Example 6 v2
+
+let eq m1m2 =
+   let (m1, m2) = m1m2 in
+   let (r1,w1) = m1 in
+   let (r2,w2) = m2 in
+   let x1 = r1 () in
+   let x2 = r2 () in 
+   w2(x2+1);
+   let res = if r1() = x1+1 then true else false
+   in w1(x1); w2(x2); res
+in
+fun q ->
+  ref x = 0 in
+  let getx () = !x in
+  let setx xx {w | x as w | w mod 2 == 0} = x := xx in
+  let almostadd_2 z {w | x as w | w mod 2 == 0} =
+    if eq ((getx,setx),z) then x := 1 else x := !x + 2
+  in
+  q almostadd_2;
+  if !x mod 2 = 0 then () else _bot_
+
+|||
+
+let eq m1m2 =
+   let (m1, m2) = m1m2 in
+   let (r1,w1) = m1 in
+   let (r2,w2) = m2 in
+   let x1 = r1 () in
+   let x2 = r2 () in 
+   w2(x2+1);
+   let res = if r1() = x1+1 then true else false
+   in w1(x1); w2(x2); res
+in
+fun q ->
+  ref x = 0 in
+  let getx () = !x in
+  let setx xx {w | x as w | w mod 2 == 0}= x := xx in
+  let almostadd_2 z {w | x as w | w mod 2 == 0} =
+    if eq ((getx,setx),z) then x := 1 else x := !x + 2
+  in
+  q almostadd_2;
+  ()
+
+
+
+

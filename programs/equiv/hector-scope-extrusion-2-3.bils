@@ -1,0 +1,7 @@
+fun f ->
+f ( fun y -> y )
+
+|||_((int->int)->int)->int
+
+fun f ->
+f ( fun y -> ref x = 0 in if !x = 0 then x := y else x := y - 1 ; !x )

@@ -1,0 +1,12 @@
+
+let landinsfixpoint f =
+  ref x = fun z -> z in
+  x:= (fun y {} -> f !x y); !x
+in landinsfixpoint
+
+|||_((int -> int) -> int -> int) -> int -> int
+
+let rec fix f =
+  (fun y -> f (fix f) y)
+in fix
+ 

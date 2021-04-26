@@ -1,0 +1,9 @@
+
+ref l1 = false in
+ref l2 = false in
+(
+fun f -> f (fun () -> if !l1 then () else l2 := true) ;
+         if !l2 then _bot_ else l1 := true ; true
+)
+|||
+(fun f -> f (fun () -> _bot_) ; true)

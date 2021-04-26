@@ -1,0 +1,11 @@
+# source Meyer, Sieber: Towards Fully Abstract Semantics for Local Variables. POPL'88 https://dl.acm.org/doi/10.1145/73560.73577
+# Example 2
+
+fun p ->
+  ref x = 0 in
+  p;
+  if !x == 0 then _bot_
+
+|||_(unit -> unit)
+
+fun p -> _bot_

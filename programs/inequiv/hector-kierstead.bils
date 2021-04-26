@@ -1,0 +1,5 @@
+fun f -> f( fun x -> f(fun y -> x())) 
+
+|||_(((unit->unit)->unit)->unit)->unit
+
+fun f -> f( fun x -> f(fun y -> y())) 

@@ -1,0 +1,20 @@
+let mk_cell =
+  fun x -> 
+  ref y = x in
+  let set = fun z -> y := z in
+  let get = fun () -> !y in
+  (set , get)
+in
+mk_cell
+|||_int->(int->unit,unit->int)
+let mk_cell =
+  fun x ->
+  ref y1 = x in
+  ref y2 = x in
+  ref p = true in
+  let set = fun z -> p := not !p;
+      if !p then y1 := z else y2 := z in
+  let get = fun () -> if !p then !y1 else !y2 in
+  (set , get)
+in
+mk_cell

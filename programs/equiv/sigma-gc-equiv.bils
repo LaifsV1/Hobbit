@@ -1,0 +1,9 @@
+let odd = (fun x -> not((x - ((x / 2) * 2)) == 0)) in
+ref flag = true in
+(fun x -> let o = !flag in flag := (odd x); !flag && o)
+
+|||
+
+let odd = (fun x -> x mod 2 == 1) in
+ref flag = false in
+(fun x -> let o = not !flag in flag := not (odd x); (not !flag) && o)

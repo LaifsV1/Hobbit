@@ -1,0 +1,25 @@
+# source: https://formal.iti.kit.edu/projects/improve/reve/?ex=faulty%2Floop5%21
+fun f n ->
+  ref i = 0 in
+  ref j = 0 in
+  let rec while _ =
+    if (!i < n + n) then (
+      j := !j + 1;
+      i := !i + 1;
+      while ()
+    ) else ()
+  in while ();
+  !j
+|||
+fun f n ->
+  ref i = n + 1 in
+  ref j = 0 in
+  let rec while _ =
+    if (!i > 0) then (
+      j := !j + 2;
+      i := !i - 1;
+      while ()
+    ) else ()
+  in while ();
+  !j
+

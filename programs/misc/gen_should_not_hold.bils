@@ -1,0 +1,10 @@
+
+ref c = 0 in
+let count = fun () {w1, w2 | c as w1 | w1 = 0} -> c := !c + 1 in
+let get () = !c in
+(count, get)
+|||
+ref c = 0 in
+let count = fun () {w1, w2 | c as 0 | true} -> c := !c - 1 in
+let get () = -!c in
+(count, get)

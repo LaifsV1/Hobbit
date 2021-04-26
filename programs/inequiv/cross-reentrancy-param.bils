@@ -1,0 +1,29 @@
+(* fails with b=202, is fine with bound 2000 *)
+
+ref x = 0 in
+let even = (fun x -> ((x - ((x / 2) * 2)) == 0)) in
+let rec call_even () =
+  if even !x then x := !x + 1
+  else ()
+in
+let rec call_odd () =
+  if even !x then ()
+  else x := !x + 1
+in
+let assert = fun () -> !x < 100 in
+(call_even, call_odd, assert)
+
+|||
+
+ref x = 0 in
+let even = (fun x -> ((x - ((x / 2) * 2)) == 0)) in
+let rec call_even () =
+  if even !x then x := !x + 1
+  else ()
+in
+let rec call_odd () =
+  if even !x then ()
+  else x := !x + 1
+in
+let assert = fun () -> true in
+(call_even, call_odd, assert)

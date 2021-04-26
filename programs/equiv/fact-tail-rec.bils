@@ -1,0 +1,15 @@
+
+let rec fact n =
+ if (n <= 1) then 1
+ else n * fact (n-1)
+in
+fact  
+|||
+let rec fact_acc n =
+ (fun acc ->
+  if (n <= 1) then acc
+  else fact_acc (n-1) (n * acc))
+in
+let fact = (fun n -> fact_acc n 1)
+in
+fact

@@ -1,0 +1,11 @@
+fun f ->
+  fun twice ->
+    if twice then (f (); f ())
+    else f ()
+|||
+fun f ->
+  let rec loop twice =
+    if twice then (f (); loop (not twice))
+    else f ()
+  in loop
+

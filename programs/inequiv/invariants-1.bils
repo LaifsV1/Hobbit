@@ -1,0 +1,9 @@
+(* invariant reduces bound needed from 7 to 3 *)
+ref x = 0 in
+fun g { w | x as w | w < 12 } ->
+  x := !x + 1;
+  (if !x > 10 then x := 0);
+  g ();
+  if (!x <= 10) then (x := !x + 1; ()) else _bot_
+|||
+fun g -> g (); ()

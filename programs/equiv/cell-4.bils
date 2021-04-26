@@ -1,0 +1,19 @@
+ref y = 0 in
+let set = fun z 
+  {wp, wy1, wy2, wy | y as wy | ((wp mod 2 == 0) && (wy == wy1)) || ((wp mod 2 <> 0) && (wy == wy2))}
+  -> y := z
+in
+let get = fun ()
+  -> !y
+in (set , get)
+|||
+ref y1 = 0 in
+ref y2 = 0 in
+ref p = 0 in
+let set1 = fun z 
+  {wp, wy1, wy2, wy | p as wp; y1 as wy1; y2 as wy2 | true}
+  -> p := !p + 1; if !p mod 2 == 0 then y1 := z else y2 := z
+in
+let get1 = fun () 
+  -> if !p mod 2 == 0 then !y1 else !y2
+in (set1 , get1)

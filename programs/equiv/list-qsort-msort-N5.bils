@@ -1,0 +1,133 @@
+(* needs b=240 *)
+
+(* qsort based on Haskell implementation from
+   https://rosettacode.org/wiki/Sorting_algorithms/Quicksort#Haskell *)
+(* msort based on Haskell implementation from
+   https://rosettacode.org/wiki/Sorting_algorithms/Merge_sort#Haskell *)
+
+let list_len = 5 in
+let nil = 
+  ((0,0,0,0,0),0)
+in
+
+let is_nil = fun ls -> let (a,b) = ls in b == 0 in
+let hd = fun ls -> if is_nil ls then _bot_ else let (xs,l) = ls in xs[0/5] in
+let tl ls =
+  if is_nil ls then _bot_ else
+  let (xs,l) = ls in
+  let (a0,a1,a2,a3,a4) = xs
+  in ((a1,a2,a3,a4,0),l-1) in
+let cons = fun x -> fun xs ->
+  let (ls,l) = xs in
+  if l >= list_len then _bot_ else
+  let (a0,a1,a2,a3,a4) = ls
+  in (( x,a0,a1,a2,a3),l+1) in
+
+let rec append ls1 = fun ls2 ->
+  if is_nil ls1 then ls2 else
+  let (x,xs) = (hd ls1,tl ls1) in
+  cons x (append xs ls2)
+in
+
+let rec write_list ls = fun write ->
+  if is_nil ls then () else
+  let (x,xs) = (hd ls,tl ls) in
+  write x; (write_list xs write)
+in
+
+fun args ->
+
+let (length,read,write) = args in
+
+let list =
+  let rec read_list len =
+    if len >= list_len then _bot_ else
+    if len <= 0 then nil else
+    cons (read ()) (read_list (len-1))
+  in
+  read_list length
+in
+
+let rec partition pred = fun ls ->
+  if is_nil ls then (nil,nil) else
+  let (x,zs) = (hd ls,tl ls) in
+  if pred x
+  then let (xs,ys) = partition pred zs in (cons x xs, ys)
+  else let (xs,ys) = partition pred zs in (xs, cons x ys)
+in
+
+let rec qsort ls =
+  if is_nil ls then ls else
+  let (x,xs) = (hd ls,tl ls) in
+  let (ys,zs) = partition (fun y -> y < x) xs in
+  append (qsort ys) (cons x (qsort zs))
+in
+
+write_list (qsort list) write
+
+|||
+
+let list_len = 5 in
+let nil = 
+  ((0,0,0,0,0),0)
+in
+
+let is_nil = fun ls -> let (a,b) = ls in b == 0 in
+let hd = fun ls -> if is_nil ls then _bot_ else let (xs,l) = ls in xs[0/5] in
+let tl ls =
+  if is_nil ls then _bot_ else
+  let (xs,l) = ls in
+  let (a0,a1,a2,a3,a4) = xs
+  in ((a1,a2,a3,a4,0),l-1) in
+let cons = fun x -> fun xs ->
+  let (ls,l) = xs in
+  if l >= list_len then _bot_ else
+  let (a0,a1,a2,a3,a4) = ls
+  in (( x,a0,a1,a2,a3),l+1) in
+
+let rec write_list ls = fun write ->
+  if is_nil ls then () else
+  let (x,xs) = (hd ls,tl ls) in
+  write x; (write_list xs write)
+in
+
+fun args ->
+
+let (length,read,write) = args in
+
+let list =
+  let rec read_list len =
+    if len >= list_len then _bot_ else
+    if len <= 0 then nil else
+    cons (read ()) (read_list (len-1))
+  in
+  read_list length
+in
+
+let rec merge ls1 = fun ls2 ->
+  if is_nil ls1 then ls2 else
+  if is_nil ls2 then ls1 else
+  let (x,xs) = (hd ls1,tl ls1) in
+  let (y,ys) = (hd ls2,tl ls2) in
+  if x <= y
+  then cons x (merge xs ls2)
+  else cons y (merge ls1 ys)
+in
+
+let rec split ls =
+  if is_nil ls then (nil,nil) else
+  let (x,zs) = (hd ls,tl ls) in
+  if is_nil zs then (cons x nil,nil) else
+  let (y,zs) = (hd zs,tl zs) in
+  let (xs,ys) = split zs in (cons x xs, cons y ys)
+in
+
+let rec msort ls =
+  if is_nil ls then ls else
+  let (x,xs) = (hd ls,tl ls) in
+  if is_nil xs then ls else
+  let (cs,bs) = split ls in
+  merge (msort cs) (msort bs)
+in
+
+write_list (msort list) write

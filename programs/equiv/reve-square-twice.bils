@@ -1,0 +1,22 @@
+# source: https://formal.iti.kit.edu/projects/improve/reve/?ex=misc%2Fsquare_twice
+fun n ->
+  ref r = 0 in
+  ref i = n in
+  let rec while _ =
+    if (!i>0) then (r := !r + n; i := !i - 1; while ()) else ()
+  in while ();
+  r := 0;
+  i := n;
+  let rec while () =
+    if ((!i>0)) then (r := !r + n; i := !i - 1; while ()) else ()
+  in while ();
+  !r
+|||
+fun n ->
+  ref r = 0 in
+  ref i = n in
+  let rec while () =
+    if (!i>0) then (r := !r + n; i := !i - 1; while ()) else ()
+  in while ();
+  !r
+

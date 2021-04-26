@@ -1,0 +1,8 @@
+
+let even = (fun x -> ((x - ((x / 2) * 2)) == 0)) in
+
+(fun g -> ref l = 0 in
+          let f = (fun () -> l := !l + 1) in
+          g f ; if even (!l) then (fun () -> ()) else _bot_)
+|||
+fun g -> g (fun () -> ()) ; (fun () -> ())

@@ -1,0 +1,8 @@
+#source: example of sec 5.8 in https://dl.acm.org/doi/10.1145/1480881.1480925
+
+ref l1 = false in
+ref l2 = false in
+(fun f -> f (fun () -> if !l1 then _bot_ else l2 := true) ;
+          if !l2 then _bot_ else l1 := false)
+|||
+(fun f -> f (fun () -> _bot_))

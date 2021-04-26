@@ -1,0 +1,14 @@
+fun xy ->
+  let rec f xya =
+    let (x, y, acc) = xya in 
+     if y = 0 then acc else f (x, y-1, acc+x)
+  in
+  let (x, y) = xy in
+  if x < 0 && y < 0 then
+    f (-x, -y, 0)
+  else if y < 0 then
+    f (y, x, 0)
+  else
+    f (x, y, 0)
+|||
+fun xy -> let (x, y) = xy in x * y

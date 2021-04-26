@@ -1,0 +1,79 @@
+(* LHS works first time because it doesn't reset the references *)
+(* RHS is the correct version of the algorithm *)
+(* equivalence fails at bound = 17 *)
+
+
+ref array = (1,2,3,4,5,6,7,8,9,10) in
+let length = 10 in
+let get n =
+ let (a0,a1,a2,a3,a4,a5,a6,a7,a8,a9) = !array in
+ if n = 0 then a0 else
+ if n = 1 then a1 else
+ if n = 2 then a2 else
+ if n = 3 then a3 else
+ if n = 4 then a4 else
+ if n = 5 then a5 else
+ if n = 6 then a6 else
+ if n = 7 then a7 else
+ if n = 8 then a8 else
+ if n = 9 then a9 else
+ -1
+in
+
+ref lo = 0 in
+ref hi = length-1 in
+ref found = false in
+
+let rec bsearch key =
+ if !lo <= !hi && not(!found) then
+  (let mid = (!lo + !hi) / 2 in
+   (if get mid < key then
+     lo := mid+1
+    else if get mid > key then
+     hi := mid-1
+    else
+     found := true); bsearch key)
+ else
+  !found
+
+in
+
+bsearch
+
+|||
+
+ref array = (1,2,3,4,5,6,7,8,9,10) in
+let length = 10 in
+let get n =
+ let (a0,a1,a2,a3,a4,a5,a6,a7,a8,a9) = !array in
+ if n = 0 then a0 else
+ if n = 1 then a1 else
+ if n = 2 then a2 else
+ if n = 3 then a3 else
+ if n = 4 then a4 else
+ if n = 5 then a5 else
+ if n = 6 then a6 else
+ if n = 7 then a7 else
+ if n = 8 then a8 else
+ if n = 9 then a9 else
+ -1
+in
+
+ref lo = 0 in
+ref hi = length in
+ref found = false in
+
+let rec bsearch key =
+ if !lo + 1 < !hi then
+  (let mid = (!lo + !hi) / 2 in
+   (if get mid <= key then
+     lo := mid  (* potential mistake: lo := mid+1 *)
+    else
+     hi := mid); bsearch key)
+ else
+  let return = (get !lo) = key in
+  (lo := 0; hi := length; found := false; return)
+
+in
+
+bsearch

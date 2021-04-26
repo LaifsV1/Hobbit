@@ -1,0 +1,19 @@
+(* This file is based on:
+     Relational interprocedural verification of concurrent programs
+     (Bertrand Jeannet), SEFM09, example 4.1 (2)
+   The original example is a two-thread deadlock when trying to rendevouz on a.
+   In this file, we simulate rendevouz with a call to the environment. *)
+
+ref i = 0 in
+let rec while cond =
+  (fun command -> if cond () then (command (); while cond command) else ()) in
+(fun sync ->
+     while (fun () -> !i <= 5)
+           (fun () -> sync (); i := !i + 1))
+|||
+ref i = 0 in
+let rec while cond =
+  (fun command -> if cond () then (command (); while cond command) else ()) in
+(fun sync ->
+     while (fun () -> !i <= 6)
+           (fun () -> sync (); i := !i + 1))

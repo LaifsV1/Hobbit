@@ -1,0 +1,29 @@
+fun a ->
+  ref l = 0 in
+    (fun b -> (if b () then (a(); l:=!l - 1)
+                       else (a(); l:=!l + 1)); (!l == 0))
+|||
+fun a ->
+  ref l = 0 in
+    (fun b -> (if b () then (l:=!l - 1; a())
+                       else (l:=!l + 1; a())); (!l == 0))
+
+(*
+
+-pr_ret _idx_1_->                              RET  OUTER FUNCTION
+        -op_call _idx_1_ (af1: Unit->Unit)->   CALL OUTER FUNCTION
+-pr_ret _idx_2_->                              RET  INNER FUNCTION
+        -op_call _idx_2_ (af2: Unit->Bool)->   CALL INNER FUNCTION
+-pr_call (af2: Unit->Bool) ()->                 CALL B ()
+         -op_ret (ac2: Bool <- TRUE)->           RET  TRUE to B ()
+-pr_call (af1: Unit->Unit) ()->                 CALL A ()
+         -op_call _idx_2_ (af3: Unit->Bool)->    CALL INNER FUNCTION
+-pr_call (af3: Unit->Bool) ()->                   CALL B ()
+         -op_ret (ac3: Bool <- FALSE)->            RET FALSE to B ()
+-pr_call (af1: Unit->Unit) ()->                   CALL A ()
+         -op_ret ()->                              RET () to A ()
+-[ RHS=bot ]->-pr_ret false->                     RET FALSE to INNER (LHS only)
+        -op_ret ()->
+-pr_ret true->-[ only RHS terminates ]->
+
+*)

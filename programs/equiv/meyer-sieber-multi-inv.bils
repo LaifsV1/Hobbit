@@ -1,0 +1,8 @@
+fun g ->
+  ref x = 0 in
+  ref ghost_done = false in
+  let f = fun () {w, d | x as w  | (!ghost_done) || (w mod 2 == 0)} -> x := !x + 2
+  in ((g f) ;
+      if (!x mod 2 == 0) then (ghost_done := true; (fun () {w | x as w | true} -> x := !x + 1)) else _bot_)
+|||
+fun g -> ((g (fun x -> ())); (fun () -> ()))

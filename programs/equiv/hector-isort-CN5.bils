@@ -1,0 +1,91 @@
+fun read_x ->
+
+ref a = (0,0,0,0,0) in
+let a_get n =
+ let (a0,a1,a2,a3,a4) = !a in
+ if n = 0 then a0 else
+ if n = 1 then a1 else
+ if n = 2 then a2 else
+ if n = 3 then a3 else
+ if n = 4 then a4 else
+ -1
+in
+let a_set n = fun m ->
+ let (a0,a1,a2,a3,a4) = !a in
+ if n = 0 then a := (m,a1,a2,a3,a4) else
+ if n = 1 then a := (a0,m,a2,a3,a4) else
+ if n = 2 then a := (a0,a1,m,a3,a4) else
+ if n = 3 then a := (a0,a1,a2,m,a4) else
+ if n = 4 then a := (a0,a1,a2,a3,m) else
+ ()
+in
+
+ref i = 0 in
+
+let rec while1 () =
+ if !i < 5 then
+   (a_set !i (read_x ());
+    i := (!i + 1);
+    while1 ())
+ else
+  ()
+in
+while1 ();
+
+i := 1;
+
+let rec while2 () =
+ if !i < 5 then
+ (
+    ref val = 0 in
+    ref j = 0 in
+    val := a_get !i;
+    j := !i;
+    let rec while3 () =
+     if !j > 0 && ((a_get (!j - 1)) > (!val)) then
+     (
+       a_set !j (a_get (!j - 1));
+       j := !j - 1;
+       while3 ()
+     )
+     else ()
+     in
+     while3 ();
+     a_set !j !val;
+     i := !i + 1;
+     while2 ()
+ )
+ else ()
+in
+while2 ();
+
+i := 0;
+
+ref res = true in
+let rec while4 () =
+ if !i < 4 then
+   (res := !res && ((a_get !i) <= (a_get (!i+1)));
+    i := (!i + 1);
+    while4 ())
+ else
+  ()
+in
+while4 ();
+!res
+
+|||
+
+fun read_x ->
+
+ref i = 0 in
+
+let rec while1 () =
+ if !i < 5 then
+   (let m = (read_x ()) in
+    i := (!i + 1);
+    while1 ())
+ else
+  ()
+in
+while1 ();
+true

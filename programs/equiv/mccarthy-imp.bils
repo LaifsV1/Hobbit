@@ -1,0 +1,8 @@
+ref r = 0 in
+let rec mccarthy _ =
+  if !r > 100 then r := !r-10
+  else (r := !r + 11; mccarthy(); mccarthy())
+in 
+fun n -> r := n; mccarthy(); !r
+|||
+fun n -> if n > 100 then n-10 else 91

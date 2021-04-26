@@ -1,0 +1,16 @@
+
+let f =
+  (fun a ->
+    let rec b () = (a (); a (); a (); b ())
+    in
+    (a (); b ()))
+in
+f
+|||_(unit->unit)->unit
+let f =
+  (fun a ->
+    let rec b () = (a (); a (); a (); b ())
+    in
+    (a (); a (); b ()))
+in
+f

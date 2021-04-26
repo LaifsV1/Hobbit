@@ -1,0 +1,31 @@
+# source: https://formal.iti.kit.edu/projects/improve/reve/?ex=rec%2Fackermann
+
+let rec f mn =
+  let (m,n) = mn in
+  ref r = 0 in
+  ref x = 0 in
+  if (m == 0) then
+    r := n + 1
+  else if (m > 0 && n == 0) then
+    r := f(m - 1, 1)
+  else
+    (x := f(m, n - 1);
+     r := f(m - 1, !x));
+  !r
+in f
+|||
+
+
+let rec f mn =
+  let (m,n) = mn in
+  ref r = 0 in
+  ref x = 0 in
+  if (m > 0 && n == 0) then
+    r := f(m - 1, 1)
+  else if (m == 0) then
+    r := n + 1
+  else
+    (x := f(m, n - 1);
+     r := f(m - 1, !x));
+  !r
+in f

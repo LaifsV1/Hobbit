@@ -1,0 +1,11 @@
+ref x = 0 in
+(fun f ->
+ (f (fun () -> x := !x + 1);
+  if !x == 2 then true else false))
+
+|||
+
+ref x = 0 in
+(fun f ->
+ (f (fun () -> x := !x - 1);
+  if !x == 2 then true else false))

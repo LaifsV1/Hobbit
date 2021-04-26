@@ -1,0 +1,43 @@
+
+ref list = (fun x -> ()) in
+ref cnt = 0 in
+ref running = 0 in
+
+let enlist =
+  (fun f -> if not(!running == 0) then ()
+            else cnt := !cnt + 1;
+                 let c = !cnt in
+                 let l = !list in
+                 list :=
+                   (fun z -> if z == c then f () else l(z)))
+in
+let rec run () {} = running := 1;
+                    if 0 < !cnt then
+                       ((!list)(!cnt);
+                       cnt := !cnt - 1;
+                       if (!cnt < 0) then _bot_ else ();
+                       run ())
+                     else (list := (fun x -> ()) ; running := 0)
+in (fun f -> (f enlist) run)
+
+|||_(((unit->unit)->unit)->(unit->unit)->unit)->unit
+
+ref list = (fun x -> ()) in
+ref cnt = 0 in
+ref running = 0 in
+
+let enlist =
+  (fun f -> if not(!running == 0) then ()
+            else cnt := !cnt + 1;
+                 let c = !cnt in
+                 let l = !list in
+                 list :=
+                   (fun z -> if z == c then f () else l(z)))
+in
+let rec run () {} = running := 1;
+                    if 0 < !cnt then
+                       ((!list)(!cnt);
+                       cnt := !cnt - 1;
+                       run ())
+                     else (list := (fun x -> ()) ; running := 0)
+in (fun f -> (f enlist) run)
