@@ -1,9 +1,0 @@
-fun x ->
-let (a,b) = x in
-a ==> b
-
-|||
-
-fun x ->
-let (a,b) = x in
-(not a) || b

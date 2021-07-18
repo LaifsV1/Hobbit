@@ -1,4 +1,0 @@
-ref l = 0 in
-fun f -> l := 0; (fun () -> l:=0; f)
-|||_((int->int)->unit->int->int)
-fun f -> fun () -> f
