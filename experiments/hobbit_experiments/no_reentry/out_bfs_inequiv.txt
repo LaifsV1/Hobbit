@@ -1,0 +1,1166 @@
+****************
+Debug mode: 
+Input file: programs/inequiv/bsearch-ineq-1.bils
+LTS implementation: immutable list
+Bound: 9
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (ac136: Int)->-[ RHS=bot ]->-pr_ret (w523: Bool)->-[ only LHS terminates ]->
+
+Symbolic Environment:
+ (w_523 <> w_1125) and 
+(w_1125 = (8 = ac_136)) and 
+(not w_1099) and 
+(w_1099 = (9 <= ac_136)) and 
+w_1073 and 
+(w_1073 = (8 <= ac_136)) and 
+w_1047 and 
+(w_1047 = (6 <= ac_136)) and 
+(w_523 = (9 = ac_136)) and 
+w_471 and 
+(w_471 = (8 <= ac_136)) and 
+(not w_445) and 
+(w_445 = (9 <= ac_136)) and 
+w_237 and 
+(w_237 = (6 <= ac_136))
+
+Satisfying Assignment:
+(define-fun w_1099 () Bool
+  false)
+(define-fun ac_136 () Int
+  8)
+(define-fun w_523 () Bool
+  false)
+(define-fun w_471 () Bool
+  true)
+(define-fun w_1125 () Bool
+  true)
+(define-fun w_445 () Bool
+  false)
+(define-fun w_1073 () Bool
+  true)
+(define-fun w_237 () Bool
+  true)
+(define-fun w_1047 () Bool
+  true)
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/bsearch-ineq-2.bils
+LTS implementation: immutable list
+Bound: 11
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (ac140: Int)->-[ RHS=bot ]->-pr_ret false->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/bsearch-ineq-3.bils
+LTS implementation: immutable list
+Bound: 17
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (ac138: Int)->-pr_ret true->-op_call _idx_1_ (ac2214: Int)->-[ RHS=bot ]->-pr_ret true->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/bsearch-ineq-4.bils
+LTS implementation: immutable list
+Bound: 18
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (ac198: Int)->-[ RHS=bot ]->-pr_ret (w914: Bool)->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/bsearch-ineq-5.bils
+LTS implementation: immutable list
+Bound: 18
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (ac198: Int)->-[ RHS=bot ]->-pr_ret false->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/call-nested-param.bils
+LTS implementation: immutable list
+Bound: 110
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_1_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_ret ()->-[ RHS=bot ]->-pr_ret false->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-op_ret ()->-pr_ret true->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/cross-reentrancy-param.bils
+LTS implementation: immutable list
+Bound: 202
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret (,_idx_3_,_idx_2_,_idx_1_)->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_3_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_1_ ()->-[ RHS=bot ]->-pr_ret false->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/cross-reentrancy-param-v2.bils
+LTS implementation: immutable list
+Bound: 7
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (af8: (Unit->Bool)->((Unit->Bool)->Unit))->-pr_call (af8: (Unit->Bool)->((Unit->Bool)->Unit)) _idx_2_->-op_ret (af11: (Unit->Bool)->Unit)->-pr_call (af11: (Unit->Bool)->Unit) _idx_3_->-op_call _idx_2_ ()->-pr_ret true->-op_call _idx_3_ ()->-pr_ret true->-op_call _idx_2_ ()->-pr_ret true->-op_call _idx_3_ ()->-pr_ret true->-op_call _idx_2_ ()->-[ RHS=bot ]->-pr_ret false->-op_ret ()->-pr_ret ()->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/cross-reentrancy-param-v3.bils
+LTS implementation: immutable list
+Bound: 7
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (af10: (Unit->Bool)->((Unit->Bool)->Unit))->-pr_call (af10: (Unit->Bool)->((Unit->Bool)->Unit)) _idx_2_->-op_ret (af13: (Unit->Bool)->Unit)->-pr_call (af13: (Unit->Bool)->Unit) _idx_3_->-op_call _idx_2_ ()->-pr_ret true->-op_call _idx_3_ ()->-pr_ret true->-op_call _idx_2_ ()->-pr_ret true->-op_call _idx_3_ ()->-pr_ret true->-op_call _idx_2_ ()->-[ RHS=bot ]->-pr_ret false->-op_ret ()->-pr_ret ()->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/ex3.4-e.bils
+LTS implementation: immutable list
+Bound: 6
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (af7: Unit->Unit)->-pr_call (af7: Unit->Unit) ()->-op_call _idx_1_ (af7: Unit->Unit)->-pr_call (af7: Unit->Unit) ()->-op_ret ()->-[ RHS=bot ]->-pr_ret true->-op_ret ()->-pr_ret true->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/ex3.5-e.bils
+LTS implementation: immutable list
+Bound: 6
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-[ RHS=bot ]->-pr_ret true->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/ex4v1-ineq.bils
+LTS implementation: immutable list
+Bound: 6
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (af4: Unit->Unit)->-pr_call (af4: Unit->Unit) ()->-op_ret ()->-pr_call (af4: Unit->Unit) ()->-op_ret ()->-[ RHS=bot ]->-pr_ret 0->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/ex4v2-ineq.bils
+LTS implementation: immutable list
+Bound: 6
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (af4: Unit->Unit)->-pr_call (af4: Unit->Unit) ()->-op_call _idx_1_ (af4: Unit->Unit)->-pr_call (af4: Unit->Unit) ()->-op_ret ()->-pr_call (af4: Unit->Unit) ()->-op_ret ()->-[ RHS=bot ]->-pr_ret 0->-op_ret ()->-pr_call (af4: Unit->Unit) ()->-op_ret ()->-pr_ret 1->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/ex4v3-ineq.bils
+LTS implementation: immutable list
+Bound: 6
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (af4: Unit->Unit)->-pr_call (af4: Unit->Unit) ()->-op_call _idx_1_ (af4: Unit->Unit)->-pr_call (af4: Unit->Unit) ()->-op_call _idx_1_ (af4: Unit->Unit)->-pr_call (af4: Unit->Unit) ()->-op_ret ()->-pr_call (af4: Unit->Unit) ()->-op_ret ()->-[ RHS=bot ]->-pr_ret 0->-op_ret ()->-pr_call (af4: Unit->Unit) ()->-op_ret ()->-pr_ret 1->-op_ret ()->-pr_call (af4: Unit->Unit) ()->-op_ret ()->-pr_ret 1->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/ex4v4-ineq.bils
+LTS implementation: immutable list
+Bound: 5
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (af4: Unit->Unit)->-pr_call (af4: Unit->Unit) ()->-op_call _idx_1_ (af4: Unit->Unit)->-pr_call (af4: Unit->Unit) ()->-op_call _idx_1_ (af4: Unit->Unit)->-pr_call (af4: Unit->Unit) ()->-op_call _idx_1_ (af4: Unit->Unit)->-pr_call (af4: Unit->Unit) ()->-op_ret ()->-pr_call (af4: Unit->Unit) ()->-op_ret ()->-[ RHS=bot ]->-pr_ret 0->-op_ret ()->-pr_call (af4: Unit->Unit) ()->-op_ret ()->-pr_ret 1->-op_ret ()->-pr_call (af4: Unit->Unit) ()->-op_ret ()->-pr_ret 1->-op_ret ()->-pr_call (af4: Unit->Unit) ()->-op_ret ()->-pr_ret 1->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/ex4v5-ineq.bils
+LTS implementation: immutable list
+Bound: 6
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (af4: Unit->Unit)->-pr_call (af4: Unit->Unit) ()->-op_call _idx_1_ (af4: Unit->Unit)->-pr_call (af4: Unit->Unit) ()->-op_call _idx_1_ (af4: Unit->Unit)->-pr_call (af4: Unit->Unit) ()->-op_call _idx_1_ (af4: Unit->Unit)->-pr_call (af4: Unit->Unit) ()->-op_call _idx_1_ (af4: Unit->Unit)->-pr_call (af4: Unit->Unit) ()->-op_ret ()->-pr_call (af4: Unit->Unit) ()->-op_ret ()->-[ RHS=bot ]->-pr_ret 0->-op_ret ()->-pr_call (af4: Unit->Unit) ()->-op_ret ()->-pr_ret 1->-op_ret ()->-pr_call (af4: Unit->Unit) ()->-op_ret ()->-pr_ret 1->-op_ret ()->-pr_call (af4: Unit->Unit) ()->-op_ret ()->-pr_ret 1->-op_ret ()->-pr_call (af4: Unit->Unit) ()->-op_ret ()->-pr_ret 1->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/hector-bsort-isort-CN10.bils
+LTS implementation: immutable list
+Bound: 114
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ ((af94: Int->(Int->Bool)), ((af93: Unit->Int), (af92: Int->Unit)))->-pr_call (af93: Unit->Int) ()->-op_ret (ac402: Int)->-pr_call (af93: Unit->Int) ()->-op_ret (ac429: Int)->-pr_call (af93: Unit->Int) ()->-op_ret (ac456: Int)->-pr_call (af93: Unit->Int) ()->-op_ret (ac483: Int)->-pr_call (af93: Unit->Int) ()->-op_ret (ac510: Int)->-pr_call (af93: Unit->Int) ()->-op_ret (ac537: Int)->-pr_call (af93: Unit->Int) ()->-op_ret (ac564: Int)->-pr_call (af93: Unit->Int) ()->-op_ret (ac591: Int)->-pr_call (af93: Unit->Int) ()->-op_ret (ac618: Int)->-pr_call (af93: Unit->Int) ()->-op_ret (ac645: Int)->-pr_call (af94: Int->(Int->Bool)) (ac402: Int)->-op_ret (af1150: Int->Bool)->-pr_call (af1150: Int->Bool) (ac429: Int)->-op_ret (ac1151: Bool)->-[ LHS=bot ]->-pr_call (af94: Int->(Int->Bool)) -1->-op_ret (af1150: Int->Bool)->-pr_call (af1150: Int->Bool) (ac429: Int)->-op_ret (ac1462: Bool)->-pr_call (af94: Int->(Int->Bool)) (ac402: Int)->-op_ret (af1150: Int->Bool)->-pr_call (af1150: Int->Bool) (ac456: Int)->-op_ret (ac2048: Bool)->-pr_call (af94: Int->(Int->Bool)) (ac456: Int)->-op_ret (af1150: Int->Bool)->-pr_call (af1150: Int->Bool) (ac483: Int)->-op_ret (ac3121: Bool)->-pr_call (af94: Int->(Int->Bool)) (ac483: Int)->-op_ret (af1150: Int->Bool)->-pr_call (af1150: Int->Bool) (ac510: Int)->-op_ret (ac5090: Bool)->-pr_call (af94: Int->(Int->Bool)) (ac510: Int)->-op_ret (af1150: Int->Bool)->-pr_call (af1150: Int->Bool) (ac537: Int)->-op_ret (ac8467: Bool)->-pr_call (af94: Int->(Int->Bool)) (ac537: Int)->-op_ret (af1150: Int->Bool)->-pr_call (af1150: Int->Bool) (ac564: Int)->-op_ret (ac13734: Bool)->-pr_call (af94: Int->(Int->Bool)) (ac564: Int)->-op_ret (af1150: Int->Bool)->-pr_call (af1150: Int->Bool) (ac591: Int)->-op_ret (ac21670: Bool)->-pr_call (af94: Int->(Int->Bool)) (ac591: Int)->-op_ret (af1150: Int->Bool)->-pr_call (af1150: Int->Bool) (ac618: Int)->-op_ret (ac32960: Bool)->-pr_call (af94: Int->(Int->Bool)) (ac618: Int)->-op_ret (af1150: Int->Bool)->-pr_call (af1150: Int->Bool) (ac645: Int)->-op_ret (ac63821: Bool)->-pr_call (af92: Int->Unit) (ac429: Int)->-op_ret ()->-pr_call (af92: Int->Unit) (ac402: Int)->-op_ret ()->-pr_call (af92: Int->Unit) (ac456: Int)->-op_ret ()->-pr_call (af92: Int->Unit) (ac483: Int)->-op_ret ()->-pr_call (af92: Int->Unit) (ac510: Int)->-op_ret ()->-pr_call (af92: Int->Unit) (ac537: Int)->-op_ret ()->-pr_call (af92: Int->Unit) (ac564: Int)->-op_ret ()->-pr_call (af92: Int->Unit) (ac591: Int)->-op_ret ()->-pr_call (af92: Int->Unit) (ac618: Int)->-op_ret ()->-pr_call (af92: Int->Unit) (ac645: Int)->-op_ret ()->-pr_ret ()->-[ only RHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/hector-bsort-isort-CN2.bils
+LTS implementation: immutable list
+Bound: 26
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ ((af60: Int->(Int->Bool)), ((af59: Unit->Int), (af58: Int->Unit)))->-pr_call (af59: Unit->Int) ()->-op_ret (ac182: Int)->-pr_call (af59: Unit->Int) ()->-op_ret (ac193: Int)->-pr_call (af60: Int->(Int->Bool)) (ac182: Int)->-op_ret (af362: Int->Bool)->-pr_call (af362: Int->Bool) (ac193: Int)->-op_ret (ac363: Bool)->-[ LHS=bot ]->-pr_call (af60: Int->(Int->Bool)) -1->-op_ret (af362: Int->Bool)->-pr_call (af362: Int->Bool) (ac193: Int)->-op_ret (ac560: Bool)->-pr_call (af58: Int->Unit) (ac193: Int)->-op_ret ()->-pr_call (af58: Int->Unit) (ac182: Int)->-op_ret ()->-pr_ret ()->-[ only RHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/hector-bsort-isort-CN5.bils
+LTS implementation: immutable list
+Bound: 59
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ ((af72: Int->(Int->Bool)), ((af71: Unit->Int), (af70: Int->Unit)))->-pr_call (af71: Unit->Int) ()->-op_ret (ac263: Int)->-pr_call (af71: Unit->Int) ()->-op_ret (ac280: Int)->-pr_call (af71: Unit->Int) ()->-op_ret (ac297: Int)->-pr_call (af71: Unit->Int) ()->-op_ret (ac314: Int)->-pr_call (af71: Unit->Int) ()->-op_ret (ac331: Int)->-pr_call (af72: Int->(Int->Bool)) (ac263: Int)->-op_ret (af626: Int->Bool)->-pr_call (af626: Int->Bool) (ac280: Int)->-op_ret (ac627: Bool)->-[ LHS=bot ]->-pr_call (af72: Int->(Int->Bool)) -1->-op_ret (af626: Int->Bool)->-pr_call (af626: Int->Bool) (ac280: Int)->-op_ret (ac808: Bool)->-pr_call (af72: Int->(Int->Bool)) (ac263: Int)->-op_ret (af626: Int->Bool)->-pr_call (af626: Int->Bool) (ac297: Int)->-op_ret (ac1149: Bool)->-pr_call (af72: Int->(Int->Bool)) (ac297: Int)->-op_ret (af626: Int->Bool)->-pr_call (af626: Int->Bool) (ac314: Int)->-op_ret (ac1772: Bool)->-pr_call (af72: Int->(Int->Bool)) (ac314: Int)->-op_ret (af626: Int->Bool)->-pr_call (af626: Int->Bool) (ac331: Int)->-op_ret (ac4545: Bool)->-pr_call (af70: Int->Unit) (ac280: Int)->-op_ret ()->-pr_call (af70: Int->Unit) (ac263: Int)->-op_ret ()->-pr_call (af70: Int->Unit) (ac297: Int)->-op_ret ()->-pr_call (af70: Int->Unit) (ac314: Int)->-op_ret ()->-pr_call (af70: Int->Unit) (ac331: Int)->-op_ret ()->-pr_ret ()->-[ only RHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/hector-bsort-isort-CNE.bils
+LTS implementation: immutable list
+Bound: 8
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ ((af40: Int->(Int->Bool)), (af39: Int->Unit), (ac38: Int), (af37: Int->Int), (af36: Int->(Int->Unit)))->-[ LHS=bot ]->-pr_call (af37: Int->Int) 1->-op_ret (ac132: Int)->-pr_call (af37: Int->Int) 0->-op_ret (ac137: Int)->-pr_call (af40: Int->(Int->Bool)) (ac137: Int)->-op_ret (af143: Int->Bool)->-pr_call (af143: Int->Bool) (ac132: Int)->-op_ret (ac145: Bool)->-pr_call (af36: Int->(Int->Unit)) 1->-op_ret (af162: Int->Unit)->-pr_call (af162: Int->Unit) (ac132: Int)->-op_ret ()->-pr_call (af37: Int->Int) 0->-op_ret (ac180: Int)->-pr_call (af39: Int->Unit) (ac180: Int)->-op_ret ()->-pr_call (af37: Int->Int) 1->-op_ret (ac205: Int)->-pr_call (af39: Int->Unit) (ac205: Int)->-op_ret ()->-pr_ret ()->-[ only RHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/hector-kierstead.bils
+LTS implementation: immutable list
+Bound: 6
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (af6: ((Unit->Unit)->Unit)->Unit)->-pr_call (af6: ((Unit->Unit)->Unit)->Unit) _idx_1_->-op_call _idx_1_ (af13: Unit->Unit)->-pr_call (af6: ((Unit->Unit)->Unit)->Unit) _idx_1_->-op_call _idx_1_ (af18: Unit->Unit)->-[ RHS=bot ]->-pr_call (af13: Unit->Unit) ()->-op_ret ()->-pr_ret ()->-op_ret ()->-pr_ret ()->-op_ret ()->-pr_ret ()->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/hector-scope-extrusion-1-2.bils
+LTS implementation: immutable list
+Bound: 6
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (af8: (Int->Int)->Int)->-pr_call (af8: (Int->Int)->Int) _idx_1_->-op_call _idx_1_ (ac17: Int)->-pr_ret (ac17: Int)->-op_call _idx_1_ (ac23: Int)->-[ RHS=bot ]->-pr_ret (w28: Int)->-op_ret (ac30: Int)->-pr_ret (ac30: Int)->-[ only LHS terminates ]->
+
+Symbolic Environment:
+ (w_28 <> ac_23) and 
+(w_28 = (ac_23 - 1))
+
+Satisfying Assignment:
+(define-fun w_28 () Int
+  (- 1))
+(define-fun ac_23 () Int
+  0)
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/hector-scope-extrusion-1-3.bils
+LTS implementation: immutable list
+Bound: 6
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (af6: (Int->Int)->Int)->-pr_call (af6: (Int->Int)->Int) _idx_1_->-op_call _idx_1_ (ac13: Int)->-pr_ret (ac13: Int)->-op_call _idx_1_ (ac17: Int)->-[ RHS=bot ]->-pr_ret (w21: Int)->-op_ret (ac22: Int)->-pr_ret (ac22: Int)->-[ only LHS terminates ]->
+
+Symbolic Environment:
+ (w_21 <> ac_17) and 
+(w_21 = (ac_17 - 1))
+
+Satisfying Assignment:
+(define-fun ac_17 () Int
+  0)
+(define-fun w_21 () Int
+  (- 1))
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/hector-snapback.bils
+LTS implementation: immutable list
+Bound: 6
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (af6: (Unit->Unit)->Unit)->-pr_call (af6: (Unit->Unit)->Unit) _idx_1_->-op_ret ()->-pr_ret ()->-op_call _idx_1_ ()->-[ entering RHS=bot ]->-pr_ret ()->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/hector-stark-tricky.bils
+LTS implementation: immutable list
+Bound: 6
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (af4: Int->Int)->-pr_call (af4: Int->Int) 1->-op_call _idx_1_ (af4: Int->Int)->-[ RHS=bot ]->-pr_call (af4: Int->Int) 2->-op_ret (ac12: Int)->-pr_ret (ac12: Int)->-op_ret (ac19: Int)->-pr_ret (ac19: Int)->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/holik-file-lock-param-e.bils
+LTS implementation: immutable list
+Bound: 33
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-[ RHS=bot ]->-pr_ret false->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/holik-file-lock-param-e-large.bils
+LTS implementation: immutable list
+Bound: 101
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-pr_ret true->-op_call _idx_1_ ()->-[ RHS=bot ]->-pr_ret false->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/holik-flat-combiner-e.bils
+LTS implementation: immutable list
+Bound: 5
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (af36: ((Unit->Unit)->Unit)->((Unit->Unit)->Unit))->-pr_call (af36: ((Unit->Unit)->Unit)->((Unit->Unit)->Unit)) _idx_2_->-op_ret (af50: (Unit->Unit)->Unit)->-pr_call (af50: (Unit->Unit)->Unit) _idx_3_->-op_call _idx_2_ (af90: Unit->Unit)->-pr_ret ()->-op_call _idx_3_ ()->-[ LHS=bot ]->-pr_ret ()->-op_ret ()->-pr_ret ()->-[ only RHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/holik-flat-combiner-v2-e.bils
+LTS implementation: immutable list
+Bound: 9
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (af42: ((Unit->Unit)->Unit)->(((Bool->Unit)->Unit)->Unit))->-pr_call (af42: ((Unit->Unit)->Unit)->(((Bool->Unit)->Unit)->Unit)) _idx_2_->-op_ret (af59: ((Bool->Unit)->Unit)->Unit)->-pr_call (af59: ((Bool->Unit)->Unit)->Unit) _idx_3_->-op_call _idx_2_ (af105: Unit->Unit)->-pr_ret ()->-op_call _idx_3_ (af255: Bool->Unit)->-pr_call (af105: Unit->Unit) ()->-op_call _idx_3_ (af592: Bool->Unit)->-pr_call (af105: Unit->Unit) ()->-op_ret ()->-pr_call (af592: Bool->Unit) true->-op_ret ()->-pr_ret ()->-op_ret ()->-[ RHS=bot ]->-pr_call (af255: Bool->Unit) false->-op_ret ()->-pr_ret ()->-op_ret ()->-pr_ret ()->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/holik-flat-combiner-v4-e.bils
+LTS implementation: immutable list
+Bound: 9
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Potential failing trace found:
+ -pr_ret _idx_1_->-op_call _idx_1_ (af38: ((Unit->Unit)->Unit)->((Unit->Unit)->Unit))->-pr_call (af38: ((Unit->Unit)->Unit)->((Unit->Unit)->Unit)) _idx_2_->-op_ret (af53: (Unit->Unit)->Unit)->-pr_call (af53: (Unit->Unit)->Unit) _idx_3_->-op_call _idx_2_ (af95: Unit->Unit)->-pr_ret ()->-op_call _idx_3_ ()->-pr_call (af95: Unit->Unit) ()->-op_call _idx_3_ ()->-pr_call (af95: Unit->Unit) ()->-op_ret ()->-pr_ret ()->-op_ret ()->-[ entering LHS=bot ]->-pr_ret ()->-op_ret ()->-pr_ret ()->-[ only RHS terminates ]->
+
+However, state generalisations were used so inequivalences may be unsound.
+***Retrying with state generalisations off***
+
+Bisimulation failed! Real failing trace found:
+ -pr_ret _idx_1_->-op_call _idx_1_ (af13613: ((Unit->Unit)->Unit)->((Unit->Unit)->Unit))->-pr_call (af13613: ((Unit->Unit)->Unit)->((Unit->Unit)->Unit)) _idx_2_->-op_ret (af13628: (Unit->Unit)->Unit)->-pr_call (af13628: (Unit->Unit)->Unit) _idx_3_->-op_call _idx_2_ (af13670: Unit->Unit)->-pr_ret ()->-op_call _idx_3_ ()->-pr_call (af13670: Unit->Unit) ()->-op_call _idx_3_ ()->-pr_call (af13670: Unit->Unit) ()->-op_ret ()->-pr_ret ()->-op_ret ()->-[ entering LHS=bot ]->-pr_ret ()->-op_ret ()->-pr_ret ()->-[ only RHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/holik-reentrancy-e2.bils
+LTS implementation: immutable list
+Bound: 6
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (af8: Unit->Unit)->-pr_call (af8: Unit->Unit) ()->-op_call _idx_1_ (af8: Unit->Unit)->-pr_call (af8: Unit->Unit) ()->-op_ret ()->-[ RHS=bot ]->-pr_ret 99->-op_ret ()->-pr_ret 98->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/holik-reentrancy-e3.bils
+LTS implementation: immutable list
+Bound: 31
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (af8: Unit->Unit)->-pr_call (af8: Unit->Unit) ()->-op_ret ()->-pr_ret true->-op_call _idx_1_ (af8: Unit->Unit)->-pr_call (af8: Unit->Unit) ()->-op_ret ()->-pr_ret true->-op_call _idx_1_ (af8: Unit->Unit)->-pr_call (af8: Unit->Unit) ()->-op_ret ()->-pr_ret true->-op_call _idx_1_ (af8: Unit->Unit)->-pr_call (af8: Unit->Unit) ()->-op_ret ()->-pr_ret true->-op_call _idx_1_ (af8: Unit->Unit)->-pr_call (af8: Unit->Unit) ()->-op_ret ()->-pr_ret true->-op_call _idx_1_ (af8: Unit->Unit)->-pr_call (af8: Unit->Unit) ()->-op_ret ()->-pr_ret true->-op_call _idx_1_ (af8: Unit->Unit)->-pr_call (af8: Unit->Unit) ()->-op_ret ()->-pr_ret true->-op_call _idx_1_ (af8: Unit->Unit)->-pr_call (af8: Unit->Unit) ()->-op_ret ()->-pr_ret true->-op_call _idx_1_ (af8: Unit->Unit)->-pr_call (af8: Unit->Unit) ()->-op_ret ()->-pr_ret true->-op_call _idx_1_ (af8: Unit->Unit)->-pr_call (af8: Unit->Unit) ()->-op_ret ()->-pr_ret true->-op_call _idx_1_ (af8: Unit->Unit)->-pr_call (af8: Unit->Unit) ()->-op_ret ()->-pr_ret true->-op_call _idx_1_ (af8: Unit->Unit)->-pr_call (af8: Unit->Unit) ()->-op_ret ()->-pr_ret true->-op_call _idx_1_ (af8: Unit->Unit)->-pr_call (af8: Unit->Unit) ()->-op_ret ()->-pr_ret true->-op_call _idx_1_ (af8: Unit->Unit)->-pr_call (af8: Unit->Unit) ()->-op_ret ()->-pr_ret true->-op_call _idx_1_ (af8: Unit->Unit)->-pr_call (af8: Unit->Unit) ()->-op_ret ()->-pr_ret true->-op_call _idx_1_ (af8: Unit->Unit)->-pr_call (af8: Unit->Unit) ()->-op_ret ()->-pr_ret true->-op_call _idx_1_ (af8: Unit->Unit)->-pr_call (af8: Unit->Unit) ()->-op_ret ()->-pr_ret true->-op_call _idx_1_ (af8: Unit->Unit)->-pr_call (af8: Unit->Unit) ()->-op_ret ()->-pr_ret true->-op_call _idx_1_ (af8: Unit->Unit)->-pr_call (af8: Unit->Unit) ()->-op_ret ()->-pr_ret true->-op_call _idx_1_ (af8: Unit->Unit)->-pr_call (af8: Unit->Unit) ()->-op_ret ()->-pr_ret true->-op_call _idx_1_ (af8: Unit->Unit)->-pr_call (af8: Unit->Unit) ()->-op_ret ()->-pr_ret true->-op_call _idx_1_ (af8: Unit->Unit)->-pr_call (af8: Unit->Unit) ()->-op_ret ()->-pr_ret true->-op_call _idx_1_ (af8: Unit->Unit)->-pr_call (af8: Unit->Unit) ()->-op_ret ()->-pr_ret true->-op_call _idx_1_ (af8: Unit->Unit)->-pr_call (af8: Unit->Unit) ()->-op_ret ()->-pr_ret true->-op_call _idx_1_ (af8: Unit->Unit)->-pr_call (af8: Unit->Unit) ()->-op_ret ()->-pr_ret true->-op_call _idx_1_ (af8: Unit->Unit)->-pr_call (af8: Unit->Unit) ()->-op_ret ()->-pr_ret true->-op_call _idx_1_ (af8: Unit->Unit)->-pr_call (af8: Unit->Unit) ()->-op_ret ()->-pr_ret true->-op_call _idx_1_ (af8: Unit->Unit)->-pr_call (af8: Unit->Unit) ()->-op_ret ()->-pr_ret true->-op_call _idx_1_ (af8: Unit->Unit)->-pr_call (af8: Unit->Unit) ()->-op_call _idx_1_ (af8: Unit->Unit)->-pr_call (af8: Unit->Unit) ()->-op_ret ()->-[ RHS=bot ]->-pr_ret true->-op_ret ()->-pr_ret false->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/holik-reentrancy-e.bils
+LTS implementation: immutable list
+Bound: 6
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (af8: Unit->Unit)->-pr_call (af8: Unit->Unit) ()->-op_ret ()->-[ RHS=bot ]->-pr_ret 99->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/holik-reentrancy-ev2.bils
+LTS implementation: immutable list
+Bound: 6
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret (,_idx_2_,_idx_1_)->-op_call _idx_2_ ((af19: Unit->Unit), (ac18: Int))->-pr_call (af19: Unit->Unit) ()->-op_call _idx_1_ ()->-[ RHS=bot ]->-pr_ret 100->-op_ret ()->-pr_ret ()->-[ only LHS terminates ]->
+
+Symbolic Environment:
+ (w_129 = (100 - ac_18)) and 
+(w_32 <> 100) and 
+(w_32 = (100 - ac_18)) and 
+w_31 and 
+(w_31 = (not w_30)) and 
+(w_30 = (100 < ac_18)) and 
+w_27 and 
+(w_27 = (not w_26)) and 
+(w_26 = (100 < ac_18))
+
+Satisfying Assignment:
+(define-fun ac_18 () Int
+  100)
+(define-fun w_129 () Int
+  0)
+(define-fun w_26 () Bool
+  false)
+(define-fun w_27 () Bool
+  true)
+(define-fun w_31 () Bool
+  true)
+(define-fun w_32 () Int
+  0)
+(define-fun w_30 () Bool
+  false)
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/holik-reentrancy-ev.bils
+LTS implementation: immutable list
+Bound: 6
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ ((af17: Unit->Unit), (ac16: Int))->-pr_call (af17: Unit->Unit) ()->-op_call _idx_1_ ((af17: Unit->Unit), (ac31: Int))->-[ LHS=bot ]->-pr_ret (w30: Int)->-op_ret ()->-pr_ret (w30: Int)->-[ only RHS terminates ]->
+
+Symbolic Environment:
+ (not w_44) and 
+(w_44 = (not w_43)) and 
+(w_43 = (w_30 < ac_31)) and 
+(w_30 = (100 - ac_16)) and 
+w_29 and 
+(w_29 = (not w_28)) and 
+(w_28 = (100 < ac_16)) and 
+w_25 and 
+(w_25 = (not w_24)) and 
+(w_24 = (100 < ac_16))
+
+Satisfying Assignment:
+(define-fun w_44 () Bool
+  false)
+(define-fun w_28 () Bool
+  false)
+(define-fun w_43 () Bool
+  true)
+(define-fun w_29 () Bool
+  true)
+(define-fun w_25 () Bool
+  true)
+(define-fun ac_16 () Int
+  100)
+(define-fun ac_31 () Int
+  1)
+(define-fun w_24 () Bool
+  false)
+(define-fun w_30 () Int
+  0)
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/invariants-1.bils
+LTS implementation: immutable list
+Bound: 7
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Potential failing trace found:
+ -pr_ret _idx_1_->-op_call _idx_1_ (af8: Unit->Unit)->-pr_call (af8: Unit->Unit) ()->-op_ret ()->-[ entering LHS=bot ]->-pr_ret ()->-[ only RHS terminates ]->
+
+However, state generalisations were used so inequivalences may be unsound.
+***Retrying with state generalisations off***
+
+Bisimulation failed! Real failing trace found:
+ -pr_ret _idx_1_->-op_call _idx_1_ (af52: Unit->Unit)->-pr_call (af52: Unit->Unit) ()->-op_ret ()->-pr_ret ()->-op_call _idx_1_ (af52: Unit->Unit)->-pr_call (af52: Unit->Unit) ()->-op_ret ()->-pr_ret ()->-op_call _idx_1_ (af52: Unit->Unit)->-pr_call (af52: Unit->Unit) ()->-op_ret ()->-pr_ret ()->-op_call _idx_1_ (af52: Unit->Unit)->-pr_call (af52: Unit->Unit) ()->-op_ret ()->-pr_ret ()->-op_call _idx_1_ (af52: Unit->Unit)->-pr_call (af52: Unit->Unit) ()->-op_call _idx_1_ (af52: Unit->Unit)->-pr_call (af52: Unit->Unit) ()->-op_ret ()->-pr_ret ()->-op_ret ()->-[ entering LHS=bot ]->-pr_ret ()->-[ only RHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/invariants-2.bils
+LTS implementation: immutable list
+Bound: 6
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (af3: Unit->Unit)->-pr_call (af3: Unit->Unit) ()->-op_call _idx_1_ (af3: Unit->Unit)->-pr_call (af3: Unit->Unit) ()->-op_ret ()->-pr_ret ()->-op_ret ()->-[ entering LHS=bot ]->-pr_ret ()->-[ only RHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/invariants-3.bils
+LTS implementation: immutable list
+Bound: 6
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (af3: Unit->Unit)->-pr_call (af3: Unit->Unit) ()->-op_call _idx_1_ (af3: Unit->Unit)->-pr_call (af3: Unit->Unit) ()->-op_ret ()->-pr_ret true->-op_ret ()->-[ RHS=bot ]->-pr_ret false->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/invariants-4.bils
+LTS implementation: immutable list
+Bound: 18
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Potential failing trace found:
+ -pr_ret _idx_1_->-op_call _idx_1_ (af8: Unit->Unit)->-pr_call (af8: Unit->Unit) ()->-op_ret ()->-[ entering LHS=bot ]->-pr_ret ()->-[ only RHS terminates ]->
+
+However, state generalisations were used so inequivalences may be unsound.
+***Retrying with state generalisations off***
+
+Bisimulation failed! Real failing trace found:
+ -pr_ret _idx_1_->-op_call _idx_1_ (af52: Unit->Unit)->-pr_call (af52: Unit->Unit) ()->-op_ret ()->-pr_ret ()->-op_call _idx_1_ (af52: Unit->Unit)->-pr_call (af52: Unit->Unit) ()->-op_ret ()->-pr_ret ()->-op_call _idx_1_ (af52: Unit->Unit)->-pr_call (af52: Unit->Unit) ()->-op_ret ()->-pr_ret ()->-op_call _idx_1_ (af52: Unit->Unit)->-pr_call (af52: Unit->Unit) ()->-op_ret ()->-pr_ret ()->-op_call _idx_1_ (af52: Unit->Unit)->-pr_call (af52: Unit->Unit) ()->-op_call _idx_1_ (af52: Unit->Unit)->-pr_call (af52: Unit->Unit) ()->-op_ret ()->-pr_ret ()->-op_call _idx_1_ (af52: Unit->Unit)->-pr_call (af52: Unit->Unit) ()->-op_call _idx_1_ (af52: Unit->Unit)->-pr_call (af52: Unit->Unit) ()->-op_call _idx_1_ (af52: Unit->Unit)->-pr_call (af52: Unit->Unit) ()->-op_call _idx_1_ (af52: Unit->Unit)->-pr_call (af52: Unit->Unit) ()->-op_call _idx_1_ (af52: Unit->Unit)->-pr_call (af52: Unit->Unit) ()->-op_call _idx_1_ (af52: Unit->Unit)->-pr_call (af52: Unit->Unit) ()->-op_call _idx_1_ (af52: Unit->Unit)->-pr_call (af52: Unit->Unit) ()->-op_call _idx_1_ (af52: Unit->Unit)->-pr_call (af52: Unit->Unit) ()->-op_call _idx_1_ (af52: Unit->Unit)->-pr_call (af52: Unit->Unit) ()->-op_call _idx_1_ (af52: Unit->Unit)->-pr_call (af52: Unit->Unit) ()->-op_call _idx_1_ (af52: Unit->Unit)->-pr_call (af52: Unit->Unit) ()->-op_ret ()->-pr_ret ()->-op_ret ()->-pr_ret ()->-op_ret ()->-pr_ret ()->-op_ret ()->-pr_ret ()->-op_ret ()->-pr_ret ()->-op_ret ()->-pr_ret ()->-op_ret ()->-pr_ret ()->-op_ret ()->-pr_ret ()->-op_ret ()->-pr_ret ()->-op_ret ()->-pr_ret ()->-op_ret ()->-pr_ret ()->-op_ret ()->-[ entering LHS=bot ]->-pr_ret ()->-[ only RHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/list-msort-N5-ineq.bils
+LTS implementation: immutable list
+Bound: 21
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ ((ac305: Int), (af304: Unit->Int))->-pr_call (af304: Unit->Int) ()->-op_ret (ac1221: Int)->-pr_call (af304: Unit->Int) ()->-op_ret (ac1937: Int)->-pr_call (af304: Unit->Int) ()->-op_ret (ac2678: Int)->-pr_call (af304: Unit->Int) ()->-op_ret (ac3419: Int)->-pr_call (af304: Unit->Int) ()->-op_ret (ac4085: Int)->-pr_call (af304: Unit->Int) ()->-op_ret (ac4751: Int)->-[ entering LHS=bot ]->-pr_ret true->-[ only RHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/list-qsort-N5-ineq.bils
+LTS implementation: immutable list
+Bound: 21
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ ((ac287: Int), (af286: Unit->Int))->-pr_call (af286: Unit->Int) ()->-op_ret (ac901: Int)->-pr_call (af286: Unit->Int) ()->-op_ret (ac1917: Int)->-pr_call (af286: Unit->Int) ()->-op_ret (ac2431: Int)->-pr_call (af286: Unit->Int) ()->-op_ret (ac2945: Int)->-pr_call (af286: Unit->Int) ()->-op_ret (ac3459: Int)->-pr_call (af286: Unit->Int) ()->-op_ret (ac3876: Int)->-[ entering LHS=bot ]->-pr_ret true->-[ only RHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/mccarthy-ineq.bils
+LTS implementation: immutable list
+Bound: 6
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (ac10: Int)->-[ RHS=bot ]->-pr_ret (w158: Int)->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/mccarthy-knuth2-ineq.bils
+LTS implementation: immutable list
+Bound: 6
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (ac10: Int)->-[ RHS=bot ]->-pr_ret (w141: Int)->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/meyer-sieber-ineq.bils
+LTS implementation: immutable list
+Bound: 8
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (af6: (Unit->Unit)->Unit)->-pr_call (af6: (Unit->Unit)->Unit) _idx_1_->-op_call _idx_1_ ()->-pr_ret ()->-op_call _idx_1_ ()->-pr_ret ()->-op_call _idx_1_ ()->-pr_ret ()->-op_call _idx_1_ ()->-pr_ret ()->-op_call _idx_1_ ()->-pr_ret ()->-op_call _idx_1_ ()->-pr_ret ()->-op_ret ()->-[ entering LHS=bot ]->-pr_ret ()->-[ only RHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/meyer-sieber-v2-ineq.bils
+LTS implementation: immutable list
+Bound: 6
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (af8: (Unit->Unit)->Unit)->-pr_call (af8: (Unit->Unit)->Unit) _idx_1_->-op_call _idx_1_ ()->-pr_ret ()->-op_ret ()->-[ entering LHS=bot ]->-pr_ret _idx_2_->-[ only RHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/pitts-3.14.bils
+LTS implementation: immutable list
+Bound: 25
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (af155: Int->Bool)->-pr_ret _idx_1_->-op_call _idx_1_ (af223: Int->Int)->-pr_ret _idx_1_->-op_call _idx_1_ (af289: Int->Int)->-pr_call (af289: Int->Int) 0->-op_ret (ac446: Int)->-pr_call (af289: Int->Int) 0->-op_ret (ac468: Int)->-pr_call (af223: Int->Int) (ac468: Int)->-op_ret (ac469: Int)->-[ RHS=bot ]->-pr_call (af289: Int->Int) -1->-op_ret (ac487: Int)->-pr_ret _idx_1_->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/reve-ackermann-ineq.bils
+LTS implementation: immutable list
+Bound: 6
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ ((ac31: Int), (ac30: Int))->-[ RHS=bot ]->-pr_ret 3->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/reve-add-horn-ineq.bils
+LTS implementation: immutable list
+Bound: 6
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ ((ac25: Int), (ac24: Int))->-[ RHS=bot ]->-pr_ret (w56: Int)->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/reve-barthe-ineq.bils
+LTS implementation: immutable list
+Bound: 15
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ ((ac25: Int), (ac24: Int))->-[ RHS=bot ]->-pr_ret (w92: Int)->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/reve-inlining-ineq.bils
+LTS implementation: immutable list
+Bound: 6
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (ac16: Int)->-[ RHS=bot ]->-pr_ret (w59: Int)->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/reve-limit1-ineq.bils
+LTS implementation: immutable list
+Bound: 6
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (ac16: Int)->-[ RHS=bot ]->-pr_ret (w70: Int)->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/reve-limit2-ineq.bils
+LTS implementation: immutable list
+Bound: 12
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (ac16: Int)->-[ RHS=bot ]->-pr_ret (w106: Int)->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/reve-loop5-ineq.bils
+LTS implementation: immutable list
+Bound: 6
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (ac16: Int)->-[ RHS=bot ]->-pr_ret 2->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/reve-nested-while-ineq.bils
+LTS implementation: immutable list
+Bound: 6
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ ((ac29: Int), (ac28: Int))->-[ RHS=bot ]->-pr_ret (w60: Int)->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/rivcp-4.1.2-e.bils
+LTS implementation: immutable list
+Bound: 30
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (af18: Unit->Unit)->-pr_call (af18: Unit->Unit) ()->-op_ret ()->-pr_call (af18: Unit->Unit) ()->-op_ret ()->-pr_call (af18: Unit->Unit) ()->-op_ret ()->-pr_call (af18: Unit->Unit) ()->-op_ret ()->-pr_call (af18: Unit->Unit) ()->-op_ret ()->-pr_call (af18: Unit->Unit) ()->-op_ret ()->-[ RHS=bot ]->-pr_ret ()->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/state-dependent-3-ineq.bils
+LTS implementation: immutable list
+Bound: 6
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret (,_idx_2_,_idx_1_)->-op_call _idx_2_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_call _idx_2_ (af12: Unit->Unit)->-pr_call (af12: Unit->Unit) ()->-op_ret ()->-pr_ret ()->-op_ret ()->-pr_ret ()->-op_call _idx_1_ ()->-[ RHS=bot ]->-pr_ret 2->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/state-dependent-4-ineq.bils
+LTS implementation: immutable list
+Bound: 6
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (af4: (Unit->Unit)->Unit)->-pr_call (af4: (Unit->Unit)->Unit) _idx_2_->-op_ret ()->-pr_ret ()->-op_call _idx_2_ ()->-[ entering RHS=bot ]->-pr_ret ()->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/state-dependent-4-v2a-ineq.bils
+LTS implementation: immutable list
+Bound: 6
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (af4: (Unit->Unit)->Unit)->-pr_call (af4: (Unit->Unit)->Unit) _idx_2_->-op_call _idx_2_ ()->-[ entering RHS=bot ]->-pr_ret ()->-op_ret ()->-pr_ret ()->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/state-dependent-4-v2b-ineq.bils
+LTS implementation: immutable list
+Bound: 6
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (af4: (Unit->Unit)->Unit)->-pr_call (af4: (Unit->Unit)->Unit) _idx_2_->-op_call _idx_2_ ()->-[ entering RHS=bot ]->-pr_ret ()->-op_ret ()->-pr_ret true->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/state-dependent-4-v3.bils
+LTS implementation: immutable list
+Bound: 6
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (af4: (Unit->Unit)->Unit)->-pr_call (af4: (Unit->Unit)->Unit) _idx_2_->-op_ret ()->-pr_ret true->-op_call _idx_2_ ()->-[ entering RHS=bot ]->-pr_ret ()->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/stateful-args-ineq.bils
+LTS implementation: immutable list
+Bound: 6
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (af4: (Unit->Unit)->Unit)->-pr_call (af4: (Unit->Unit)->Unit) _idx_2_->-op_call _idx_2_ ()->-pr_ret ()->-op_call _idx_2_ ()->-pr_ret ()->-op_ret ()->-[ RHS=bot ]->-pr_ret true->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/symb-const-3.1.bils
+LTS implementation: immutable list
+Bound: 6
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (ac4: Bool)->-pr_ret _idx_1_->-op_call _idx_1_ (ac9: Bool)->-[ RHS=bot ]->-pr_ret (w12: Bool)->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/symb-const-3.bils
+LTS implementation: immutable list
+Bound: 6
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ ((ac5: Bool), (ac4: Bool))->-[ RHS=bot ]->-pr_ret (w10: Bool)->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/symb-const-4.bils
+LTS implementation: immutable list
+Bound: 6
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ ((ac9: Bool), (ac8: Bool))->-pr_ret _idx_1_->-op_call _idx_1_ (ac18: Bool)->-[ RHS=bot ]->-pr_ret (w17: Bool)->-[ only LHS terminates ]->
+
+Symbolic Environment:
+ (w_17 <> true) and 
+(w_17 = (ac_9 = ac_8))
+
+Satisfying Assignment:
+(define-fun ac_9 () Bool
+  true)
+(define-fun ac_8 () Bool
+  false)
+(define-fun w_17 () Bool
+  false)
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/syteci-fact-e.bils
+LTS implementation: immutable list
+Bound: 6
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (ac18: Int)->-[ RHS=bot ]->-pr_ret 1->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/vk-arrays-ineq.bils
+LTS implementation: immutable list
+Bound: 6
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (af10: Int->Int)->-pr_ret _idx_1_->-op_call _idx_1_ (ac19: Int)->-[ LHS=bot ]->-pr_ret 0->-[ only RHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/vk-Aug10-1755.bils
+LTS implementation: immutable list
+Bound: 6
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ (af8: Unit->Unit)->-pr_ret _idx_1_->-op_call _idx_1_ (af15: Unit->Bool)->-pr_call (af15: Unit->Bool) ()->-op_ret (ac18: Bool)->-pr_call (af8: Unit->Unit) ()->-op_call _idx_1_ (af15: Unit->Bool)->-pr_call (af15: Unit->Bool) ()->-op_ret (ac30: Bool)->-pr_call (af8: Unit->Unit) ()->-op_ret ()->-[ RHS=bot ]->-pr_ret false->-op_ret ()->-pr_ret true->-[ only LHS terminates ]->
+
+
+
+****************
+Debug mode: 
+Input file: programs/inequiv/vk-Oct9-1520.bils
+LTS implementation: immutable list
+Bound: 6
+Traversal: BFS
+Max Pending Confs: 1000000
+Memoisation cache size: 10000 
+Up-to techniques: ngsrialfzu
+****************
+Bisimulation failed! Failing trace:
+ -pr_ret _idx_1_->-op_call _idx_1_ ((ac8: Int), (ac7: Int))->-[ RHS=bot ]->-pr_ret 0->-[ only LHS terminates ]->
+
+
+

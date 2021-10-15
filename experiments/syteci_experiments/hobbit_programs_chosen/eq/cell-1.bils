@@ -1,0 +1,11 @@
+ref y = 0 in
+let set = fun z -> y := z in
+let get = fun () -> !y in
+(set , get)
+|||
+ref y1 = 0 in
+ref y2 = 0 in
+ref p = true in
+let set = fun z -> p := not !p; y1 := z; y2 := z in
+let get = fun () -> if !p then !y1 else !y2 in
+(set , get)

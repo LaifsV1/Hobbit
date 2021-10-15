@@ -87,7 +87,7 @@ begin
                   ("-m", Arg.Set_int (maxremembered),
                    (def_msg_i "memoisation cache size (max no. of configurations remembered), size 0 turns off memoisation, normalisation and garbage collection" !maxremembered));
                   ("-u", Arg.Set_string (upto_techs),
-                   (def_msg_s "up-to techniques: e.g. \"ngsrialfzu\" for [n]ormalisation [g]arbage-collection up-to-[s]eparation up-to-name-[r]euse up-to-[i]dentity sigma-g[a]rbage-collection sigma-norma[l]isation sigma-simpli[f]ication generali[z]ation remove-gamma-d[u]plicates up-to-re[e]ntry" !upto_techs))
+                   (def_msg_s "up-to techniques: e.g. \"ngsrialfzue\" for [n]ormalisation [g]arbage-collection up-to-[s]eparation up-to-name-[r]euse up-to-[i]dentity sigma-g[a]rbage-collection sigma-norma[l]isation sigma-simpli[f]ication generali[z]ation remove-gamma-d[u]plicates up-to-re[e]ntry" !upto_techs))
                  ] in
   let usage_msg = "Equivalence Checking Tool" in
   Arg.parse speclist print_endline usage_msg;

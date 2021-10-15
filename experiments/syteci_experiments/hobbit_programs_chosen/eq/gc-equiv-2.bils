@@ -1,0 +1,5 @@
+ref f = (fun () -> ()) in
+fun () -> ref l = () in
+f := (fun () -> !l); !f ()
+|||
+fun () -> ()

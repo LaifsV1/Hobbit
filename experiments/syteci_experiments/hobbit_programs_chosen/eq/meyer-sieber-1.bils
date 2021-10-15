@@ -1,0 +1,7 @@
+fun g ->
+  ref x = 0 in
+  let f = fun () {w | x as w | w mod 2 == 0} -> x := !x + 2
+  in ((g f) ;
+      if (!x mod 2 == 0) then () else _bot_)
+|||
+fun g -> ((g (fun x -> ())); ())

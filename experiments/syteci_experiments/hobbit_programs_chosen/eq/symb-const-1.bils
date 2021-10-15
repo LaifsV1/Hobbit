@@ -1,0 +1,6 @@
+fun b ->
+  if b=0 then (fun _ -> true)
+    else (fun _ -> false)
+|||_(int -> (unit -> bool))
+fun b ->
+  (fun _ -> b=0)

@@ -1,0 +1,84 @@
+
+cell-1/
+unsat
+1.192
+*********
+cell-2/
+unsat
+2.029
+*********
+cell-3/
+One of the program is allocating a reference inside the body of a function. The generation of the Constrained Horn Clause doo not handle this case.
+0.023
+*********
+cell-4/
+unsat
+0.408
+*********
+cell-5/
+5.004
+*********
+gc-equiv/
+unsat
+0.010
+*********
+gc-equiv-2/
+Error typing ref fun (_y0:Unit) -> (): Unit->Unit is not of type int. Only integers can be stored in references.
+0.003
+*********
+hector-scope-extrusion-2-3/
+One of the program is allocating a reference inside the body of a function. The generation of the Constrained Horn Clause doo not handle this case.
+0.008
+*********
+identity-1/
+unsat
+0.013
+*********
+identity-2/
+unsat
+0.012
+*********
+meyer-sieber-1/
+One of the program is allocating a reference inside the body of a function. The generation of the Constrained Horn Clause doo not handle this case.
+0.014
+*********
+nr-equiv-int/
+Fatal error: exception Failure("Error: f is not a function. Please report.")
+0.004
+*********
+nr-equiv-no-g/
+unsat
+0.009
+*********
+nr-equiv-no-g-2/
+unsat
+0.015
+*********
+nr-equiv-unit/
+Fatal error: exception Failure("Error: f is not a function. Please report.")
+0.004
+*********
+pitts-1-2/
+unsat
+0.026
+*********
+state-dependent-4/
+Error typing f (fun (_y3:Unit) -> bot ()): Unit is not equal to Unit->'a3
+0.004
+*********
+symb-const-1/
+sat
+0.020
+*********
+symb-const-min/
+Fatal error: exception Failure("Error, the generation of back-transition is not finished. ")
+0.010
+*********
+trivial-equiv/
+unsat
+0.011
+*********
+vk-arrays/
+unsat
+0.046
+*********

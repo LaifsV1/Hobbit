@@ -1,0 +1,5 @@
+fun f -> (fun x -> x) ()
+|||_((unit->unit)->unit)
+fun f -> ()
+
+(* name reuse makes this provable, but this triggers separation too *)
