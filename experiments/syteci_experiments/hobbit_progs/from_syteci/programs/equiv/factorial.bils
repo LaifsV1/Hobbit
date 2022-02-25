@@ -1,0 +1,10 @@
+fun fact n ->
+  if (n <= 1) then 1
+  else n * fact (n-1)
+|||
+fun n ->
+  let rec aux m =
+  fun res ->
+     if (m <= 1) then res
+     else aux (m-1) (m * res)
+  in aux n 1

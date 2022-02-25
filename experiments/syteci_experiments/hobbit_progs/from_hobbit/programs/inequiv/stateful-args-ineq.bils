@@ -1,0 +1,9 @@
+ref x = 0 in
+(fun f ->
+ (f (fun () -> x := !x + 1);
+  !x = 2))
+|||
+ref x = 0 in
+(fun f ->
+ (f (fun () -> x := !x + 1);
+  !x = (0-2)))

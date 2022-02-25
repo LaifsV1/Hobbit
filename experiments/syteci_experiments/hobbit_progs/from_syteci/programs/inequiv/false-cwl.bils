@@ -1,0 +1,7 @@
+ref x = 0 in
+let inc f = f(); x:=!x+1 in
+let get () = !x in (inc,get)
+|||
+ref x = 0 in
+let inc f = let n = !x in  f(); x:= n+1 in
+let get () = !x in (inc,get)

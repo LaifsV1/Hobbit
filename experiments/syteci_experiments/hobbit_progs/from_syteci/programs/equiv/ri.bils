@@ -1,0 +1,9 @@
+ref x = 0 in 
+let inc = fun () {x1,y1 | x as x1 | x1 = -y1} -> x:=!x+1 in
+let get () = !x in
+(inc,get)
+|||
+ref y = 0 in 
+let inc = fun () {x1,y1 | y as y1 | true} -> y:=!y-1 in
+let get () = 0-(!y) in
+(inc,get)

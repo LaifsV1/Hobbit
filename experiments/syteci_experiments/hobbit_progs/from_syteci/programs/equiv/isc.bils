@@ -1,0 +1,4 @@
+ref x = 0 in
+fun f -> x:=1; f(); !x
+|||
+fun f -> f(); 1
