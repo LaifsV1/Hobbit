@@ -1351,13 +1351,13 @@ let print_success_message init_bound =
        begin
          if !twice_twice
          then print_endline "Could not prove the counterexample found with generalisations on is real. Please try again with a bigger bound, or update the generalisation."
-         else print_endline "However the bound was exceded in some plays."
+         else print_endline "However the bound was exceeded in some plays."
        end;
        exit exit_unknown
      end
    else
      begin
-       print_endline "The bound was not exceded - the terms are indeed equivalent!";
+       print_endline "The bound was not exceeded - the terms are indeed equivalent!";
        exit exit_eq
      end)
 
