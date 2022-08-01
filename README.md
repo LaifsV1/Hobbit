@@ -40,6 +40,9 @@ brew install opam
 # MacPort
 port install opam
 ```
+
+### Initialising `opam`
+
 `opam` needs to be set up after installation, and this may be system dependent. First one needs to initialise it:
 ```
 opam init
