@@ -147,7 +147,7 @@ let string_of_trans = function
     | Markup s -> Printf.sprintf "-[ %s ]->" s
 
 let string_of_trace tr =
-  List.fold_left (fun rest label -> (string_of_trans label) ^ rest) "" tr
+  List.fold_left (fun rest label -> (string_of_trans label) ^ "\n" ^ rest) "" tr
 
 let rec string_of_k k =
   match k with
@@ -910,7 +910,7 @@ let op_transitions cfg_pair =
   if not success then
     if not !flag_gen_succeeded then
       begin
-        Printf.printf "Bisimulation failed! Failing trace:\n %s\n\n" (string_of_trace tr);
+        Printf.printf "Bisimulation failed! Failing trace:\n%s\n\n" (string_of_trace tr);
         if not(is_sigma_empty (fst cfg_pair.sigma)) then
           begin
             Printf.printf "Symbolic Environment:\n %s\n\n"

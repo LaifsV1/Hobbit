@@ -297,7 +297,7 @@ type_annot:
   | LPAREN t=type_annot RPAREN {t}
 
 type_tuple:
-| lst = type_tuple COMMA t=type_annot
+| lst = type_tuple TIMES t=type_annot
   { lst @ [t]}
-| t1 = type_annot COMMA t2 = type_annot
+| t1 = type_annot TIMES t2 = type_annot
   {[t1; t2]}
