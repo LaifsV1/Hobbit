@@ -2,7 +2,7 @@
 let mk_array n = 
   if (n < 1 || n > 10) then _bot_ else
   ref a = (0,0,0,0,0,0,0,0,0,0) in
-  let a_size _ = n in
+  let a_size _ = 5 in
   let a_get i =
     if (i < 1 || i > n) then _bot_ else
     let (a0,a1,a2,a3,a4,a5,a6,a7,a8,a9) = !a in

@@ -147,7 +147,7 @@ let string_of_trans = function
     | Markup s -> Printf.sprintf "-[ %s ]->" s
 
 let string_of_trace tr =
-  List.fold_left (fun rest label -> (string_of_trans label) ^ "\n" ^ rest) "" tr
+  String.concat "\n" (List.map string_of_trans tr)
 
 let rec string_of_k k =
   match k with

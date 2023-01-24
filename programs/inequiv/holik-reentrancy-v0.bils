@@ -1,0 +1,25 @@
+(fun oppfuns ->
+let send = fst oppfuns in
+let assert = snd oppfuns in
+
+ref funds = 100 in
+let withdraw m = (
+    (if (m < !funds)
+    then (send m; funds := !funds - m)
+    else ());
+    assert(m >= 0))
+in withdraw)
+
+|||_((int->unit)*(bool->unit))->(int->unit)
+
+(fun oppfuns ->
+let send = fst oppfuns in
+let assert = snd oppfuns in
+
+ref funds = 100 in
+let withdraw m = (
+    (if (m < !funds)
+    then (send m; (funds := !funds - m))
+    else ());
+    assert(true))
+in withdraw)

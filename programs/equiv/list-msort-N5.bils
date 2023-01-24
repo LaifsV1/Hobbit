@@ -35,7 +35,7 @@ fun args ->
 
 let (length,read) = args in
 
-let list =
+let list_ =
   let rec read_list len =
     if len >= list_len then _bot_ else
     if len <= 0 then nil else
@@ -70,7 +70,7 @@ let rec msort ls =
   merge (msort cs) (msort bs)
 in
 
-is_sorted (msort list)
+is_sorted (msort list_)
 
 |||
 

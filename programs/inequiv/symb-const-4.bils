@@ -2,5 +2,5 @@ fun ab ->
   let (a, b) = ab in
   ref p = (a = b) in
   (fun c -> if c then !p else !p)
-|||_((bool, bool) -> bool -> bool)
+|||_((bool * bool) -> bool -> bool)
 fun ab -> fun c -> true

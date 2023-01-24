@@ -39,7 +39,7 @@ fun args ->
 
 let (length,read,write) = args in
 
-let list =
+let list' =
   let rec read_list len =
     if len >= list_len then _bot_ else
     if len <= 0 then nil else
@@ -63,7 +63,7 @@ let rec qsort ls =
   append (qsort ys) (cons x (qsort zs))
 in
 
-write_list (qsort list) write
+write_list (qsort list') write
 
 |||
 
@@ -95,7 +95,7 @@ fun args ->
 
 let (length,read,write) = args in
 
-let list =
+let list' =
   let rec read_list len =
     if len >= list_len then _bot_ else
     if len <= 0 then nil else
@@ -130,4 +130,4 @@ let rec msort ls =
   merge (msort cs) (msort bs)
 in
 
-write_list (msort list) write
+write_list (msort list') write

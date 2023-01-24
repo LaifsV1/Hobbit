@@ -17,7 +17,7 @@ let digit = ['0'-'9']
 let lowercase = ['a' - 'z']
 let uppercase = ['A' - 'Z']
 let alphabet = lowercase | uppercase
-let alphanum = alphabet | digit | '_'
+let alphanum = alphabet | digit | '_' | "\'"
 let alphanum_extended = alphanum | ' ' | ':' | ',' | '.' | '(' | ')' | '&' | '%' | ';' | '{' | '}' | '[' | ']' | '?' | '=' | '+' | '*' | '^' | '!' | '@' | '<' | '>' | '$' | '|' | '/' | '-'
 let id = alphabet alphanum*
 let char = '\'' alphanum? '\''

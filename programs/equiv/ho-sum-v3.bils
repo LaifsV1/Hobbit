@@ -1,0 +1,14 @@
+ref x = 0 in
+fun fr {w1, w2 | x as w1 | w1 = -w2}->
+  let (f, r) = fr in
+  (if (r > 0) then x := !x + r);
+  f();
+  !x
+|||
+ref x = 0 in
+fun fr {w1, w2 | x as w2 | true}->
+  let (f, r) = fr in
+  (if (r > 0) then x := !x - r);
+  f();
+  -!x
+

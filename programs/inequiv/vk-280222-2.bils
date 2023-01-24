@@ -1,0 +1,14 @@
+(* example meant to break incorrect up to reentry, no check at every P-call *)
+(* 28/2/2022 *)
+
+ref x = true in 
+fun f ->
+   let y = !x in
+   f ();
+   (if (!x <> y) then _bot_);
+   x := false;
+   f ();
+   x := true;
+   ()
+|||_(unit->unit)->unit
+fun f -> f (); f(); ()

@@ -1,3 +1,5 @@
+(* more difficult version of `ri.ml` in SyTeCi testsuite *)
+
 ref c = 0 in
 let count = fun () {w1, w2 | c as w1 | 2*w1 = -w2} -> c := !c + 1 in
 let get () = !c in

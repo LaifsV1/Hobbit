@@ -98,7 +98,7 @@ Advanced options:
 - `-p <integer>`: provides a maximum number of configurations pending to be explored in the frontier; upon exceeding this, the tool stops
 - `-m <integer>`: provides a maximum number of configurations remembered; upon exceeding this number, the newest configuration added replaces the oldest one remembered
 
-Development options:
+Developer options:
 
 - `-d <string>`: similar to `-u`, but turns on printing debug information depending on the characters present in the string
 - `-l <integer>`: used to select other LTS implementation; unused in this version of the tool

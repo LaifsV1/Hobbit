@@ -448,9 +448,9 @@ let reduce {s = s0; e ={ecxt = ecxt0; e = e0}} bound0 sigma0 =
                 bound0, sigma0) :: []
        | TupleSndUpdECxt (v1, i, j, p) :: ec_rest ->
           begin
-            match v with
+            match v1 with
             | TupleVal vs ->
-                (let newvs = List.mapi (fun ii x -> if ii = i then v1 else x) vs in
+                (let newvs = List.mapi (fun ii x -> if ii = i then v else x) vs in
                  Some ({s = s0; e = {ecxt = ec_rest; e = ValExp (TupleVal newvs, None)}},
                        bound0, sigma0) :: [])
             | _ -> failwith "reduce error: unexpected pattern with TupleSndUpdECxt"

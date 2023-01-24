@@ -4,9 +4,9 @@ LOGS_DIR=logs
 
 mkdir $LOGS_DIR
 
-LOG_SAFE=equiv.txt
-LOG_UNSAFE=inequiv.txt
-LOG_MISC=misc.txt
+LOG_SAFE=equiv.log
+LOG_UNSAFE=inequiv.log
+LOG_MISC=misc.log
 
 DFS=dfs_
 BFS=bfs_
