@@ -1,0 +1,32 @@
+(* should be caught by up to identity and _sync_ and GC *)
+
+fun f xg ->
+  let (x, g) = xg in
+  ref x = x in
+  ref g = g in
+  ref i = 0 in
+  ref ii = 0 in
+  let rec while () =
+    _sync_ {} ();
+    if !i < !x then (
+      i := !i + 1;
+      g := !g - 1;
+      while ()
+    ) else ()
+  in while ();
+  !g
+|||
+fun f xg ->
+  let (x, g) = xg in
+  ref x = x in
+  ref g = g in
+  ref i = 0 in
+  let rec while () =
+    _sync_ {} ();
+    if !i < !x then (
+      i := !i + 1;
+      g := !g - 1;
+      while ()
+    ) else ()
+  in while ();
+  !g

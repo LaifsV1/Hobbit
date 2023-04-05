@@ -1,0 +1,12 @@
+#source: inspired by example of sec 5.1 in https://dl.acm.org/doi/10.1145/1480881.1480925
+
+# this is hard because we don't have memory or any clauses bridging previous values of C to new ones
+
+ref c = 0 in
+let genfresh = fun () ->
+  ref new_name_ref = (c := !c + 1; !c) in
+  let test_valid = fun () -> !new_name_ref <= !c in
+  test_valid
+in genfresh
+|||
+fun () -> fun () -> true

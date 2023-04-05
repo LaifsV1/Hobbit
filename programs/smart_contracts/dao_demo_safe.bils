@@ -1,0 +1,220 @@
+(* Translated excerpt of the DAO code that captures relevant behaviour to the attack *)
+(* Account:
+ * fields:
+     * address public owner
+     * uint public accumulatedInput
+     * Demo public DAO                             
+ * constructor: sets accumulatedInput to 0
+ * event: payout(address _recipient, uint amount)
+ * functions:
+     * setDAO (Demo _dao)                          
+     * setOwner (address)
+     * contribute ()
+     * getBal ()
+     * payOut (address _recipient, uint _ammount)
+     * fallback function ()
+ *)
+
+(* DAO Demo:
+ * fields:
+     * mapping (address => uint) paidOut
+     * Account rewardAccount
+     * uint totalSupply
+     * uint recipient_balance
+ * constructor: sets recipient_balance to 50 ETH and totalSupply to 100 ETH
+ * functions:
+     * setRewardAccount (Account _account)
+     * withDraw (address _recipient)
+ *)
+
+(* Modelling throw and call_value as an external functions *)
+fun top_args ->
+let (ext_transfer, assert) = top_args in
+
+(* START OF THE ACCOUNT *)
+let account () =
+  (* implicit fields *)
+  ref this_balance     = 0 in
+  (* explicit fields *)
+  ref owner            = 0 in
+  ref accumulatedInput = 0 in
+
+  (* implicit methods *)
+  let call_value args =
+     let (recipient , amount) = args in
+     let old_balance = !this_balance in
+     this_balance := old_balance - amount;
+     let guard =
+        if !this_balance >= 0 then
+           ext_transfer(recipient , amount)
+        else
+           false
+     in
+     if guard then
+        true
+     else
+        (this_balance := old_balance; false)
+  in
+  (* methods *)
+  let setOwner address       = owner := address in
+  let getBal ()              = !this_balance in
+  let getAccumulatedInput () = !accumulatedInput in
+  let payOut args =
+    let (recipient , amount) = args in
+    if call_value(recipient , amount) then
+      (* PayOut(recipient, amount) *) (* TODO: no events... what does this do? *)
+      true
+    else
+      false
+  in
+
+  (* fallback function *)
+  let fallback msg_value     = (accumulatedInput := !accumulatedInput + msg_value; this_balance := !this_balance + msg_value) in
+  
+  
+  (fallback , setOwner , getBal , payOut , getAccumulatedInput)
+in
+
+(* START OF THE DAO SMART CONTRACT *)
+let demo () =
+  (* explicit fields *)
+  ref paidOut           = (fun i -> 0) in
+  let paidOut_update args =
+    let (recipient,amount) = args in
+    paidOut := let old_paidOut = !paidOut in (fun i -> if i == recipient then amount else old_paidOut i)
+  in
+  let rewardAccount     = account () in
+  ref totalSupply       = 100 in
+  ref recipient_balance = 50  in
+
+  (* import account functions *)
+  let rewardAccount_contribute          x = let (a,b,c,d,e) = rewardAccount in a x in
+  let rewardAccount_setOwner            x = let (a,b,c,d,e) = rewardAccount in b x in
+  let rewardAccount_getBal              x = let (a,b,c,d,e) = rewardAccount in c x in
+  let rewardAccount_payOut              x = let (a,b,c,d,e) = rewardAccount in d x in
+  let rewardAccount_getAccumulatedInput x = let (a,b,c,d,e) = rewardAccount in e x in
+
+  rewardAccount_contribute 20; (* ideally, this should decrease our own balance *)
+
+  (* methods *)
+  (* let setRewardAccount account = rewardAccount := account in *)
+  let withdrawRewardFor recipient =
+    if !recipient_balance * rewardAccount_getAccumulatedInput () / !totalSupply < !paidOut(recipient)
+    then false (* throw *)
+    else
+    (
+      let reward = (!recipient_balance * rewardAccount_getAccumulatedInput ()) /
+                   !totalSupply - !paidOut(recipient) in
+      let reward = if rewardAccount_getBal () < reward then rewardAccount_getBal () else reward in
+      paidOut_update(recipient,(!paidOut recipient) + reward) ;
+      let _ = rewardAccount_payOut (recipient , reward) in
+      _sync_(!paidOut recipient <= 10) ;
+      true
+    )
+  in
+
+  (* fallback function *)
+  let fallback msg_value = (*do balance stuff ; *) true in
+
+  let getMyReward msg_sender = withdrawRewardFor msg_sender in
+
+  (fallback , getMyReward)
+in
+
+demo
+
+|||_(((int * int) -> bool) * (bool -> unit)) -> unit -> (int -> bool) * (int -> bool)
+
+fun top_args ->
+let (ext_transfer, assert) = top_args in
+
+let account () =
+  (* implicit fields *)
+  ref this_balance     = 0 in
+  (* explicit fields *)
+  ref owner            = 0 in
+  ref accumulatedInput = 0 in
+
+  (* implicit methods *)
+  let call_value args =
+     let (recipient , amount) = args in
+     let old_balance = !this_balance in
+     this_balance := old_balance - amount;
+     let guard =
+        if !this_balance >= 0 then
+           ext_transfer(recipient , amount)
+        else
+           false
+     in
+     if guard then
+        true
+     else
+        (this_balance := old_balance; false)
+  in
+  (* methods *)
+  let setOwner address       = owner := address in
+  let getBal ()              = !this_balance in
+  let getAccumulatedInput () = !accumulatedInput in
+  let payOut args =
+    let (recipient , amount) = args in
+    if call_value(recipient , amount) then
+      (* PayOut(recipient, amount) *) (* TODO: no events... what does this do? *)
+      true
+    else
+      false
+  in
+
+  (* fallback function *)
+  let fallback msg_value     = (accumulatedInput := !accumulatedInput + msg_value; this_balance := !this_balance + msg_value) in
+  
+  
+  (fallback , setOwner , getBal , payOut , getAccumulatedInput)
+in
+
+
+let demo () =
+  (* explicit fields *)
+  ref paidOut           = (fun i -> 0) in
+  let paidOut_update args =
+    let (recipient,amount) = args in
+    paidOut := let old_paidOut = !paidOut in (fun i -> if i == recipient then amount else old_paidOut i)
+  in
+  let rewardAccount     = account () in
+  ref totalSupply       = 100 in
+  ref recipient_balance = 50  in
+
+  (* import account functions *)
+  let rewardAccount_contribute          x = let (a,b,c,d,e) = rewardAccount in a x in
+  let rewardAccount_setOwner            x = let (a,b,c,d,e) = rewardAccount in b x in
+  let rewardAccount_getBal              x = let (a,b,c,d,e) = rewardAccount in c x in
+  let rewardAccount_payOut              x = let (a,b,c,d,e) = rewardAccount in d x in
+  let rewardAccount_getAccumulatedInput x = let (a,b,c,d,e) = rewardAccount in e x in
+
+  rewardAccount_contribute 20; (* ideally, this should decrease our own balance *)
+
+  (* methods *)
+  (* let setRewardAccount account = rewardAccount := account in *)
+  let withdrawRewardFor recipient =
+    if !recipient_balance * rewardAccount_getAccumulatedInput () / !totalSupply < !paidOut(recipient)
+    then false (* throw *)
+    else
+    (
+      let reward = (!recipient_balance * rewardAccount_getAccumulatedInput ()) /
+                   !totalSupply - !paidOut(recipient) in
+      let reward = if rewardAccount_getBal () < reward then rewardAccount_getBal () else reward in
+      paidOut_update(recipient,(!paidOut recipient) + reward) ;
+      let _ = rewardAccount_payOut (recipient , reward) in
+      _sync_(true) ;
+      true
+    )
+  in
+
+  (* fallback function *)
+  let fallback msg_value = (*do balance stuff ; *) true in
+
+  let getMyReward msg_sender = withdrawRewardFor msg_sender in
+
+  (fallback , getMyReward)
+in
+
+demo

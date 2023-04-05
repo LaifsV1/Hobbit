@@ -1,0 +1,16 @@
+(* Based on Example 3.11
+   From Operationally-Based Theories of Program Equivalence
+   by Andrew Pitts  *)
+
+(* implement nat lists *)
+let rec map f = (fun l -> match l with [] -> [] | x :: xs -> f x :: (map f xs)) in
+
+let rec iter () = 1 :: (iter ()) in
+
+map (fun x -> x) (iter ())
+
+|||
+
+let rec iter () = 1 :: (iter ()) in
+
+iter ()

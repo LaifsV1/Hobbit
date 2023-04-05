@@ -1,0 +1,15 @@
+let rec eq l1 =
+  match l1 with
+  | [] -> (fun l2 -> match l2 with
+                     | [] -> true
+                     | y :: ys -> false)
+  | x :: xs -> (fun l2 -> match l2 with
+                          | [] -> false
+                          | y :: ys -> (x == y) && eq xs ys)
+in
+
+fun l1 -> fun l2 -> if eq l1 l2 then 42 else 0
+
+|||_(int list) -> (int list) -> int
+
+fun l1 -> fun l2 -> 0

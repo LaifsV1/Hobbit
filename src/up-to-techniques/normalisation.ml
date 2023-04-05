@@ -25,22 +25,24 @@ let rec normalise_exp : Ast.expression -> conf_names -> name_map -> Ast.expressi
     | Some loc -> loc
   in
   match exp with
-  | ValExp    (v, p) -> ValExp (normalise_val v names sigma_names, p)
-  | IdentExp  (id, p) -> IdentExp (id_get id, p)
-  | ArithExp  (op, es, p) -> ArithExp (op, List.map helper es, p)
-  | AppExp    (e1, e2, p) -> AppExp (helper e1, helper e2, p)
-  | CondExp   (e1, e2, e3, p) -> CondExp (helper e1, helper e2, helper e3, p)
-  | NewRefExp (l, lt, e1, e2, p) -> NewRefExp (loc_get l, lt, helper e1, helper e2, p)
-  | DerefExp  (l, p) -> DerefExp (loc_get l, p) 
-  | AssignExp (l, e, p) -> AssignExp (loc_get l, helper e, p) 
-  | LetExp    (i, it, e1, e2, p) -> LetExp (id_get i, it, helper e1, helper e2, p)
-  | LetTuple  (is_ts, e1, e2, p) ->
-     LetTuple (List.map (fun(a,b)->(id_get a,b)) is_ts, helper e1, helper e2, p)
-  | SeqExp    (e1, e2, p) -> SeqExp (helper e1, helper e2, p)
-  | TupleExp  (es, p) -> TupleExp (List.map helper es, p)
-  | BotExp    p -> BotExp p
-  | TupleProjExp (e1, i, j, p) -> TupleProjExp (helper e1, i, j, p)
-  | TupleUpdExp  (e1, i, j, e2, p) -> TupleUpdExp  (helper e1, i, j, helper e2, p)
+  | ValExp    (v, _) -> ValExp (normalise_val v names sigma_names, None)
+  | IdentExp  (id, _) -> IdentExp (id_get id, None)
+  | ArithExp  (op, es, _) -> ArithExp (op, List.map helper es, None)
+  | AppExp    (e1, e2, _) -> AppExp (helper e1, helper e2, None)
+  | CondExp   (e1, e2, e3, _) -> CondExp (helper e1, helper e2, helper e3, None)
+  | NewRefExp (l, lt, e1, e2, _) -> NewRefExp (loc_get l, lt, helper e1, helper e2, None)
+  | DerefExp  (l, _) -> DerefExp (loc_get l, None) 
+  | AssignExp (l, e, _) -> AssignExp (loc_get l, helper e, None) 
+  | LetExp    (i, it, e1, e2, _) -> LetExp (id_get i, it, helper e1, helper e2, None)
+  | LetTuple  (is_ts, e1, e2, _) ->
+     LetTuple (List.map (fun(a,b)->(id_get a,b)) is_ts, helper e1, helper e2, None)
+  | SeqExp    (e1, e2, _) -> SeqExp (helper e1, helper e2, None)
+  | TupleExp  (es, _) -> TupleExp (List.map helper es, None)
+  | BotExp    _ -> BotExp None
+  | TupleProjExp (e1, i, j, _) -> TupleProjExp (helper e1, i, j, None)
+  | TupleUpdExp  (e1, i, j, e2, _) -> TupleUpdExp (helper e1, i, j, helper e2, None)
+  | MatchExp (t,e1,e2,i1,i2,e3,_) ->
+     MatchExp (t,helper e1,helper e2,id_get i1,id_get i2,helper e3,None)
   and
 normalise_val : Ast.value -> conf_names -> name_map -> Ast.value =
   fun v names sigma_names ->
@@ -68,8 +70,11 @@ normalise_val : Ast.value -> conf_names -> name_map -> Ast.value =
   | FunVal (fid, ft, param, pt, e, _) ->
      (* TODO: GEN *)
      FunVal (id_get fid, ft, id_get param, pt, normalise_exp e names sigma_names, None)
-  | AbsCon (i, t, s) -> sigma_get {idid=i;str=s} (fun {idid;str} -> Ast.AbsCon (idid, t, str))
-  | AbsFun (i, t1, t2, s) -> sigma_get {idid=i;str=s} (fun {idid;str} -> Ast.AbsFun (idid, t1, t2, str))
+  | AbsCon (i, t, s, m) -> sigma_get {idid=i;str=s} (fun {idid;str} -> Ast.AbsCon (idid, t, str, m))
+  | AbsFun (i, t1, t2, s, _) -> sigma_get {idid=i;str=s} (fun {idid;str} -> Ast.AbsFun (idid, t1, t2, str, None))
+  | ListVal (ls,t) -> (* ListVal won't ever appear in sigma *)
+     ListVal (Ast.SymList.map helper (fun {idid;str} -> sigma_get {idid;str} (fun x -> x)) ls, t)
+
 
 let normalise_cxt : Reductions_ast.eval_cxt -> conf_names -> name_map -> Reductions_ast.eval_cxt =
   fun cxt names sigma_names ->
@@ -98,19 +103,22 @@ let normalise_cxt : Reductions_ast.eval_cxt -> conf_names -> name_map -> Reducti
     fun eframe ->
     begin
       match eframe with
-      | ArithECxt (op, vs, es, p) -> ArithECxt (op, List.map val_normalise vs, List.map exp_normalise es, p)
-      | AppOpECxt (e2, p) -> AppOpECxt (exp_normalise e2, p)
-      | AppRandECxt (f, p) -> AppRandECxt (val_normalise f, p)
-      | NewRefECxt (l, lt, e2, p) -> NewRefECxt (loc_get l, lt, exp_normalise e2, p)
-      | AssignECxt (l, p) -> AssignECxt (loc_get l, p)
-      | CondECxt (e1, e2, p) -> CondECxt (exp_normalise e1, exp_normalise e2, p)
-      | LetECxt (i, it, e2, p) -> LetECxt (id_get i, it, exp_normalise e2, p)
-      | LetTupleECxt (is_ts, e2, p) -> LetTupleECxt (List.map (fun(a,b)->id_get a,b) is_ts, e2, p)
-      | SeqECxt (e2,p) -> SeqECxt (exp_normalise e2,p)
-      | TupleECxt (vs, es, p) -> TupleECxt (List.map val_normalise vs, List.map exp_normalise es, p)
-      | TupleProjECxt (i,j,p) -> TupleProjECxt (i,j,p)
-      | TupleFstUpdECxt (i,j,e2,p) -> TupleFstUpdECxt (i,j, exp_normalise e2,p)
-      | TupleSndUpdECxt (v1,i,j,p) -> TupleSndUpdECxt (val_normalise v1,i,j,p)
+      | ArithECxt (op, vs, es, _) ->
+         ArithECxt (op, List.map val_normalise vs, List.map exp_normalise es, None)
+      | AppOpECxt (e2, _) -> AppOpECxt (exp_normalise e2, None)
+      | AppRandECxt (f, _) -> AppRandECxt (val_normalise f, None)
+      | NewRefECxt (l, lt, e2, _) -> NewRefECxt (loc_get l, lt, exp_normalise e2, None)
+      | AssignECxt (l, _) -> AssignECxt (loc_get l, None)
+      | CondECxt (e1, e2, _) -> CondECxt (exp_normalise e1, exp_normalise e2, None)
+      | LetECxt (i, it, e2, _) -> LetECxt (id_get i, it, exp_normalise e2, None)
+      | LetTupleECxt (is_ts, e2, _) -> LetTupleECxt (List.map (fun(a,b)->id_get a,b) is_ts, e2, None)
+      | SeqECxt (e2,_) -> SeqECxt (exp_normalise e2,None)
+      | TupleECxt (vs, es, _) ->
+         TupleECxt (List.map val_normalise vs, List.map exp_normalise es, None)
+      | TupleProjECxt (i,j,_) -> TupleProjECxt (i,j,None)
+      | TupleFstUpdECxt (i,j,e2,_) -> TupleFstUpdECxt (i,j, exp_normalise e2,None)
+      | TupleSndUpdECxt (v1,i,j,_) -> TupleSndUpdECxt (val_normalise v1,i,j,None)
+      | MatchECxt (t,e2,i1,i2,e3,p) -> MatchECxt (t,exp_normalise e2,i1,i2,exp_normalise e3,p) 
     end
   in
   List.map current_frame_locs cxt
@@ -208,6 +216,7 @@ let normalise_sigma : Z3api.sigma -> name_map -> Z3api.sigma =
     | TopNotBoolVar (id , str) ->
        let new_id = abs_get {idid=id;str=str} in
        TopNotBoolVar (new_id , str)
+    | False -> False
   in
   List.map aux sigma
 
@@ -237,4 +246,15 @@ let gama_dup_indices : (int * Ast.value) list -> (int * Ast.value) list ->
     in
     aux lst IntSet.empty
   in
+  (*
+  let string_of_vs1 =
+    String.concat ";"
+    (List.map (fun (i,v) -> Printf.sprintf "(%d,%s)" i (Ast.string_of_val v)) vs1)
+  in
+  let string_of_vs2 =
+    String.concat ";"
+    (List.map (fun (i,v) -> Printf.sprintf "(%d,%s)" i (Ast.string_of_val v)) vs2)
+  in
+  Printf.printf "%s\n%s\n" string_of_vs1 string_of_vs2 ;
+   *)
   uniq (List.combine vs1 vs2)

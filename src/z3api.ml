@@ -61,6 +61,12 @@ let ctx = Z3.mk_context []
 let solver = Z3.Solver.mk_simple_solver ctx
 
 
+(* unparsing *)
+let string_of_z3 e = Expr.to_string e
+let string_of_sequence delim f ls = String.concat delim (List.map f ls)
+let string_of_list f ls = Printf.sprintf "[%s]" (String.concat ";" (List.map f ls))
+
+
 (* sorts *)
 let int_sort_z3  = Integer.mk_sort ctx
 let bool_sort_z3 = Boolean.mk_sort ctx
@@ -100,15 +106,21 @@ let div_z3 e1 e2 = Arithmetic.mk_div ctx e1 e2
 let uminus_z3 e1 = Arithmetic.mk_unary_minus ctx e1
 let mod_z3 e1 e2 = Arithmetic.Integer.mk_mod ctx e1 e2
 
-(* unparsing *)
-let string_of_z3 e = Expr.to_string e
+
+(* quantifier *)
+let forall_z3 vars body =
+  if vars = [] then true_z3 else
+    Quantifier.expr_of_quantifier (Quantifier.mk_forall_const ctx vars body None [] [] None None)
+let exists_z3 vars body =
+  if vars = [] then false_z3 else
+    Quantifier.expr_of_quantifier (Quantifier.mk_exists_const ctx vars body None [] [] None None)
+
 
 (* solver operations *)
 let check es =
   match Z3.Solver.check solver es with  
   | UNSATISFIABLE -> false
-  | UNKNOWN       -> failwith (sprintf "couldn't check if sat: %s"
-                                 (string_of_z3 (and_z3 es)))
+  | UNKNOWN       -> failwith (sprintf "couldn't check if sat: %s" (string_of_z3 (and_z3 es)))
   | SATISFIABLE   -> true
 
 let get_model () =
@@ -177,8 +189,8 @@ let rec string_of_prop prop =
   | BoolProp false -> "false"
   | VarIntProp  s  -> s
   | VarBoolProp s  -> s
-  | AndProp props  -> Printf.sprintf "(%s)" (String.concat " and " (List.map string_of_prop props))
-  | OrProp  props  -> Printf.sprintf "(%s)" (String.concat " or " (List.map string_of_prop props))
+  | AndProp props  -> Printf.sprintf "(%s)" (string_of_sequence " and " string_of_prop props)
+  | OrProp  props  -> Printf.sprintf "(%s)" (string_of_sequence " or "  string_of_prop props)
   | NotProp prop   -> Printf.sprintf "(not %s)" (string_of_prop prop)
   | EqProp (p1,p2) -> Printf.sprintf "(%s = %s)"
                         (string_of_prop p1) (string_of_prop p2)
@@ -194,9 +206,9 @@ let rec string_of_prop prop =
                         (string_of_prop p1) (string_of_prop p2)
   | GeProp (p1,p2) -> Printf.sprintf "(%s >= %s)"
                         (string_of_prop p1) (string_of_prop p2)
-  | AddProp props -> Printf.sprintf "(%s)" (String.concat " + " (List.map string_of_prop props))
-  | MulProp props -> Printf.sprintf "(%s)" (String.concat " * " (List.map string_of_prop props))
-  | SubProp props -> Printf.sprintf "(%s)" (String.concat " - " (List.map string_of_prop props))
+  | AddProp props -> Printf.sprintf "(%s)" (string_of_sequence " + " string_of_prop props)
+  | MulProp props -> Printf.sprintf "(%s)" (string_of_sequence " * " string_of_prop props)
+  | SubProp props -> Printf.sprintf "(%s)" (string_of_sequence " - " string_of_prop props)
   | DivProp (p1,p2) -> Printf.sprintf "(/ %s %s)"
                          (string_of_prop p1) (string_of_prop p2)
   | ModProp (p1,p2) -> Printf.sprintf "(mod %s %s)"
@@ -335,7 +347,11 @@ type sigma_prop = TopIntVarConstNeq of ((int * string) * int)
                 | TopBoolEq of (int * prop)
                 | TopBoolVar of (int * string)
                 | TopNotBoolVar of (int * string)
+                | False
 type sigma = sigma_prop list
+
+let sigma_set_false : sigma -> sigma =
+  fun sigma -> [False]
 
 let sigma_add_iconst_neq : (int * string) -> int -> sigma -> sigma =
   fun v1 v2 sigma -> TopIntVarConstNeq(v1 , v2) :: sigma
@@ -366,6 +382,7 @@ let sigma_add_not_var : int -> string -> sigma -> sigma =
   TopNotBoolVar(new_id, new_str) :: sigma
 
 let default_sname = "w"
+let default_gname = "g"
 
 let name_of_id id = Printf.sprintf "%s_%d" default_sname id
 let name_of_iv iv = Printf.sprintf "%s_%d" (snd iv) (fst iv)
@@ -402,6 +419,7 @@ let prop_of_sigma : sigma -> prop =
     | TopBoolEq (id , prop) :: xs -> aux xs (acc &&. ((sbool_of_id id) ==. prop))
     | TopBoolVar (id , str) :: xs -> aux xs (acc &&. (sbool_of_id_var (id , str)))
     | TopNotBoolVar (id , str) :: xs -> aux xs (acc &&. (~~. (sbool_of_id_var (id , str))))
+    | False :: xs -> _false
   in
   aux sigma _true
   
@@ -420,8 +438,9 @@ let string_of_sigmaprop prop =
   | TopBoolEq (id , prop) -> Printf.sprintf "(%s = %s)" (name_of_id id) (string_of_prop prop)
   | TopBoolVar (id , str) -> Printf.sprintf "%s" (name_of_iv (id,str)) 
   | TopNotBoolVar (id , str) -> Printf.sprintf "(not %s)" (name_of_iv (id,str))
+  | False -> "(false)"
 
-let string_of_sigma sigma = String.concat " and \n" (List.map string_of_sigmaprop sigma)
+let string_of_sigma sigma = string_of_sequence " and \n" string_of_sigmaprop sigma
 let check_sat_sigma sigma =
   match sigma with
   | [] -> true
@@ -463,6 +482,7 @@ let check_sat_sigma sigma =
             (z3_of_prop prop)
        | TopBoolVar (id , str) -> var_bool_z3 (name_of_iv (id,str))
        | TopNotBoolVar (id , str) -> not_z3 (var_bool_z3 (name_of_iv (id,str)))
+       | False -> false_z3
      in
      check (List.map z3_of_sigma_prop sigma)
 

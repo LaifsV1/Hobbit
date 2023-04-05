@@ -1,0 +1,82 @@
+(* from: Ethainter: A Smart Contract Security Analyzer for
+         Composite Vulnerabilities. PLDI 2020. *)
+
+let contract_Victim selfdestruct =
+  (* fields *)
+  ref admins = (fun address -> false) in
+  ref users = (fun address -> false) in
+  ref owner = 0 in
+  
+  (* aux map update functions *)
+  let update_admins address =
+      admins := (fun i -> if address = i then true else !admins i)
+  in
+  let update_users address =
+      users := (fun i -> if address = i then true else !users i)
+  in
+  
+  (* modifiers *)
+  let modifier_onlyAdmins address = !admins address in
+  let modifier_onlyUsers address = !users address in
+  
+  (* public functions *)
+  let registerSelf msg_sender = update_users msg_sender in
+  let referUser args =
+    let (msg_sender,address_user) = args in
+    if modifier_onlyUsers msg_sender then update_users address_user else ()
+  in
+  let referAdmin args =
+    let (msg_sender,address_adm) = args in
+    if modifier_onlyUsers msg_sender then update_admins address_adm else ()
+  in
+  let changeOwner args =
+    let (msg_sender,address_o) = args in
+    if modifier_onlyAdmins msg_sender then (owner := address_o) else ()
+  in
+  let kill msg_sender =
+    if modifier_onlyAdmins msg_sender then selfdestruct !owner else ()
+  in
+  (registerSelf, referUser, referAdmin, changeOwner, kill)
+in
+contract_Victim
+
+|||_(int->unit)->((int->unit)*((int*int)->unit)*((int*int)->unit)*((int*int)->unit)*(int->unit))
+
+let contract_Victim selfdestruct =
+  (* fields *)
+  ref admins = (fun address -> false) in
+  ref users = (fun address -> false) in
+  ref owner = 0 in
+  
+  (* aux map update functions *)
+  let update_admins address =
+      admins := (fun i -> if address = i then true else !admins i)
+  in
+  let update_users address =
+      users := (fun i -> if address = i then true else !users i)
+  in
+  
+  (* modifiers *)
+  let modifier_onlyAdmins address = !admins address in
+  let modifier_onlyUsers address = !users address in
+  
+  (* public functions *)
+  let registerSelf msg_sender = update_users msg_sender in
+  let referUser args =
+    let (msg_sender,address_user) = args in
+    if modifier_onlyUsers msg_sender then update_users address_user else ()
+  in
+  let referAdmin args =
+    let (msg_sender,address_adm) = args in
+    if modifier_onlyUsers msg_sender then update_admins address_adm else ()
+  in
+  let changeOwner args =
+    let (msg_sender,address_o) = args in
+    if modifier_onlyAdmins msg_sender then (owner := address_o) else ()
+  in
+  let kill msg_sender =
+    () (* this call doesn't happen *)
+  in
+  (registerSelf, referUser, referAdmin, changeOwner, kill)
+in
+contract_Victim

@@ -1,0 +1,5 @@
+fun f -> fun a -> fun b -> f (b , a)
+
+|||_((int * int -> unit) -> int -> int -> unit)
+
+fun f -> fun a -> fun b -> f (a , a)

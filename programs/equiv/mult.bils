@@ -1,3 +1,4 @@
-fun f xy -> let (x, y) = xy in (if y < 0 then -1 * f (x, -y) else if y = 0 then 0 else x + f (x, y-1))
+fun f xy -> let (x, y) = xy in
+(if y < 0 then -1 * f (x, -y) else if y = 0 then 0 else x + f (x, y-1))
 |||
 fun xy -> let (x, y) = xy in x * y

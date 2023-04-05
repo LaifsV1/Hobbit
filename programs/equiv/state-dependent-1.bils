@@ -3,7 +3,7 @@
 ref c = 0 in
 let genfresh = fun () ->
   let new_name = (c := !c + 1; !c) in
-  let test_valid = fun ()  -> new_name <= !c in
+  let test_valid = fun () -> new_name <= !c in
   test_valid
 in genfresh
 |||

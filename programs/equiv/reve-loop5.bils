@@ -1,25 +1,29 @@
 # source: https://formal.iti.kit.edu/projects/improve/reve/?ex=faulty%2Floop5%21
 
-
-fun f n  -> 
+fun n  ->
   ref i = 0 in
   ref j = 0 in
+  ref b = true in (* annotation *)
   (let rec while _ =
     if (!i < n + n) then (
+      (if !b then _sync_ {wi1, wi2 | j as wi1; i as wi1
+                         | (wi1 < 2*n) && (wi1 >= 0) && ((wi1 + (2*wi2)) == (2*n))}());
+      b := not !b; (* annotation *)
       j := !j + 1;
       i := !i + 1;
       while ()
     ) else ()
   in while ());
   !j
-|||
+  
+|||_(int -> int)
 
-
-fun f n ->
+fun n ->
   ref i = n in
   ref j = 0 in
   (let rec while _ =
     if (!i > 0) then (
+      _sync_ {wi1, wi2 | j as wi1; i as wi2 | (wi2 > 0) && (wi2 <= n)} ();
       j := !j + 2;
       i := !i - 1;
       while ()

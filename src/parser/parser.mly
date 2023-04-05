@@ -7,14 +7,14 @@
 %token <(Lexing.position * Lexing.position) > ARROW, IF, THEN, ELSE, IN, LET, REC, TRUE, FALSE,
 UNDERSCORE, LPAREN, RPAREN, LBRACE, RBRACE, LBRACKET, RBRACKET, SEMI, COLONEQUAL, BANG, OR, AND,
 NEQUAL, EQUAL, LESS, GREATER, LESSEQ, GREATEREQ, IMPLIES, PLUS, MINUS, MOD, TIMES, DIV,
-COMMA, FUN, REF, FST, SND, NOT, EQUIV, APPROX, APPROXINV, BOT, BEGIN, END, PIPE, AS
-UNIT, BOOL, INT, EOF
-
+COMMA, FUN, REF, FST, SND, NOT, EQUIV, APPROX, APPROXINV, BOT, SYNC, BEGIN, END, PIPE, AS
+UNIT, BOOL, INT, EOF , COLONCOLON, LIST, MATCH, WITH, LISTNIL, PRINT
+(*, LISTISNIL, LISTHD, LISTTL, LISTCONS*)
 
 //%nonassoc IN
 %nonassoc below_SEMI
 %nonassoc SEMI                          (* below EQUAL ({lbl=...; lbl=...}) *)
-//%nonassoc LET REF                     (* above SEMI ( ...; let ... in ...) *)
+//%nonassoc LET REF                       (* above SEMI ( ...; let ... in ...) *)
 //%nonassoc FUN
 %nonassoc THEN                          (* below ELSE (if ... then ...) *)
 %nonassoc ELSE                          (* (if ... then ... else ...) *)
@@ -22,24 +22,18 @@ UNIT, BOOL, INT, EOF
 %nonassoc prec_tuple
 %left     COMMA                         (* expr/expr_comma_list (e,e,e) *)
 %right    ARROW                         (* function_type (t -> t -> t) *)
+%right    COLONCOLON                    (* list cons e :: (e :: e) *)
 %right    OR                            (* expr (e || e || e) *)
 %right    AND                           (* expr (e && e && e) *)
 %left     EQUAL NEQUAL LESS GREATER LESSEQ GREATEREQ   (* expr (e OP e OP e) *)
 %right    IMPLIES
 %left     PLUS MINUS                    (* expr (e OP e OP e) *)
 %left     TIMES DIV MOD                 (* expr (e OP e OP e) *)
+(* %right    COLONCOLON                    (* expr (e :: e :: e) *) *)
 %nonassoc prec_unary                    (* unary - *)
 //%left prec_app
 (* Finally, the first tokens of simple_expr are above everything else. *)
-//%nonassoc BANG BEGIN FALSE NUMBER LBRACE IDENT LPAREN LBRACKET TRUE 
-
-
-
-
-
-
-
-
+//%nonassoc BANG BEGIN FALSE NUMBER LBRACE IDENT LPAREN LBRACKET TRUE LIST
 
 
 
@@ -85,11 +79,13 @@ fun_arg:
 generalise:
   | {None}
   | LBRACE ws = gen_id_vector RBRACE { Some (ws , [] , g_true_pos None) }
-  | LBRACE ws = gen_id_vector PIPE gs = gen_pos_vector PIPE prop = gen_prop_pos RBRACE { Some (ws , gs , prop) }
+  | LBRACE ws = gen_id_vector PIPE gs = gen_pos_vector PIPE prop = gen_prop_pos RBRACE
+    { Some (ws , gs , prop) }
 gen_id_vector:
   | { [] }
-  | name = IDENT { [{idid=(-1); str=(snd name)} , Type.gen_type ()] }
-  | name = IDENT COMMA rest = gen_id_vector { ({idid=(-1); str=(snd name)} , Type.gen_type ()) :: rest }
+  | name = IDENT { [{idid=(-1); str=(snd name)} , Type.gen_type () , get_fresh_marker ()] }
+  | name = IDENT COMMA rest = gen_id_vector
+    { ({idid=(-1); str=(snd name)} , Type.gen_type () , get_fresh_marker ()) :: rest }
 gen_pos_vector:
   | loc = gen_loc_pos AS v = gen_val_pos
     { [(loc,v)] }
@@ -165,10 +161,12 @@ exp_seq:
 exp:
   | pos = BOT
     {BotExp (Some pos)}
-  | i = id_w_pos
+  | i = id_w_pos 
     {IdentExp(fst i, snd i)}
   | v = const_w_pos
     {ValExp ((fst v), snd v)}
+  | pos = LISTNIL
+    {ValExp (ListVal (Nil,Type.gen_type ()), Some pos)}
   | pos = BANG l = location
     {DerefExp (l, Some pos)}
   | tp = tuple_w_pos
@@ -196,14 +194,26 @@ exp:
   | l = location pos = COLONEQUAL e = exp
     {AssignExp (l, e, Some pos)}
 
+  | pos = MATCH e1 = exp WITH PIPE LISTNIL ARROW e2 = exp
+                              PIPE i1 = id_or_us COLONCOLON i2 = id_or_us ARROW e3 = exp
+    {MatchExp (Type.gen_type (),e1,e2,i1,i2,e3,Some pos)}
+
+  | pos = MATCH e1 = exp WITH LISTNIL ARROW e2 = exp (* dumb way of doing optional first pipe *)
+                              PIPE i1 = id_or_us COLONCOLON i2 = id_or_us ARROW e3 = exp
+    {MatchExp (Type.gen_type (),e1,e2,i1,i2,e3,Some pos)}
+
   | pos = LET i = id_or_us EQUAL e1 = exp_seq IN e2 = exp_seq
     {LetExp (i, Type.gen_type (), e1, e2, Some pos)}
 
   | pos = LET REC f = id_or_us x = paramid_w_type gen = generalise EQUAL e1 = exp_seq IN e2 = exp_seq
-    {LetExp (f, Type.gen_type (), ValExp (FunVal (f, Type.gen_type (), fst x, snd x, e1, gen), (get_lex_pos e1)), e2, Some pos)}
+    {LetExp (f, Type.gen_type (),
+             ValExp (FunVal (f, Type.gen_type (), fst x, snd x, e1, gen), (get_lex_pos e1)),
+             e2, Some pos)}
 
   | pos = LET f = id_or_us x=paramid_w_type gen = generalise EQUAL e1 = exp_seq IN e2 = exp_seq
-    {LetExp (f, Type.gen_type (), ValExp (FunVal ({idid=(-1); str="_"}, Type.gen_type (), fst x, snd x, e1, gen), (get_lex_pos e1)), e2, Some pos)}
+    {LetExp (f, Type.gen_type (),
+             ValExp (FunVal ({idid=(-1); str="_"}, Type.gen_type (), fst x, snd x, e1, gen),
+                     (get_lex_pos e1)), e2, Some pos)}
 
   | pos = LET LPAREN p = pattern RPAREN EQUAL e1 = exp_seq IN e2 = exp_seq
     {LetTuple (p, e1, e2, Some pos)}
@@ -224,6 +234,9 @@ simple_op_exp:
     {IdentExp(fst i, snd i)}
   | v = const_w_pos
     {ValExp ((fst v), snd v)}
+  | sync = SYNC gen = generalise
+    {let sync_pos = Some sync in
+     ValExp(AbsFun(-1,Type.gen_type (),Type.UnitT,sync_string, gen), sync_pos)}
   | pos = BANG l = location
     {DerefExp (l, Some pos)}
   | op = simple_op_exp rand = simple_exp
@@ -231,6 +244,7 @@ simple_op_exp:
   (* Every other exp must be in parentheses/braces *)
   | e = paren_expression
     {e}
+
 
 %inline simple_exp:
   | pos = BOT
@@ -241,6 +255,8 @@ simple_op_exp:
     {ValExp (fst v, snd v)}
   | pos = BANG l = location
     {DerefExp (l, Some pos)}
+  | pos = LISTNIL
+    {ValExp (ListVal (Nil,Type.gen_type ()), Some pos)}
   (* Every other exp must be in parentheses/braces *)
   | e = paren_expression
     {e}
@@ -255,22 +271,24 @@ unary_op:
   | pos = NOT   {(Not, Some pos)}
   | pos = FST   {(Fst, Some pos)}
   | pos = SND   {(Snd, Some pos)}
+  | pos = PRINT {(PrintOp, Some pos)}
 
 %inline bin_op:
-  | pos = PLUS      {(Add, Some pos)}
-  | pos = MINUS     {(Subtract, Some pos)}
-  | pos = TIMES     {(Multiply, Some pos)}
-  | pos = DIV       {(Divide, Some pos)}
-  | pos = MOD       {(Modulo, Some pos)}
-  | pos = AND       {(And, Some pos)}
-  | pos = OR        {(Or, Some pos)}
-  | pos = EQUAL     {(Equal, Some pos)}
-  | pos = NEQUAL    {(Different, Some pos)}
-  | pos = LESS      {(Less, Some pos)}
-  | pos = GREATER   {(Greater, Some pos)}
-  | pos = LESSEQ    {(LessEQ, Some pos)}
-  | pos = GREATEREQ {(GreaterEQ, Some pos)}
-  | pos = IMPLIES   {(Implies, Some pos)}
+  | pos = PLUS       {(Add, Some pos)}
+  | pos = MINUS      {(Subtract, Some pos)}
+  | pos = TIMES      {(Multiply, Some pos)}
+  | pos = DIV        {(Divide, Some pos)}
+  | pos = MOD        {(Modulo, Some pos)}
+  | pos = AND        {(And, Some pos)}
+  | pos = OR         {(Or, Some pos)}
+  | pos = EQUAL      {(Equal, Some pos)}
+  | pos = NEQUAL     {(Different, Some pos)}
+  | pos = LESS       {(Less, Some pos)}
+  | pos = GREATER    {(Greater, Some pos)}
+  | pos = LESSEQ     {(LessEQ, Some pos)}
+  | pos = GREATEREQ  {(GreaterEQ, Some pos)}
+  | pos = IMPLIES    {(Implies, Some pos)}
+  | pos = COLONCOLON {(ListCons, Some pos)}
 
 
 tuple_w_pos:
@@ -291,6 +309,7 @@ type_annot:
   | BOOL {Type.BoolT}
   | INT  {Type.IntT}
   | t1=type_annot ARROW t2=type_annot {Type.FunT([t1], t2)}
+  | t=type_annot LIST {Type.ListT t}
   | t = type_tuple
     %prec prec_tuple
     {Type.TupleT t}

@@ -1,0 +1,9 @@
+fun l -> fun f ->
+match l with
+| [] -> f []
+| x :: xs -> (f xs)
+
+|||_bool list -> (bool list -> unit) -> unit
+
+
+fun l -> fun f -> f l

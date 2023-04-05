@@ -1,21 +1,33 @@
 # source: https://formal.iti.kit.edu/projects/improve/reve/?ex=misc%2Fsquare_twice
+# We have to perform the same loop twice, so synchronising is hard
+
 fun n ->
   ref r = 0 in
   ref i = n in
   let rec while _ =
+    #_sync_ ();
     if (!i>0) then (r := !r + n; i := !i - 1; while ()) else ()
   in while ();
   r := 0;
   i := n;
   let rec while () =
+    _sync_ ();
     if ((!i>0)) then (r := !r + n; i := !i - 1; while ()) else ()
   in while ();
   !r
 |||
 fun n ->
+  # we can prove this with a dummy loop that synchronises with the first loop:
+  #ref dummy_j = n in
+  #let rec while () =
+  #  _sync_ ();
+  #  if (!dummy_j >0) then (dummy_j  := !dummy_j  - 1; while ()) else ()
+  #in while ();
+
   ref r = 0 in
   ref i = n in
   let rec while () =
+    _sync_ ();
     if (!i>0) then (r := !r + n; i := !i - 1; while ()) else ()
   in while ();
   !r

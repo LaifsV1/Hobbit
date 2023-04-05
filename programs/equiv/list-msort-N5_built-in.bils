@@ -1,0 +1,76 @@
+(* msort based on Haskell implementation from
+   https://rosettacode.org/wiki/Sorting_algorithms/Merge_sort#Haskell
+   needs bound = 41 *)
+
+let list_len = 5 in
+
+let rec is_sorted ls =
+  match ls with
+  | [] -> true
+  | x::xs ->
+    (match xs with
+     | [] -> true
+     | y::ys -> x <= y && (is_sorted xs))
+in
+
+fun args ->
+
+let (length,read) = args in
+
+let list_ =
+  let rec read_list len =
+    if len >= list_len then _bot_ else
+    if len <= 0 then [] else
+    (read ()) :: (read_list (len-1))
+  in
+  read_list length
+in
+
+let rec merge ls1 = fun ls2 ->
+  match ls1 with
+  | [] -> ls2
+  | x::xs ->
+    (match ls2 with
+     | [] -> ls1
+     | y::ys ->
+       if x <= y then x :: (merge xs ls2)
+       else y :: (merge ls1 ys))
+in
+
+let rec split ls =
+  match ls with
+  | [] -> ([],[])
+  | x::zs ->
+    (match zs with
+     | [] -> x :: [] , []
+     | y::zs -> let (xs,ys) = split zs in (x::xs,y::ys))
+in
+
+let rec msort ls =
+  match ls with
+  | [] -> []
+  | x::xs ->
+    (match xs with
+     | [] -> x :: []
+     | y::ys -> let (cs,bs) = split ls in
+                merge (msort cs) (msort bs))
+in
+
+is_sorted (msort list_)
+
+|||_(int * (unit -> int)) -> bool
+
+let list_len = 5 in
+
+fun args ->
+
+let (length,read) = args in
+
+let rec read_list len =
+  if len >= list_len then _bot_ else
+  if len <= 0 then () else
+  let x = read () in
+  (read_list (len-1))
+in
+read_list length;
+true

@@ -6,7 +6,7 @@ fun a -> fun b ->
       if b then _bot_
       else ()
   in
-  a b; loop ()
+  loop (); a b
   
 |||_((bool -> unit) -> bool -> unit)
 
@@ -15,4 +15,4 @@ fun a -> fun b ->
       if b then _bot_
       else ()
   in
-  a false; loop ()
+  loop (); a false

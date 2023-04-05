@@ -1,0 +1,36 @@
+# Example to test lists. Testing list pattern matching. 
+# Can't disagree because either a or b are empty, or empty list is returned.
+
+let rec eq l1 =
+  match l1 with
+  | [] -> (fun l2 -> match l2 with
+                     | [] -> true
+                     | y :: ys -> false)
+  | x :: xs -> (fun l2 -> match l2 with
+                          | [] -> false
+                          | y :: ys -> (x == y) && eq xs ys)
+in
+
+fun f -> fun ab -> fun c ->
+let (a,b) = ab in
+match a with
+| [] -> fun ls -> if (eq ls a) then f (c::[]) else f (c::[])
+| x :: xs -> fun ls -> if (eq ls a) then f (c::a) else f (c::a)
+
+|||_(bool list -> bool list) -> ((bool list) * (bool list)) -> bool -> (bool list -> bool list)
+
+let rec eq l1 =
+  match l1 with
+  | [] -> (fun l2 -> match l2 with
+                     | [] -> true
+                     | y :: ys -> false)
+  | x :: xs -> (fun l2 -> match l2 with
+                          | [] -> false
+                          | y :: ys -> (x == y) && eq xs ys)
+in
+
+fun f -> fun ab -> fun c ->
+let (a,b) = ab in
+match b with
+| [] -> fun ls -> if (eq b a) then f (c::b) else f (c::b) (* ineq: b neq a *)
+| x :: xs -> fun ls -> if (eq ls a) then f (c::ls) else f (c::a)

@@ -19,7 +19,7 @@ let rec fo_val_of_exp e =
 
 (* return: formula *)
 let rec get_l_eq_prop (v,p) e sigma =
-  let fresh_AbsCon typ = let id = get_fresh_id () in AbsCon(id, typ, default_sname) , id in     
+  let fresh_AbsCon typ = let id = get_fresh_id () in AbsCon(id, typ, default_sname, None) , id in     
   let symbolic_binop op i1 i2 =
     let i3,id3 = fresh_AbsCon BoolT in
     let w1,id1 = value_to_prop i1 in
@@ -47,179 +47,97 @@ let rec get_l_eq_prop (v,p) e sigma =
   | v1 -> let v2 = fo_val_of_exp e in
           symbolic_binop ( ==. ) v1 v2
 
-
-let rec gprop_to_prop gprop ids st =
+let rec gprop_to_sigma gprop (sigma,dtree) countersig st =
   match gprop with
-  | GIdent (i,p) -> failwith_lex_opt p "(3): expected ground-type value"
-  | GConst (IntConst  i,p) -> _int i , ids
-  | GConst (BoolConst true,p) -> _true , ids
-  | GConst (BoolConst false,p) -> _false , ids
-  | GConst (UnitConst,p) -> failwith_lex_opt p "(1): expected int or bool, got unit"
+  | GIdent (i,p) -> failwith_lex_opt p "gprop_to_sigma (1): expected ground-type value"
+  | GConst (UnitConst,p) -> failwith_lex_opt p "gprop_to_sigma (2): expected int or bool, got unit"
+  | GConst (v,p) -> ConstVal v , (sigma,dtree) , countersig
   | GDeref (l,p) ->
      begin
        match store_deref st l with
-       | None -> failwith_lex_opt p "location unbound"
-       | Some v ->
-          begin
-            match value_to_prop v with
-            | vprop , None   -> vprop , ids
-            | vprop , Some i -> vprop , i::ids
-          end
+       | None -> failwith_lex_opt p "gprop_to_sigma (3): location unbound"
+       | Some v -> v , (sigma,dtree) , countersig
      end
-  | GAbsCon (i,t,s,p) ->
-     begin
-       match t with
-       | Type.BoolT -> _sbool (name_of_iv (i,s)) , i::ids
-       | Type.IntT  -> _sint  (name_of_iv (i,s)) , i::ids
-       | Type.UnitT -> failwith_lex_opt p "(2): expected int or bool, got unit"
-       | t -> failwith_lex_opt p (Printf.sprintf "'%s' is not of ground-type, but %s" s (Type.string_of_t t))
-     end
+  | GAbsCon (i,t,s,p) -> AbsCon (i, t, s, None) , (sigma,dtree) , countersig
   | GArith (op,gs,p) ->
-     let newgs,newids =
-       List.fold_right
-         (fun g (gs,ids) -> let newg,newids = gprop_to_prop g ids st in (newg::gs , newids)) gs ([],[])
+     let gs',(sigma',dtree'),(fst_csigma',snd_csigma') =
+       List.fold_right (* fold_right to preserve order *)
+         (fun gprop (acc_gs,acc_sigma,acc_countsig) ->
+           let new_v, new_sigma , new_countersig = gprop_to_sigma gprop acc_sigma acc_countsig st in
+           new_v :: acc_gs, new_sigma, new_countersig) gs ([],(sigma,dtree),countersig)
      in
-     let prop = 
-       match op with
-       | Negate ->
-          begin
-            match newgs with
-            | x :: [] ->  ~-. x
-            | _ -> failwith_lex_opt p "unexpected number of arguments for negation"
-          end
-       | Add ->
-          begin
-            match newgs with
-            | x :: y :: [] ->  x +. y
-            | _ -> failwith_lex_opt p "unexpected number of arguments for addition"
-          end
-       | Subtract ->
-          begin
-            match newgs with
-            | x :: y :: [] ->  x -. y
-            | _ -> failwith_lex_opt p "unexpected number of arguments for subtraction"
-          end
-       | Multiply ->
-          begin
-            match newgs with
-            | x :: y :: [] ->  x *. y
-            | _ -> failwith_lex_opt p "unexpected number of arguments for multiplication"
-          end
-       | Divide ->
-          begin
-            match newgs with
-            | x :: y :: [] ->  x /. y
-            | _ -> failwith_lex_opt p "unexpected number of arguments for division"
-          end
-       | Modulo->
-          begin
-            match newgs with
-            | x :: y :: [] ->  x %. y
-            | _ -> failwith_lex_opt p "unexpected number of arguments for modulus"
-          end
-       | And ->
-          begin
-            match newgs with
-            | x :: y :: [] ->  x &&. y
-            | _ -> failwith_lex_opt p "unexpected number of arguments for conjunction"
-          end
-       | Or ->
-          begin
-            match newgs with
-            | x :: y :: [] ->  x ||. y
-            | _ -> failwith_lex_opt p "unexpected number of arguments for disjunction"
-          end
-       | Not ->
-          begin
-            match newgs with
-            | x :: [] ->  ~~. x
-            | _ -> failwith_lex_opt p "unexpected number of arguments for negation"
-          end
-       | Equal ->
-          begin
-            match newgs with
-            | x :: y :: [] ->  x ==. y
-            | _ -> failwith_lex_opt p "unexpected number of arguments for equality"
-          end
-       | Different ->
-          begin
-            match newgs with
-            | x :: y :: [] ->  x <>. y
-            | _ -> failwith_lex_opt p "unexpected number of arguments for non-equality"
-          end
-       | Less ->
-          begin
-            match newgs with
-            | x :: y :: [] ->  x <. y
-            | _ -> failwith_lex_opt p "unexpected number of arguments for less-than"
-          end
-       | Greater->
-          begin
-            match newgs with
-            | x :: y :: [] ->  x <. y
-            | _ -> failwith_lex_opt p "unexpected number of arguments for greater-than"
-          end
-       | LessEQ->
-          begin
-            match newgs with
-            | x :: y :: [] ->  x <=. y
-            | _ -> failwith_lex_opt p "unexpected number of arguments for less-or-equal-than"
-          end
-       | GreaterEQ->
-          begin
-            match newgs with
-            | x :: y :: [] ->  x >=. y
-            | _ -> failwith_lex_opt p "unexpected number of arguments for greater-or-equal-than"
-          end
-       | Implies->
-          begin
-            match newgs with
-            | x :: y :: [] ->  x =>. y
-            | _ -> failwith_lex_opt p "unexpected number of arguments for implies"
-          end
-       | _ -> failwith_lex_opt p "Z3 pair operations not supported"
-     in
-     prop , newids
-
+     (** NOTE: assuming all the res produce the same thing when processed with reduce_arith **)
+     (** NOTE: there appears to be some invariant with Sigma GC where it collects x = v.
+         Wouldn't happen normally by calling the Reduction semantics because
+         concrete operations are reduced where possible. **)
+     (** TODO: test if you can remove sndcsig. **)
+     match reduce_arith op gs' p ([], dtree') Z3api.default_sname with
+     | Some(ValExp (v1,p1) , (sigma_updates , new_dtree)) ->
+        v1 , (sigma_updates @ sigma',new_dtree) ,
+        (sigma_updates @ fst_csigma', sigma_updates @ snd_csigma')
+     | _ -> failwith_lex_opt p "gprop_to_sigma (4): unexpected None when reducing arith op"
 
 (* countersigma = not sat (sigma && notP && x=w) * sat (sigma && P && x=w) *)
 let generalise_conditions gen sigma countersigma store abs flag print =
   if not(flag) then sigma , countersigma , None , [] , None, None
   else
     begin
-      let fresh_AbsCon typ = let id = get_fresh_id () in AbsCon(id, typ, default_sname) , id in     
+      let fresh_AbsCon typ m =
+        let id = get_fresh_id () in AbsCon(id, typ, default_sname, m) , id
+      in
       match gen with
       | None -> sigma , countersigma , None , [] , None , None
-      | Some (ws, ls, gprop) -> (* TODO: abs is of ref type, we need to get the type of the location*)
+      | Some (ws, ls, gprop) ->
+         (* TODO: abs is of ref type, we need to get the type of the location*)
          let abs =
            match abs with
-           | None -> List.map (fun (w,t) -> fst (fresh_AbsCon t)) ws
+           | None -> List.map (fun (w,t,m) -> fst (fresh_AbsCon t (Some m))) ws
            | Some a ->
               if List.length a = List.length ws then a
               else failwith_lex_opt None "number of generalisation parameters does not match"
          in
-         let multi_sub e = multi_beta_subst e (List.map fst ws) abs in
+         let multi_sub e = multi_beta_subst e (List.map (fun (a,_,_) -> a) ws) abs in
          let newls = List.map (fun (l,e) -> l, multi_sub e) ls in
-         let newgprop = multi_beta_subst_gprop gprop (List.map fst ws) abs in
-         let new_prop , new_ids = gprop_to_prop newgprop [] store in
+         let newgprop = multi_beta_subst_gprop gprop (List.map (fun (a,_,_) -> a) ws) abs in        
+         let i3 , (sigma0,dtree0), csigma0 =  gprop_to_sigma newgprop sigma countersigma store in
          let newsigma , notsigma =
-           let sigma0,dtree0 = sigma in
-           let i3,id3 = fresh_AbsCon Type.BoolT in
-           let dtree1 = Upto_tools.dt_add_id_notopt dtree0 id3 new_ids in
-           let sigma1 = sigma_add_var id3 default_sname (sigma_add_beq id3 new_prop sigma0) in
-           let notsigma1 = sigma_add_not_var id3 default_sname
-                             (sigma_add_beq id3 new_prop (fst countersigma)) , (* not(P) *)
-                           sigma_add_var id3 default_sname
-                             (sigma_add_beq id3 new_prop (snd countersigma))   (* P *)
-           in
-           (sigma1,dtree1),notsigma1
+           (** NOTE: we aren't updating dtree0 because we aren't creating new IDs...? **)
+           match i3 with
+           | AbsCon (id3,t,_,_) ->
+              begin
+                match t with
+                | Type.BoolT ->
+                   let sigma1    = sigma_add_var     id3 default_sname sigma0 in
+                   let notsigma1 = sigma_add_not_var id3 default_sname (fst csigma0) , (* not(P) *)
+                                   sigma_add_var     id3 default_sname (snd csigma0)   (* P *)
+                   in
+                   (sigma1,dtree0),notsigma1
+                | t -> failwith (Printf.sprintf "generalise_conditions: unexpected val %s, %s"
+                                   (string_of_val i3) (string_of_gprop newgprop))
+              end
+           | ConstVal (BoolConst true) ->
+              let sigma1    = sigma0 in
+              let notsigma1 = sigma_set_false (fst csigma0) , (* not(P) *)
+                              (snd csigma0)                   (* P *)
+              in
+              (sigma1,dtree0),notsigma1
+           | ConstVal (BoolConst false) ->
+              let sigma1    = sigma_set_false sigma0 in
+              let notsigma1 = (fst csigma0) ,                 (* not(P) *)
+                              sigma_set_false (snd csigma0)   (* P *)
+              in
+              (sigma1,dtree0),notsigma1
+           | v ->
+              failwith
+                (Printf.sprintf "generalise_conditions: unexpected value %s" (string_of_val v))
          in
          let intersect_sigma =
            List.fold_right
              (fun (l,e) (acc1,acc2) ->
                let v = store_deref store (fst l) in
                match v with
-               | None -> failwith_lex_opt (snd l) (Printf.sprintf "location %s not found" ((fst l).str))
+               | None -> failwith_lex_opt (snd l)
+                           (Printf.sprintf "intersect_sigma: location <%s> not found" ((fst l).str))
                | Some v -> get_l_eq_prop (v,snd l) e acc1 ,
                            get_l_eq_prop (v,snd l) e acc2) 
              newls notsigma
@@ -263,7 +181,8 @@ let generalise gen store newls countersigma pos flag set_gen_success =
              begin
                (Printf.printf "An assignment must exist for the following formula: \n%s\n\n"
                   (string_of_sigma (snd countersigma)));
-               (Printf.printf "Formula not satisfiable: location is not represented by generalisation.");
+               (print_endline
+                  "Formula not satisfiable: location is not represented by generalisation.");
                failwith_lex_opt pos "Generalisation proof failed: value does not generalise store"
              end
        end

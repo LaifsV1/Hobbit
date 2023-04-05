@@ -17,7 +17,7 @@ let send = fst oppfuns in
 let assert = snd oppfuns in
 
 ref funds = 100 in
-let withdraw m { w | funds as w | w >= 0 } = 
+let withdraw m { w | funds as w | true } = 
     (if not(!funds < m)
     then (funds := !funds - m; send m)
     else ());

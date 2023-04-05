@@ -1,4 +1,4 @@
-
+# Note: maybe cannot do this with _sync_ because this uses argument-based recursion.
 
 let rec f x = 
   ref r = x in

@@ -1,0 +1,16 @@
+# Example to test lists. Testing list pattern matching. 
+# Can't disagree because either a or b are empty, or empty list is returned.
+
+fun f -> fun ab -> fun c ->
+let (a,b) = ab in
+match a with
+| [] -> f a
+| x :: xs -> f []
+
+|||_(bool list -> bool list) -> ((bool list) * (bool list)) -> bool -> bool list
+
+fun f -> fun ab -> fun c ->
+let (a,b) = ab in
+match b with
+| [] -> f b
+| x :: xs -> f []

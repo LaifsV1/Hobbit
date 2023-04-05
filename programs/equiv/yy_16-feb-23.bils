@@ -1,0 +1,14 @@
+# Example to test lists
+# Lists cannot disagree because they diverge
+
+fun f -> fun ab -> fun c ->
+let (a,b) = ab in
+if a = b then f (a :: c)
+else let rec f () = f () in _sync_(); f (); c
+
+|||_(bool list -> bool list) -> (bool * bool) -> bool list -> bool list
+
+fun f -> fun ab -> fun c ->
+let (a,b) = ab in
+if a = b then f (b :: c)
+else let rec f () = f () in _sync_(); f (); c

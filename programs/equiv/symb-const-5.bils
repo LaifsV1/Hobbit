@@ -2,16 +2,16 @@
 
 fun a -> fun b ->
   let rec loop () =
-      if b then loop ()
+      if b then (loop ())
       else ()
   in
-  a b; loop ()
+  loop (); a b
   
 |||_((bool -> unit) -> bool -> unit)
 
 fun a -> fun b ->
   let rec loop () =
-      if b then loop ()
+      if b then (loop ())
       else ()
   in
-  a false; loop ()
+  loop (); a false

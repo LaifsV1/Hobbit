@@ -138,7 +138,8 @@ let rec names_of_exp : exp_conf -> conf_names -> LocSet.t -> conf_names =
        begin
          match Reductions_ast.store_deref s l with
          | None -> Error.failwith_lex_opt p "locs of exp: tried to deref fresh location"
-         | Some v -> names_of_val {v=v;st=s} (names_of_exp {e=e;st=s} (add_loc l acc) exclude) exclude
+         | Some v -> names_of_val {v=v;st=s}
+                       (names_of_exp {e=e;st=s} (add_loc l acc) exclude) exclude
        end
   (** VAR BINDER **)
   | LetExp    (i, it, e1, e2, p) ->
@@ -152,7 +153,15 @@ let rec names_of_exp : exp_conf -> conf_names -> LocSet.t -> conf_names =
   | TupleExp  (es, p) -> List.fold_right (fun e ls -> names_of_exp {e=e;st=s} ls exclude) es acc
   | BotExp    p -> acc
   | TupleProjExp (e1,i,j,p) -> names_of_exp {e=e1;st=s} acc exclude
-  | TupleUpdExp (e1,i,j,e2,p) ->  names_of_exp {e=e2;st=s} (names_of_exp {e=e1;st=s} acc exclude) exclude
+  | TupleUpdExp (e1,i,j,e2,p) -> names_of_exp {e=e2;st=s}
+                                   (names_of_exp {e=e1;st=s} acc exclude) exclude
+  | MatchExp (t,e1,e2,i1,i2,e3,p) ->
+     let acc0 = names_of_exp {e=e1;st=s} acc exclude in
+     let acc1 = names_of_exp {e=e2;st=s} acc0 exclude in
+     let acc2 = add_var i1 acc1 in
+     let acc3 = add_var i2 acc2 in
+     names_of_exp {e=e3;st=s} acc3 exclude
+
 
 and names_of_val : val_conf -> conf_names -> LocSet.t -> conf_names =
   fun {v;st} acc exclude ->
@@ -181,9 +190,31 @@ and names_of_val : val_conf -> conf_names -> LocSet.t -> conf_names =
      (* TODO: GEN *)
      names_of_exp {e=e;st=st} acc exclude
   (** ABS INSTANCE **)
-  | AbsCon (i, t, s) -> add_abs i s acc
+  | AbsCon (i, t, s, _) -> add_abs i s acc (** NOTE: don't need marker because it doesn't change **)
   (** ABS INSTANCE **)
-  | AbsFun  (i, t1, t2, s) -> add_abs i s acc
+  | AbsFun  (i, t1, t2, s, gen) ->
+     let acc =
+       match gen with
+       | None -> acc
+       | Some (ws,ls,gprop) ->
+          List.fold_right
+            (fun ((l,p),_) acc ->
+              if LocSet.mem l exclude || loc_mem l acc.locs
+              then acc
+              else
+                begin
+                  match Reductions_ast.store_deref st l with
+                  | None -> Error.failwith_lex_opt p "locs of gen: tried to deref fresh location"
+                  | Some v -> names_of_val {v;st} (add_loc l acc) exclude
+                end) ls (names_of_gprop {g=gprop;st} acc exclude)
+     in
+     add_abs i s acc
+  | ListVal (ls,t) ->
+     Ast.SymList.fold_left
+       (fun acc v -> names_of_val {v=v;st=st} acc exclude)
+       (fun acc -> function None -> acc | Some {idid;str} -> add_abs idid str acc)
+       acc ls
+       (** TODO: check if right **)
 
 and names_of_gprop : gprop_conf -> conf_names -> LocSet.t -> conf_names =
   fun {g;st} acc exclude ->
@@ -222,7 +253,8 @@ let names_of_cxt : eval_conf -> conf_names -> LocSet.t -> conf_names =
              | AppRandECxt (f, p) -> names_of_val {v=f;st=s} acc exclude
              | NewRefECxt (l, lt, e2, p) -> names_of_exp {e=e2;st=s} (add_loc l acc) exclude
              | AssignECxt (l, p) -> add_loc l acc
-             | CondECxt (e1, e2, p) -> names_of_exp {e=e2;st=s} (names_of_exp {e=e1;st=s} acc exclude) exclude
+             | CondECxt (e1, e2, p) ->
+                names_of_exp {e=e2;st=s} (names_of_exp {e=e1;st=s} acc exclude) exclude
              | LetECxt (i, it, e2, p) ->
                 names_of_exp {e=e2;st=s} (add_var i acc) exclude
              | LetTupleECxt (is_ts, e2, p) ->
@@ -235,6 +267,9 @@ let names_of_cxt : eval_conf -> conf_names -> LocSet.t -> conf_names =
               | TupleProjECxt (i,j,p) -> acc
               | TupleFstUpdECxt (i, j, e2, p) -> names_of_exp {e=e2;st=s} acc exclude
               | TupleSndUpdECxt (v1, i, j, p) -> names_of_val {v=v1;st=s} acc exclude
+              | MatchECxt (t,e2,i1,i2,e3,p) ->
+                 names_of_exp {e=e3;st=s}
+                   (names_of_exp {e=e2;st=s} (add_var i1 (add_var i2 acc)) exclude) exclude
            end
          in
          traverse_context rest names_of_frame
@@ -284,6 +319,7 @@ let names_of_sigma : Z3api.sigma -> (int * name_map) -> (int * name_map) =
     | TopBoolEq (id , prop) -> add_sigma id Z3api.default_sname (names_of_prop prop acc)
     | TopBoolVar (id , str) -> add_sigma id str acc
     | TopNotBoolVar (id , str) -> add_sigma id str acc
+    | False -> acc
   in
   List.fold_right (fun p acc -> aux p acc) sigma acc
 
@@ -524,6 +560,7 @@ let dt_update_id : dep_tree -> int -> (int option) list -> dep_tree =
                             | Some y' -> Some (IntSet.union y' dep_closure_set)) dtree) , skip
 
 (* invariant: sigma is in CNF form. We are deleting only things in ANDs *)
+(* names1 = names of C1, names2 = names of C2 *)
 let sigma_gc : Z3api.sigma -> dep_tree -> conf_names -> conf_names -> (Z3api.sigma * dep_tree) =
   fun sigma dtree names1 names2 ->
 
@@ -546,7 +583,9 @@ let sigma_gc : Z3api.sigma -> dep_tree -> conf_names -> conf_names -> (Z3api.sig
       | top_prop :: sigma' ->
          begin
            let keep_if_id id =
-             let id_dependencies = dt_union_closure dtree (IntSet.singleton id) (IntSet.singleton id) in
+             let id_dependencies =
+               dt_union_closure dtree (IntSet.singleton id) (IntSet.singleton id)
+             in
              if IntSet.mem id reachable_ids ||
                   not(IntSet.is_empty (IntSet.inter reachable_ids id_dependencies))
              then delete_from_list dtree sigma' (top_prop :: acc)
@@ -561,6 +600,7 @@ let sigma_gc : Z3api.sigma -> dep_tree -> conf_names -> conf_names -> (Z3api.sig
            | TopBoolEq (id , prop) -> keep_if_id id
            | TopBoolVar (id , str) -> keep_if_id id 
            | TopNotBoolVar (id , str) -> keep_if_id id
+           | False -> delete_from_list dtree sigma' acc 
          end
     in
     delete_from_list dtree sigma []
@@ -620,15 +660,17 @@ let rec sigma_subs : int -> int -> Z3api.sigma -> Z3api.sigma =
        (TopIntVarNeq ((get_id id1 , str1) , (get_id id2 , str2)))
     | TopBoolVarNeq ((id1 , str1) , (id2 , str2)) ->
        (TopBoolVarNeq ((get_id id1 , str1) , (get_id id2 , str2)))
+    | False -> False
   in
   List.map subs_prop sigma
 
 let replace_if_equal : Z3api.sigma -> Z3api.sigma_prop -> Z3api.sigma_prop -> IntSet.t
                        -> ((int * string) * (int * string) * bool) =
   fun sigma old_prop new_prop idset ->
-  if old_prop = new_prop then (-2,"_ERR_"),(-2,"_ERR_"),false else (* assertion: ids won't be misused *)
+  (* assertion: ids won't be misused *)
+  if old_prop = new_prop then (-2,"_ERR_"),(-2,"_ERR_"),false else 
   match old_prop , new_prop with
-    
+
   | TopIntEq (id1 , prop1) , TopIntEq (id2 , prop2) ->
      if prop1 = prop2 then
        begin
@@ -636,12 +678,6 @@ let replace_if_equal : Z3api.sigma -> Z3api.sigma_prop -> Z3api.sigma_prop -> In
            (default_pair_of_id id1) , (default_pair_of_id id2) , false
          else
            (default_pair_of_id id1) , (default_pair_of_id id2) , true
-         (*if not (Z3api.check_sat_sigma (sigma_add_iid_neq id1 id2 sigma)) then
-           (* forall all models id1 = id2 , ASSERT: NO CIRCULAR CLAUSES *)
-           (default_pair_of_id id1) , (default_pair_of_id id2) , true
-         else
-           (* exists model where id1 <> id2 *)
-           (default_pair_of_id id1) , (default_pair_of_id id2) , false*)
        end
      else (default_pair_of_id id1) , (default_pair_of_id id2) , false
 
@@ -652,13 +688,6 @@ let replace_if_equal : Z3api.sigma -> Z3api.sigma_prop -> Z3api.sigma_prop -> In
            (default_pair_of_id id1) , (default_pair_of_id id2) , false
          else
            (default_pair_of_id id1) , (default_pair_of_id id2) , true
-         (*
-         if not (Z3api.check_sat_sigma (sigma_add_bid_neq id1 id2 sigma)) then
-           (* forall all models id1 = id2 , ASSERT: NO CIRCULAR CLAUSES *)
-           (default_pair_of_id id1) , (default_pair_of_id id2) , true
-         else
-           (* exists model where id1 <> id2 *)
-           (default_pair_of_id id1) , (default_pair_of_id id2) , false*)
        end
      else (default_pair_of_id id1) , (default_pair_of_id id2) , false
 
@@ -668,12 +697,6 @@ let replace_if_equal : Z3api.sigma -> Z3api.sigma_prop -> Z3api.sigma_prop -> In
          id1 , id2 , false
        else
          id1 , id2 , true
-       (*if not (Z3api.check_sat_sigma (sigma_add_ivar_neq id1 id2 sigma)) then
-         (* forall all models id1 = id2 , ASSERT: NO CIRCULAR CLAUSES *)
-         id1 , id2 , true
-       else
-         (* exists model where id1 <> id2 *)
-         id1 , id2 , false*)
      end
 
   | TopNotBoolVar id1 , TopNotBoolVar id2 ->
@@ -682,13 +705,6 @@ let replace_if_equal : Z3api.sigma -> Z3api.sigma_prop -> Z3api.sigma_prop -> In
          id1 , id2 , false
        else
          id1 , id2 , true
-       (*
-       if not (Z3api.check_sat_sigma (sigma_add_ivar_neq id1 id2 sigma)) then
-         (* forall all models id1 = id2 , ASSERT: NO CIRCULAR CLAUSES *)
-         id1 , id2 , true
-       else
-         (* exists model where id1 <> id2 *)
-         id1 , id2 , false*)
      end
 
   | _ -> (-3,"_ERR2_"),(-3,"_ERR2_"),false (* assertion: ids won't be misused *)
@@ -736,3 +752,143 @@ let sigma_simp : (Z3api.sigma * dep_tree) -> conf_names -> conf_names -> (Z3api.
   in
   uniq new_sigma , new_dtree
 
+
+(***********************************************************************************************
+ * SIGMA SUB-SET REMOVAL                                                                       *
+ * if `sm && Vx1,...,xn. ¬φ` not SAT, then drop `φ`, where `x1,...,xn` not in `sm` but in `φ`. *
+ * `φ` is a list of clauses by closure of reachable variables from root.                       *
+ * `¬φ` is obtained by negating the root variable `x1`.                                        *
+ * Conditions for removal:                                                                     *
+ *  - Only if x1...xn not used in configuration.                                               *
+ *  - Only if x1...xn not in RHS of clauses in `sm`.                                           *
+ ***********************************************************************************************)
+(* input: sigma and the id of a top-level var from which to build phi *)
+(* returns ORIGINAL_SIGMA, SIGMA_MINUS, PHI and VAR_SET *)
+let build_phi (sigma,dtree) top_id =
+  let id_set = (IntSet.singleton top_id) in
+  let reachable_ids = dt_union_closure dtree id_set id_set in
+  (* checks if a clause involves a reachable id in the LHS *)
+  let is_reachable_clause prop =
+    match prop with
+    | TopIntEq (id , _)
+      | TopBoolEq (id , _)
+      | TopBoolVar (id, _)
+      | TopNotBoolVar (id, _)
+      | TopIntVarConstNeq ((id , _) , _)
+      | TopBoolVarConstNeq ((id , _) , _) ->
+       IntSet.mem id reachable_ids
+    | TopIntVarNeq ((id1 , _) , (id2 , _))
+      | TopBoolVarNeq ((id1 , _) , (id2 , _)) ->
+       (IntSet.mem id1 reachable_ids) || (IntSet.mem id2 reachable_ids)
+    | False -> false
+  in
+  let phi,sigma_minus = List.partition is_reachable_clause sigma in
+  (sigma,dtree) , sigma_minus , phi , reachable_ids
+
+(* returns NEW_SIGMA: either sigma_minus or original sigma depending on success *)
+let phi_removal conf_ids ((sigma,dtree),sigma_minus,phi,vars) =
+  let sigma_m_prop = prop_of_sigma sigma_minus in
+  let phi_var_clauses,phi_rest,phi_vars,phi_ids =
+    (* gets top_var clauses, rest of phi, and list of LHS vars, list of LHS ids *)
+    let aux (top_vars,phi_rest,lhs_vars,lhs_ids) prop = 
+      match prop with
+      | TopIntEq (id , p) ->
+         (top_vars,prop::phi_rest,(sint_of_id id)::lhs_vars,IntSet.add id lhs_ids)
+      | TopBoolEq (id , p) ->
+         (top_vars,prop::phi_rest,(sbool_of_id id)::lhs_vars,IntSet.add id lhs_ids)
+      | TopBoolVar iv ->
+         (prop::top_vars,phi_rest,(sbool_of_id_var iv)::lhs_vars,IntSet.add (fst iv) lhs_ids)
+      | TopNotBoolVar iv ->
+         (top_vars,prop::phi_rest,(sbool_of_id_var iv)::lhs_vars,IntSet.add (fst iv) lhs_ids)
+      | TopIntVarConstNeq (iv , i) ->
+         (top_vars,prop::phi_rest,(sint_of_id_var iv)::lhs_vars,IntSet.add (fst iv) lhs_ids)
+      | TopBoolVarConstNeq (iv , b) ->
+         (top_vars,prop::phi_rest,(sbool_of_id_var iv)::lhs_vars,IntSet.add (fst iv) lhs_ids)
+      | TopIntVarNeq (iv1 , iv2) ->
+         (top_vars,prop::phi_rest,(sint_of_id_var iv2)::(sint_of_id_var iv1)::lhs_vars,
+          IntSet.add (fst iv2) (IntSet.add (fst iv1) lhs_ids))
+      | TopBoolVarNeq (iv1 , iv2) ->
+         (top_vars,prop::phi_rest,(sbool_of_id_var iv2)::(sbool_of_id_var iv1)::lhs_vars,
+          IntSet.add (fst iv2) (IntSet.add (fst iv1) lhs_ids))
+      | False -> (top_vars,phi_rest,lhs_vars,lhs_ids)
+    in
+    List.fold_left aux ([],[],[],IntSet.empty) phi
+  in
+  let phi_vars_uniq = List.sort_uniq compare phi_vars in
+  let phi_var_prop = prop_of_sigma phi_var_clauses in
+  let phi_rest_prop = prop_of_sigma phi_rest in
+  let not_phi_prop = (~~. phi_var_prop) &&. phi_rest_prop in
+  let not_phi_z3 = z3_of_prop not_phi_prop in
+  let sigma_m_z3 = z3_of_prop sigma_m_prop in
+  let vars_z3 = List.map z3_of_prop phi_vars_uniq in
+  let forall_not_phi_z3 = forall_z3 vars_z3 not_phi_z3 in
+  let sm_and_forall_not_phi_z3 = and_z3 [sigma_m_z3;forall_not_phi_z3] in
+  (* REMOVAL CONDITION: LHS not in conf, LHS not in sigma_m *)
+  (* note: don't need to check that LHS is not in sigma_m because we partition on reachable ids *)
+  let not_in_conf = IntSet.is_empty (IntSet.inter conf_ids phi_ids) in
+  if not(check [sm_and_forall_not_phi_z3]) && not_in_conf
+  then
+    (* assertion: ids in all_vars = ids in input vars *)
+    let new_dtree =
+      List.fold_left (fun dtree id -> dt_remove_id id dtree) dtree (IntSet.elements vars)
+    in
+    sigma_minus , new_dtree
+  else
+    sigma , dtree
+
+(* tries to fold build_phi and phi_removal over all top-level vars, accumulating sigma *)
+let sigma_subset_removal (sigma,dtree) names1 names2 =
+    
+  (* all names in the configuration *)
+  let abs_set1 = intset_of_namemap names1.abs in
+  let abs_set2 = intset_of_namemap names2.abs in
+  let conf_ids = IntSet.union abs_set1 abs_set2 in
+  
+  (* 0: list all top-level vars in sigma. *)
+  let top_level_ids =
+    (* gets top_var clauses, rest of phi, and list of all vars *)
+    let aux ids prop = 
+      match prop with
+      | TopIntEq (id , _)
+        | TopBoolEq (id , _)
+        | TopBoolVar (id, _)
+        | TopNotBoolVar (id, _)
+        | TopIntVarConstNeq ((id , _) , _)
+        | TopBoolVarConstNeq ((id , _) , _) -> IntSet.add id ids
+      | TopIntVarNeq ((id1 , _) , (id2 , _))
+        | TopBoolVarNeq ((id1 , _) , (id2 , _)) -> IntSet.add id2 (IntSet.add id1 ids)
+      | False -> ids
+    in
+    List.fold_left aux IntSet.empty sigma
+  in
+  
+  (* 1: pop first top-level var, try to build PHI and sigma_minus *)
+  (* 2: try to remove PHI and return new sigma' *)
+  (* 3: repeat (1) with sigma' until no more top-level vars are left *)
+  let new_sigma =
+    List.fold_left
+      (fun sigma_acc id -> (phi_removal conf_ids) (build_phi sigma_acc id))
+      (sigma,dtree)
+      (IntSet.elements top_level_ids)
+  in
+  new_sigma
+  
+(**************
+ * STACKLESS  *
+ **************)
+
+(* have a list of pairs (E,b) *)
+
+(* function: traverse list, find first occurrence of b and returns (E,b) *)
+
+(* call: attempt to add (E,b) in front of list. 
+         if (E,b) already present:
+            TODO: decide
+            1. skip call
+            2. K::(E,b)::K' => (E,b)::K'
+         else:
+            K => (E,b)::K *)
+
+(* return: when returning from a (E,b), we add two configurations
+           1. one continuing from E
+           2. one continuing from the configuration stored in b *)

@@ -1,0 +1,69 @@
+(* qsort based on Haskell implementation from
+   https://rosettacode.org/wiki/Sorting_algorithms/Quicksort#Haskell
+   needs bound = 66 *)
+
+let list_len = 5 in
+
+let rec is_sorted ls =
+  match ls with
+  | [] -> true
+  | x::xs ->
+    (match xs with
+     | [] -> true
+     | y::ys -> x <= y && (is_sorted xs))
+in
+
+let rec append l1 = fun l2 ->
+  match l1 with
+  | [] -> l2
+  | x::xs -> x::(append xs l2)
+in
+
+fun args ->
+
+let (length,read) = args in
+
+let list' =
+  let rec read_list len =
+    if len >= list_len then _bot_ else
+    if len <= 0 then [] else
+    (read ()) :: (read_list (len-1))
+  in
+  read_list length
+in
+
+let rec partition pred = fun ls ->
+  match ls with
+  | [] -> [] , []
+  | x :: zs ->
+    if pred x
+    then let (xs,ys) = partition pred zs in (x::xs, ys)
+    else let (xs,ys) = partition pred zs in (xs, x::ys)
+in
+
+let rec qsort ls =
+  match ls with
+  | [] -> ls
+  | x::xs ->
+    let (ys,zs) = partition (fun y -> y < x) xs in
+    append (qsort ys) (x :: (qsort zs))
+in
+
+is_sorted (qsort list')
+
+|||_(int * (unit -> int)) -> bool
+
+let list_len = 5 in
+
+fun args ->
+
+let (length,read) = args in
+
+let rec read_list len =
+  if len >= list_len then _bot_ else
+  if len <= 0 then () else
+  let x = read () in
+  (read_list (len-1))
+in
+read_list length;
+true

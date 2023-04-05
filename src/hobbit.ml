@@ -68,7 +68,6 @@ let parse_upto str =
 
 
 let main =
-begin
 
   let def_msg_s = Printf.sprintf "%s (default: %s)" in
   let def_msg_i msg i = def_msg_s msg (string_of_int i) in
@@ -89,7 +88,7 @@ begin
                   ("-u", Arg.Set_string (upto_techs),
                    (def_msg_s "up-to techniques: e.g. \"ngsrialfzue\" for [n]ormalisation [g]arbage-collection up-to-[s]eparation up-to-name-[r]euse up-to-[i]dentity sigma-g[a]rbage-collection sigma-norma[l]isation sigma-simpli[f]ication generali[z]ation remove-gamma-d[u]plicates up-to-re[e]ntry" !upto_techs))
                  ] in
-  let usage_msg = "Hobbit: Higher-Order Bounded Bisimulation Tool for Contextual Equivalence" in
+  let usage_msg = "Equivalence Checking Tool" in
   Arg.parse speclist print_endline usage_msg;
   print_endline "****************";
   Printf.printf "Debug mode: %s\n" !debug;
@@ -131,18 +130,15 @@ begin
      | n -> failwith (Printf.sprintf "selected invalid LTS kind %d" n))
 
   with
-   | Parser.Error -> Error.report_error_f_lex !inputFile (Lexer.get_lex_start_end_p filebuf) "Parsing Error."
-   | Error.LexE (lex_pos, m)
-   | Error.ParseE (lex_pos, m) -> Error.report_error_f_lex !inputFile lex_pos ("Parsing Error: " ^ m)
-   | Error.SyntaxE (lex_pos_opt, m)
-   | Error.TypeE (lex_pos_opt, m)
-   | Error.RuntimeE (lex_pos_opt, m) -> begin
-       match lex_pos_opt with
-       | None -> Error.report_error_f !inputFile ("Typing Error: " ^ m)
-       | Some lex_pos -> Error.report_error_f_lex !inputFile lex_pos ("Typing Error: " ^ m)
-   end
+  | Parser.Error -> Error.report_error_f_lex !inputFile (Lexer.get_lex_start_end_p filebuf) "Parsing Error."
+  | Error.LexE (lex_pos, m)
+    | Error.ParseE (lex_pos, m) -> Error.report_error_f_lex !inputFile lex_pos ("Parsing Error: " ^ m)
+  | Error.SyntaxE (lex_pos_opt, m)
+    | Error.TypeE (lex_pos_opt, m)
+    | Error.RuntimeE (lex_pos_opt, m) -> begin
+      match lex_pos_opt with
+      | None -> Error.report_error_f !inputFile ("Typing Error: " ^ m)
+      | Some lex_pos -> Error.report_error_f_lex !inputFile lex_pos ("Typing Error: " ^ m)
+    end
 
-
-end
- 
 let () = main

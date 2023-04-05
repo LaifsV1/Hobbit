@@ -6,11 +6,13 @@ fun f xg ->
   ref i = 0 in
   let rec while _ =
     if !i < !x then (
+      _sync_{ wx, wg, wi | x as wx; g as wg; i as wi | true } ();
       i := !i + 1;
       g := !g - 2;
       g := !g + 1;
       (let rec while _ =
         if !x < !i then (
+          _sync_{ wx, wg, wi | x as wx; g as wg; i as wi | true } ();
           x := !x + 2;
           x := !x - 1;
           g := !g + 1;
@@ -29,10 +31,12 @@ fun f xg ->
   ref i = 0 in
   let rec while _ =
     if !i < !x then (
+      _sync_{ wx, wg, wi | x as wx; g as wg; i as wi | true } ();
       i := !i + 1;
       g := !g - 1;
       (let rec while _ =
         if !x < !i then (
+          _sync_{ wx, wg, wi | x as wx; g as wg; i as wi | true } ();
           x := !x + 1;
           g := !g + 1;
           while ()

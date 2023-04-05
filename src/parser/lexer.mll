@@ -43,6 +43,7 @@ rule token = parse
   | ']'       {RBRACKET (get_lex_start_end_p lexbuf)}
   | "="       {EQUAL (get_lex_start_end_p lexbuf)}
   | "=="      {EQUAL (get_lex_start_end_p lexbuf)}
+  | "::"      {COLONCOLON (get_lex_start_end_p lexbuf)}
   | ":="      {COLONEQUAL (get_lex_start_end_p lexbuf)}
   | "!"       {BANG (get_lex_start_end_p lexbuf)}
   | "<>"      {NEQUAL (get_lex_start_end_p lexbuf)}
@@ -53,6 +54,7 @@ rule token = parse
   | "<="      {LESSEQ (get_lex_start_end_p lexbuf)}
   | ">="      {GREATEREQ (get_lex_start_end_p lexbuf)}
   | "==>"     {IMPLIES (get_lex_start_end_p lexbuf)}
+  | "=>"     {IMPLIES (get_lex_start_end_p lexbuf)}
   | '+'       {PLUS (get_lex_start_end_p lexbuf)}
   | '-'       {MINUS (get_lex_start_end_p lexbuf)}
   | '*'       {TIMES (get_lex_start_end_p lexbuf)}
@@ -76,15 +78,25 @@ rule token = parse
   | "fst"     {FST (get_lex_start_end_p lexbuf)} 
   | "snd"     {SND (get_lex_start_end_p lexbuf)}
   | "_bot_"   {BOT (get_lex_start_end_p lexbuf)}
+  | "_sync_"  {SYNC (get_lex_start_end_p lexbuf)}
+  | "_print_" {PRINT (get_lex_start_end_p lexbuf)}
   | "begin"   {BEGIN (get_lex_start_end_p lexbuf)}
   | "end"     {END (get_lex_start_end_p lexbuf)}
+  | "[]"      {LISTNIL (get_lex_start_end_p lexbuf)}
+  | "match"   {MATCH (get_lex_start_end_p lexbuf)}
+  | "with"    {WITH (get_lex_start_end_p lexbuf)}
   | "as"      {AS (get_lex_start_end_p lexbuf)}
   | "|||"     {EQUIV (get_lex_start_end_p lexbuf)}
   | "|<|"     {APPROX (get_lex_start_end_p lexbuf)}
   | "|>|"     {APPROXINV (get_lex_start_end_p lexbuf)}
   | "unit"    {UNIT (get_lex_start_end_p lexbuf)} 
   | "bool"    {BOOL (get_lex_start_end_p lexbuf)} 
-  | "int"     {INT (get_lex_start_end_p lexbuf)} 
+  | "int"     {INT (get_lex_start_end_p lexbuf)}
+  | "list"    {LIST (get_lex_start_end_p lexbuf)}
+(*  | "List.isnil" {LISTISNIL (get_lex_start_end_p lexbuf)} (** TODO **)
+  | "List.hd"    {LISTHD    (get_lex_start_end_p lexbuf)}
+  | "List.tl"    {LISTTL    (get_lex_start_end_p lexbuf)}
+  | "List.cons"  {LISTCONS  (get_lex_start_end_p lexbuf)} *)
   | digit+ as inum
               {NUMBER (((get_lex_start_end_p lexbuf)),(int_of_string inum))}
 (*
