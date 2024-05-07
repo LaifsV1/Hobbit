@@ -3,6 +3,8 @@
 # Hobbit
 Hobbit (Higher-Order Bounded Bisimulation Tool) is a higher-order contextual equivalence checking tool that combines Bounded Model Checking and Up-To Techniques to verify equivalences and find inequivalences.
 
+Publication: [10.1007/978-3-030-99527-0_10](https://doi.org/10.1007/978-3-030-99527-0_10)
+
 ## Directory Structure
 
 Directories present under the main `Hobbit` directory:
