@@ -1,5 +1,7 @@
 # Hobbit
+
 [![DOI](https://zenodo.org/badge/361406257.svg)](https://zenodo.org/doi/10.5281/zenodo.7864658)
+![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 
 Hobbit (Higher-Order Bounded Bisimulation Tool) is a higher-order contextual equivalence checking tool that combines Bounded Model Checking and Up-To Techniques to verify equivalences and find inequivalences.
 
